@@ -1,0 +1,210 @@
+package com.ecwid.consul.v1.agent;
+
+import com.ecwid.consul.SingleUrlParameters;
+import com.ecwid.consul.UrlParameters;
+import com.ecwid.consul.json.GsonFactory;
+import com.ecwid.consul.transport.ProtocolException;
+import com.ecwid.consul.transport.RawResponse;
+import com.ecwid.consul.v1.ConsulRawClient;
+import com.ecwid.consul.v1.Response;
+import com.ecwid.consul.v1.agent.model.*;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author Vasily Vasilkov (vgv@ecwid.com)
+ */
+public final class AgentConsulClient implements AgentClient {
+
+	private final ConsulRawClient rawClient;
+
+	public AgentConsulClient(ConsulRawClient rawClient) {
+		this.rawClient = rawClient;
+	}
+
+	public AgentConsulClient() {
+		this(new ConsulRawClient());
+	}
+
+	public AgentConsulClient(String agentHost) {
+		this(new ConsulRawClient(agentHost));
+	}
+
+	public AgentConsulClient(String agentHost, int agentPort) {
+		this(new ConsulRawClient(agentHost, agentPort));
+	}
+
+	@Override
+	public Response<Map<String, Check>> getAgentChecks() {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/checks");
+
+		if (rawResponse.getStatusCode() == 200) {
+			Map<String, Check> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<Map<String, Check>>() {
+			}.getType());
+			return new Response<Map<String, Check>>(value, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Map<String, Service>> getAgentServices() {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/services");
+
+		if (rawResponse.getStatusCode() == 200) {
+			Map<String, Service> agentServices = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<Map<String, Service>>() {
+			}.getType());
+			return new Response<Map<String, Service>>(agentServices, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<List<Member>> getAgentMembers() {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/members");
+
+		if (rawResponse.getStatusCode() == 200) {
+			List<Member> members = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Member>>() {
+			}.getType());
+			return new Response<List<Member>>(members, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Self> getAgentSelf() {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/self");
+
+		if (rawResponse.getStatusCode() == 200) {
+			Self self = GsonFactory.getGson().fromJson(rawResponse.getContent(), Self.class);
+			return new Response<Self>(self, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Void> agentJoin(String address, boolean wan) {
+		UrlParameters wanParams = wan ? new SingleUrlParameters("wan", "1") : null;
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/join/" + address, wanParams);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Void> agentForceLeave(String node) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/force-leave/" + node);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Void> agentCheckRegister(NewCheck newCheck) {
+		String json = GsonFactory.getGson().toJson(newCheck);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/register", json);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Void> agentCheckDeregister(String checkId) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/deregister/" + checkId);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Void> agentCheckPass(String checkId) {
+		return agentCheckPass(checkId, null);
+	}
+
+	@Override
+	public Response<Void> agentCheckPass(String checkId, String note) {
+		UrlParameters noteParams = note != null ? new SingleUrlParameters("note", note) : null;
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/pass/" + checkId, noteParams);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Void> agentCheckWarn(String checkId) {
+		return agentCheckWarn(checkId, null);
+	}
+
+	@Override
+	public Response<Void> agentCheckWarn(String checkId, String note) {
+		UrlParameters noteParams = note != null ? new SingleUrlParameters("note", note) : null;
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/warn/" + checkId, noteParams);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Void> agentCheckFail(String checkId) {
+		return agentCheckFail(checkId, null);
+	}
+
+	@Override
+	public Response<Void> agentCheckFail(String checkId, String note) {
+		UrlParameters noteParams = note != null ? new SingleUrlParameters("note", note) : null;
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/fail/" + checkId, noteParams);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Void> agentServiceRegister(NewService newService) {
+		String json = GsonFactory.getGson().toJson(newService);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/service/register", json);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<Void> agentServiceDeregister(String serviceId) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/service/deregister/" + serviceId);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new ProtocolException(rawResponse);
+		}
+	}
+
+}
