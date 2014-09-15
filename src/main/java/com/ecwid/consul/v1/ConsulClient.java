@@ -296,38 +296,38 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
-	public Response<Boolean> setKVValue(String key, String value, QueryParams queryParams) {
-		return keyValueClient.setKVValue(key, value, queryParams);
+	public Response<Boolean> setKVValue(String key, String value) {
+		return keyValueClient.setKVValue(key, value);
 	}
 
 	@Override
-	public Response<Boolean> setKVValue(String key, String value, PutParams putParams, QueryParams queryParams) {
-		return keyValueClient.setKVValue(key, value, putParams, queryParams);
+	public Response<Boolean> setKVValue(String key, String value, PutParams putParams) {
+		return keyValueClient.setKVValue(key, value, putParams);
 	}
 
 	@Override
-	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, QueryParams queryParams) {
-		return keyValueClient.setKVValue(key, value, token, putParams, queryParams);
+	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams) {
+		return keyValueClient.setKVValue(key, value, token, putParams);
 	}
 
 	@Override
-	public Response<Void> deleteKVValue(String key, QueryParams queryParams) {
-		return keyValueClient.deleteKVValue(key, queryParams);
+	public Response<Void> deleteKVValue(String key) {
+		return keyValueClient.deleteKVValue(key);
 	}
 
 	@Override
-	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams) {
-		return keyValueClient.deleteKVValue(key, token, queryParams);
+	public Response<Void> deleteKVValue(String key, String token) {
+		return keyValueClient.deleteKVValue(key, token);
 	}
 
 	@Override
-	public Response<Void> deleteKVValues(String key, QueryParams queryParams) {
-		return keyValueClient.deleteKVValues(key, queryParams);
+	public Response<Void> deleteKVValues(String key) {
+		return keyValueClient.deleteKVValues(key);
 	}
 
 	@Override
-	public Response<Void> deleteKVValues(String key, String token, QueryParams queryParams) {
-		return keyValueClient.deleteKVValues(key, token, queryParams);
+	public Response<Void> deleteKVValues(String key, String token) {
+		return keyValueClient.deleteKVValues(key, token);
 	}
 
 	@Override

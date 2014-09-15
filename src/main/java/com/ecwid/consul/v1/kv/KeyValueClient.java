@@ -24,18 +24,18 @@ public interface KeyValueClient {
 
 	public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token, QueryParams queryParams);
 
-	public Response<Boolean> setKVValue(String key, String value, QueryParams queryParams);
+	public Response<Boolean> setKVValue(String key, String value);
 
-	public Response<Boolean> setKVValue(String key, String value, PutParams putParams, QueryParams queryParams);
+	public Response<Boolean> setKVValue(String key, String value, PutParams putParams);
 
-	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, QueryParams queryParams);
+	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams);
 
-	public Response<Void> deleteKVValue(String key, QueryParams queryParams);
+	public Response<Void> deleteKVValue(String key);
 
-	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams);
+	public Response<Void> deleteKVValue(String key, String token);
 
-	public Response<Void> deleteKVValues(String key, QueryParams queryParams);
+	public Response<Void> deleteKVValues(String key);
 
-	public Response<Void> deleteKVValues(String key, String token, QueryParams queryParams);
+	public Response<Void> deleteKVValues(String key, String token);
 
 }

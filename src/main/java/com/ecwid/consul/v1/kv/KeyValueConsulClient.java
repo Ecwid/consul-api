@@ -102,19 +102,19 @@ public final class KeyValueConsulClient implements KeyValueClient {
 	}
 
 	@Override
-	public Response<Boolean> setKVValue(String key, String value, QueryParams queryParams) {
-		return setKVValue(key, value, null, null, queryParams);
+	public Response<Boolean> setKVValue(String key, String value) {
+		return setKVValue(key, value, null, null);
 	}
 
 	@Override
-	public Response<Boolean> setKVValue(String key, String value, PutParams putParams, QueryParams queryParams) {
-		return setKVValue(key, value, null, putParams, queryParams);
+	public Response<Boolean> setKVValue(String key, String value, PutParams putParams) {
+		return setKVValue(key, value, null, putParams);
 	}
 
 	@Override
-	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, QueryParams queryParams) {
+	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams) {
 		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/kv/" + key, value, putParams, tokenParam, queryParams);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/kv/" + key, value, putParams, tokenParam);
 
 		if (rawResponse.getStatusCode() == 200) {
 			boolean result = GsonFactory.getGson().fromJson(rawResponse.getContent(), boolean.class);
@@ -125,14 +125,14 @@ public final class KeyValueConsulClient implements KeyValueClient {
 	}
 
 	@Override
-	public Response<Void> deleteKVValue(String key, QueryParams queryParams) {
-		return deleteKVValue(key, null, queryParams);
+	public Response<Void> deleteKVValue(String key) {
+		return deleteKVValue(key, null);
 	}
 
 	@Override
-	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams) {
+	public Response<Void> deleteKVValue(String key, String token) {
 		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		RawResponse rawResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam, queryParams);
+		RawResponse rawResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -142,15 +142,15 @@ public final class KeyValueConsulClient implements KeyValueClient {
 	}
 
 	@Override
-	public Response<Void> deleteKVValues(String key, QueryParams queryParams) {
-		return deleteKVValues(key, null, queryParams);
+	public Response<Void> deleteKVValues(String key) {
+		return deleteKVValues(key, null);
 	}
 
 	@Override
-	public Response<Void> deleteKVValues(String key, String token, QueryParams queryParams) {
+	public Response<Void> deleteKVValues(String key, String token) {
 		UrlParameters recurseParam = new SingleUrlParameters("recurse");
 		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		RawResponse rawResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam, recurseParam, queryParams);
+		RawResponse rawResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam, recurseParam);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
