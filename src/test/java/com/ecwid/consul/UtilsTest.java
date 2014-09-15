@@ -10,7 +10,7 @@ public class UtilsTest {
 	@Test
 	public void testGenerateUrl() throws Exception {
 		Assert.assertEquals("/some-url", Utils.generateUrl("/some-url"));
-		Assert.assertEquals("/some-url", Utils.generateUrl("/some-url", null));
+		Assert.assertEquals("/some-url", Utils.generateUrl("/some-url", (UrlParameters) null));
 		Assert.assertEquals("/some-url", Utils.generateUrl("/some-url", null, null));
 
 		//
