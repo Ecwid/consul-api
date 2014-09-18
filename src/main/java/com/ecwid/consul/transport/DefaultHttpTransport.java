@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -44,6 +45,13 @@ public final class DefaultHttpTransport implements HttpTransport {
 	public RawResponse makePutRequest(String url, String content) {
 		HttpPut httpPut = new HttpPut(url);
 		httpPut.setEntity(new StringEntity(content, Charset.forName("UTF-8")));
+		return executeRequest(httpPut);
+	}
+
+	@Override
+	public RawResponse makePutRequest(String url, byte[] content) {
+		HttpPut httpPut = new HttpPut(url);
+		httpPut.setEntity(new ByteArrayEntity(content));
 		return executeRequest(httpPut);
 	}
 

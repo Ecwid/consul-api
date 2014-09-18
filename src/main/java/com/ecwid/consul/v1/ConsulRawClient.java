@@ -52,6 +52,13 @@ public class ConsulRawClient {
 		return httpTransport.makePutRequest(url, content);
 	}
 
+	public RawResponse makePutRequest(String endpoint, byte[] content, UrlParameters... urlParams) {
+		String url = agentAddress + endpoint;
+		url = Utils.generateUrl(url, urlParams);
+
+		return httpTransport.makePutRequest(url, content);
+	}
+
 	public RawResponse makeDeleteRequest(String endpoint, UrlParameters... urlParams) {
 		String url = agentAddress + endpoint;
 		url = Utils.generateUrl(url, urlParams);
