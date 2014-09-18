@@ -2,6 +2,7 @@ package com.ecwid.consul.v1.kv;
 
 import com.ecwid.consul.v1.QueryParams;
 import com.ecwid.consul.v1.Response;
+import com.ecwid.consul.v1.kv.model.GetBinaryValue;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import com.ecwid.consul.v1.kv.model.PutParams;
 
@@ -16,9 +17,17 @@ public interface KeyValueClient {
 
 	public Response<GetValue> getKVValue(String key, String token, QueryParams queryParams);
 
+	public Response<GetBinaryValue> getKVBinaryValue(String key, QueryParams queryParams);
+
+	public Response<GetBinaryValue> getKVBinaryValue(String key, String token, QueryParams queryParams);
+
 	public Response<List<GetValue>> getKVValues(String keyPrefix, QueryParams queryParams);
 
 	public Response<List<GetValue>> getKVValues(String keyPrefix, String token, QueryParams queryParams);
+
+	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, QueryParams queryParams);
+
+	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token, QueryParams queryParams);
 
 	public Response<List<String>> getKVKeysOnly(String keyPrefix, QueryParams queryParams);
 
@@ -29,6 +38,12 @@ public interface KeyValueClient {
 	public Response<Boolean> setKVValue(String key, String value, PutParams putParams);
 
 	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams);
+
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value);
+
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, PutParams putParams);
+
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, String token, PutParams putParams);
 
 	public Response<Void> deleteKVValue(String key);
 

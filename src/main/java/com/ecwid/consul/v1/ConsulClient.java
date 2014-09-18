@@ -21,6 +21,7 @@ import com.ecwid.consul.v1.health.model.Check;
 import com.ecwid.consul.v1.health.model.HealthService;
 import com.ecwid.consul.v1.kv.KeyValueClient;
 import com.ecwid.consul.v1.kv.KeyValueConsulClient;
+import com.ecwid.consul.v1.kv.model.GetBinaryValue;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import com.ecwid.consul.v1.kv.model.PutParams;
 import com.ecwid.consul.v1.session.SessionClient;
@@ -276,6 +277,16 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
+	public Response<GetBinaryValue> getKVBinaryValue(String key, QueryParams queryParams) {
+		return keyValueClient.getKVBinaryValue(key, queryParams);
+	}
+
+	@Override
+	public Response<GetBinaryValue> getKVBinaryValue(String key, String token, QueryParams queryParams) {
+		return keyValueClient.getKVBinaryValue(key, token, queryParams);
+	}
+
+	@Override
 	public Response<List<GetValue>> getKVValues(String keyPrefix, QueryParams queryParams) {
 		return keyValueClient.getKVValues(keyPrefix, queryParams);
 	}
@@ -283,6 +294,16 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	@Override
 	public Response<List<GetValue>> getKVValues(String keyPrefix, String token, QueryParams queryParams) {
 		return keyValueClient.getKVValues(keyPrefix, token, queryParams);
+	}
+
+	@Override
+	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, QueryParams queryParams) {
+		return keyValueClient.getKVBinaryValues(keyPrefix, queryParams);
+	}
+
+	@Override
+	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token, QueryParams queryParams) {
+		return keyValueClient.getKVBinaryValues(keyPrefix, token, queryParams);
 	}
 
 	@Override
@@ -308,6 +329,21 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	@Override
 	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams) {
 		return keyValueClient.setKVValue(key, value, token, putParams);
+	}
+
+	@Override
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value) {
+		return keyValueClient.setKVBinaryValue(key, value);
+	}
+
+	@Override
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, PutParams putParams) {
+		return keyValueClient.setKVBinaryValue(key, value, putParams);
+	}
+
+	@Override
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, String token, PutParams putParams) {
+		return keyValueClient.setKVBinaryValue(key, value, token, putParams);
 	}
 
 	@Override

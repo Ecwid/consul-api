@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
-public class GetValue {
+public class GetBinaryValue {
 
 	@SerializedName("CreateIndex")
 	private long createIndex;
@@ -30,7 +30,8 @@ public class GetValue {
 	private String key;
 
 	@SerializedName("Value")
-	private String value;
+	@JsonAdapter(Base64TypeAdapter.class)
+	private byte[] value;
 
 	public long getCreateIndex() {
 		return createIndex;
@@ -80,24 +81,24 @@ public class GetValue {
 		this.key = key;
 	}
 
-	public String getValue() {
+	public byte[] getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(byte[] value) {
 		this.value = value;
 	}
 
 	@Override
 	public String toString() {
-		return "GetValue{" +
+		return "GetBinaryValue{" +
 				"createIndex=" + createIndex +
 				", modifyIndex=" + modifyIndex +
 				", lockIndex=" + lockIndex +
 				", flags=" + flags +
 				", session='" + session + '\'' +
 				", key='" + key + '\'' +
-				", value='" + value + '\'' +
+				", value=" + Arrays.toString(value) +
 				'}';
 	}
 }
