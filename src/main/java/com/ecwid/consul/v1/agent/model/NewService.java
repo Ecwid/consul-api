@@ -61,7 +61,7 @@ public class NewService {
 	private List<String> tags;
 
 	@SerializedName("Port")
-	private int port;
+	private Integer port;
 
 	@SerializedName("Check")
 	private Check check;
@@ -90,11 +90,11 @@ public class NewService {
 		this.tags = tags;
 	}
 
-	public int getPort() {
+	public Integer getPort() {
 		return port;
 	}
 
-	public void setPort(int port) {
+	public void setPort(Integer port) {
 		this.port = port;
 	}
 
