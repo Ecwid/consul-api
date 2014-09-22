@@ -12,8 +12,8 @@ configurations.all {
 dependencies {
 	compile "com.google.code.gson:gson:2.3"
 
-	compile "org.apache.httpcomponents:httpcore:4.3.2"
-	compile "org.apache.httpcomponents:httpclient:4.3.2"
+	compile "org.apache.httpcomponents:httpcore:4.2.5"
+	compile "org.apache.httpcomponents:httpclient:4.2.5"
 
 	compile "commons-logging:commons-logging:1.1"
 

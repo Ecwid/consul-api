@@ -10,8 +10,8 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -28,11 +28,11 @@ public final class DefaultHttpTransport implements HttpTransport {
 	private final HttpClient httpClient;
 
 	public DefaultHttpTransport() {
-		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+		PoolingClientConnectionManager connectionManager = new PoolingClientConnectionManager();
 		connectionManager.setMaxTotal(1000);
 		connectionManager.setDefaultMaxPerRoute(500);
 
-		httpClient = HttpClientBuilder.create().setConnectionManager(connectionManager).build();
+		this.httpClient = new DefaultHttpClient(connectionManager);
 	}
 
 	@Override
