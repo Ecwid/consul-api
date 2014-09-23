@@ -16,7 +16,7 @@ NewService newService = new NewService();
 newService.setId("myapp_01");
 newService.setName("myapp");
 newService.setPort(8080);
-consulClient.agentServiceRegister(newService);
+client.agentServiceRegister(newService);
 
 // KV
 byte[] binaryData = new byte[] {1,2,3,4,5,6,7};
