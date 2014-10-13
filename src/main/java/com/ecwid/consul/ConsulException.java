@@ -1,6 +1,8 @@
 package com.ecwid.consul;
 
 /**
+ * Base exception for any consul errors
+ *
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
 public class ConsulException extends RuntimeException {

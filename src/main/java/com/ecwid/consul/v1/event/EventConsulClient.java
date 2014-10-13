@@ -3,7 +3,7 @@ package com.ecwid.consul.v1.event;
 import com.ecwid.consul.SingleUrlParameters;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.ProtocolException;
+import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.QueryParams;
@@ -45,7 +45,7 @@ public final class EventConsulClient implements EventClient {
 			Event value = GsonFactory.getGson().fromJson(rawResponse.getContent(), Event.class);
 			return new Response<Event>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -64,7 +64,7 @@ public final class EventConsulClient implements EventClient {
 			}.getType());
 			return new Response<List<Event>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 }

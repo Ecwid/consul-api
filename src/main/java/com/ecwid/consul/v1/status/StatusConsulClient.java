@@ -1,7 +1,7 @@
 package com.ecwid.consul.v1.status;
 
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.ProtocolException;
+import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.Response;
@@ -40,7 +40,7 @@ public final class StatusConsulClient implements StatusClient {
 			String value = GsonFactory.getGson().fromJson(rawResponse.getContent(), String.class);
 			return new Response<String>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -53,7 +53,7 @@ public final class StatusConsulClient implements StatusClient {
 			}.getType());
 			return new Response<List<String>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 

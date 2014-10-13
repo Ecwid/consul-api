@@ -4,7 +4,7 @@ import com.ecwid.consul.ConsulException;
 import com.ecwid.consul.SingleUrlParameters;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.ProtocolException;
+import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.QueryParams;
@@ -62,7 +62,7 @@ public final class KeyValueConsulClient implements KeyValueClient {
 		} else if (rawResponse.getStatusCode() == 404) {
 			return new Response<GetValue>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -89,7 +89,7 @@ public final class KeyValueConsulClient implements KeyValueClient {
 		} else if (rawResponse.getStatusCode() == 404) {
 			return new Response<GetBinaryValue>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -111,7 +111,7 @@ public final class KeyValueConsulClient implements KeyValueClient {
 		} else if (rawResponse.getStatusCode() == 404) {
 			return new Response<List<GetValue>>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -133,7 +133,7 @@ public final class KeyValueConsulClient implements KeyValueClient {
 		} else if (rawResponse.getStatusCode() == 404) {
 			return new Response<List<GetBinaryValue>>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -155,7 +155,7 @@ public final class KeyValueConsulClient implements KeyValueClient {
 		} else if (rawResponse.getStatusCode() == 404) {
 			return new Response<List<String>>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -178,7 +178,7 @@ public final class KeyValueConsulClient implements KeyValueClient {
 			boolean result = GsonFactory.getGson().fromJson(rawResponse.getContent(), boolean.class);
 			return new Response<Boolean>(result, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -201,7 +201,7 @@ public final class KeyValueConsulClient implements KeyValueClient {
 			boolean result = GsonFactory.getGson().fromJson(rawResponse.getContent(), boolean.class);
 			return new Response<Boolean>(result, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -218,7 +218,7 @@ public final class KeyValueConsulClient implements KeyValueClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -236,7 +236,7 @@ public final class KeyValueConsulClient implements KeyValueClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 }

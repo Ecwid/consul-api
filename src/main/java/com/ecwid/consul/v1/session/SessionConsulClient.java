@@ -2,7 +2,7 @@ package com.ecwid.consul.v1.session;
 
 import com.ecwid.consul.ConsulException;
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.ProtocolException;
+import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.QueryParams;
@@ -47,7 +47,7 @@ public final class SessionConsulClient implements SessionClient {
 			}.getType());
 			return new Response<String>(value.get("ID"), rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -58,7 +58,7 @@ public final class SessionConsulClient implements SessionClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -78,7 +78,7 @@ public final class SessionConsulClient implements SessionClient {
 				throw new ConsulException("Strange response (list size=" + value.size() + ")");
 			}
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -91,7 +91,7 @@ public final class SessionConsulClient implements SessionClient {
 			}.getType());
 			return new Response<List<Session>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -104,7 +104,7 @@ public final class SessionConsulClient implements SessionClient {
 			}.getType());
 			return new Response<List<Session>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 }

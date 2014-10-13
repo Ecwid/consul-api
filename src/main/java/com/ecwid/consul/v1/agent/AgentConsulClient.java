@@ -3,7 +3,7 @@ package com.ecwid.consul.v1.agent;
 import com.ecwid.consul.SingleUrlParameters;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.ProtocolException;
+import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.Response;
@@ -45,7 +45,7 @@ public final class AgentConsulClient implements AgentClient {
 			}.getType());
 			return new Response<Map<String, Check>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -58,7 +58,7 @@ public final class AgentConsulClient implements AgentClient {
 			}.getType());
 			return new Response<Map<String, Service>>(agentServices, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -71,7 +71,7 @@ public final class AgentConsulClient implements AgentClient {
 			}.getType());
 			return new Response<List<Member>>(members, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -83,7 +83,7 @@ public final class AgentConsulClient implements AgentClient {
 			Self self = GsonFactory.getGson().fromJson(rawResponse.getContent(), Self.class);
 			return new Response<Self>(self, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -95,7 +95,7 @@ public final class AgentConsulClient implements AgentClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -106,7 +106,7 @@ public final class AgentConsulClient implements AgentClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -118,7 +118,7 @@ public final class AgentConsulClient implements AgentClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -129,7 +129,7 @@ public final class AgentConsulClient implements AgentClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -146,7 +146,7 @@ public final class AgentConsulClient implements AgentClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -163,7 +163,7 @@ public final class AgentConsulClient implements AgentClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -180,7 +180,7 @@ public final class AgentConsulClient implements AgentClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -192,7 +192,7 @@ public final class AgentConsulClient implements AgentClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -203,7 +203,7 @@ public final class AgentConsulClient implements AgentClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 

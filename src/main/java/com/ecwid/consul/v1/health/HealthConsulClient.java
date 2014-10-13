@@ -3,7 +3,7 @@ package com.ecwid.consul.v1.health;
 import com.ecwid.consul.SingleUrlParameters;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.ProtocolException;
+import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.QueryParams;
@@ -45,7 +45,7 @@ public final class HealthConsulClient implements HealthClient {
 			}.getType());
 			return new Response<List<Check>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -58,7 +58,7 @@ public final class HealthConsulClient implements HealthClient {
 			}.getType());
 			return new Response<List<Check>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -79,7 +79,7 @@ public final class HealthConsulClient implements HealthClient {
 			}.getType());
 			return new Response<List<com.ecwid.consul.v1.health.model.HealthService>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -98,7 +98,7 @@ public final class HealthConsulClient implements HealthClient {
 			}.getType());
 			return new Response<List<Check>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 

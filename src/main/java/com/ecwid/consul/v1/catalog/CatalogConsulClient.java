@@ -3,7 +3,7 @@ package com.ecwid.consul.v1.catalog;
 import com.ecwid.consul.SingleUrlParameters;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.ProtocolException;
+import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.QueryParams;
@@ -50,7 +50,7 @@ public final class CatalogConsulClient implements CatalogClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -67,7 +67,7 @@ public final class CatalogConsulClient implements CatalogClient {
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -80,7 +80,7 @@ public final class CatalogConsulClient implements CatalogClient {
 			}.getType());
 			return new Response<List<String>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -93,7 +93,7 @@ public final class CatalogConsulClient implements CatalogClient {
 			}.getType());
 			return new Response<List<Node>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -106,7 +106,7 @@ public final class CatalogConsulClient implements CatalogClient {
 			}.getType());
 			return new Response<Map<String, List<String>>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -125,7 +125,7 @@ public final class CatalogConsulClient implements CatalogClient {
 			}.getType());
 			return new Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>>(value, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
@@ -137,7 +137,7 @@ public final class CatalogConsulClient implements CatalogClient {
 			CatalogNode catalogNode = GsonFactory.getGson().fromJson(rawResponse.getContent(), CatalogNode.class);
 			return new Response<CatalogNode>(catalogNode, rawResponse);
 		} else {
-			throw new ProtocolException(rawResponse);
+			throw new OperationException(rawResponse);
 		}
 	}
 
