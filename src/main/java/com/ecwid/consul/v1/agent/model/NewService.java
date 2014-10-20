@@ -13,9 +13,9 @@ public class NewService {
 		@SerializedName("Script")
 		private String script;
 		@SerializedName("Interval")
-		private Integer interval;
+		private String interval;
 		@SerializedName("TTL")
-		private Integer ttl;
+		private String ttl;
 
 		public String getScript() {
 			return script;
@@ -25,19 +25,19 @@ public class NewService {
 			this.script = script;
 		}
 
-		public Integer getInterval() {
+		public String getInterval() {
 			return interval;
 		}
 
-		public void setInterval(Integer interval) {
+		public void setInterval(String interval) {
 			this.interval = interval;
 		}
 
-		public Integer getTtl() {
+		public String getTtl() {
 			return ttl;
 		}
 
-		public void setTtl(Integer ttl) {
+		public void setTtl(String ttl) {
 			this.ttl = ttl;
 		}
 
