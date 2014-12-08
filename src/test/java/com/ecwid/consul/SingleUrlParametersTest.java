@@ -11,11 +11,13 @@ public class SingleUrlParametersTest {
 
 	@Test
 	public void testToUrlParameters() throws Exception {
-		UrlParameters parameters = new SingleUrlParameters("key", "value");
-		Assert.assertEquals(Arrays.asList("key=value"), parameters.toUrlParameters());
-
-		parameters = new SingleUrlParameters("key");
+		UrlParameters parameters = new SingleUrlParameters("key");
 		Assert.assertEquals(Arrays.asList("key"), parameters.toUrlParameters());
 
+		parameters = new SingleUrlParameters("key", "value");
+		Assert.assertEquals(Arrays.asList("key=value"), parameters.toUrlParameters());
+
+		parameters = new SingleUrlParameters("key", "value value");
+		Assert.assertEquals(Arrays.asList("key=value+value"), parameters.toUrlParameters());
 	}
 }

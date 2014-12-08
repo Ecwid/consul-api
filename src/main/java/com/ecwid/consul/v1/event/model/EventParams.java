@@ -1,6 +1,7 @@
 package com.ecwid.consul.v1.event.model;
 
 import com.ecwid.consul.UrlParameters;
+import com.ecwid.consul.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,15 +44,15 @@ public class EventParams implements UrlParameters {
 		List<String> result = new ArrayList<String>();
 
 		if (name != null) {
-			result.add("name=" + name);
+			result.add("name=" + Utils.encodeValue(name));
 		}
 
 		if (service != null) {
-			result.add("service=" + service);
+			result.add("service=" + Utils.encodeValue(service));
 		}
 
 		if (tag != null) {
-			result.add("tag=" + tag);
+			result.add("tag=" + Utils.encodeValue(tag));
 		}
 
 		return result;

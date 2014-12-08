@@ -1,6 +1,7 @@
 package com.ecwid.consul.v1.kv.model;
 
 import com.ecwid.consul.UrlParameters;
+import com.ecwid.consul.Utils;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -60,10 +61,10 @@ public class PutParams implements UrlParameters {
 			params.add("cas=" + cas);
 		}
 		if (acquireSession != null) {
-			params.add("acquire=" + acquireSession);
+			params.add("acquire=" + Utils.encodeValue(acquireSession));
 		}
 		if (releaseSession != null) {
-			params.add("release=" + releaseSession);
+			params.add("release=" + Utils.encodeValue(releaseSession));
 		}
 
 		return params;

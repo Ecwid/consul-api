@@ -1,6 +1,7 @@
 package com.ecwid.consul.v1;
 
 import com.ecwid.consul.UrlParameters;
+import com.ecwid.consul.Utils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -70,7 +71,7 @@ public final class QueryParams implements UrlParameters {
 
 		// add basic params
 		if (datacenter != null) {
-			params.add("dc=" + datacenter);
+			params.add("dc=" + Utils.encodeValue(datacenter));
 		}
 
 		if (consistencyMode != ConsistencyMode.DEFAULT) {

@@ -1,5 +1,7 @@
 package com.ecwid.consul;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +10,14 @@ import java.util.List;
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
 public class Utils {
+
+	public static String encodeValue(String value) {
+		try {
+			return URLEncoder.encode(value, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException("So strange - every JVM has to support UTF-8 encoding.");
+		}
+	}
 
 	public static String generateUrl(String baseUrl, UrlParameters... params) {
 		if (params == null) {

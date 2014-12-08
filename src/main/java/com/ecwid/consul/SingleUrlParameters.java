@@ -24,7 +24,7 @@ public final class SingleUrlParameters implements UrlParameters {
 	@Override
 	public List<String> toUrlParameters() {
 		if (value != null) {
-			return Collections.singletonList(key + "=" + value);
+			return Collections.singletonList(key + "=" + Utils.encodeValue(value));
 		} else {
 			return Collections.singletonList(key);
 		}
