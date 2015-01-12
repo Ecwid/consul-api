@@ -10,11 +10,11 @@ public final class RawResponse {
 
 	private final String content;
 
-	private final Integer consulIndex;
+	private final Long consulIndex;
 	private final Boolean consulKnownLeader;
-	private final Integer consulLastContact;
+	private final Long consulLastContact;
 
-	public RawResponse(int statusCode, String statusMessage, String content, Integer consulIndex, Boolean consulKnownLeader, Integer consulLastContact) {
+	public RawResponse(int statusCode, String statusMessage, String content, Long consulIndex, Boolean consulKnownLeader, Long consulLastContact) {
 		this.statusCode = statusCode;
 		this.statusMessage = statusMessage;
 		this.content = content;
@@ -35,7 +35,7 @@ public final class RawResponse {
 		return content;
 	}
 
-	public Integer getConsulIndex() {
+	public Long getConsulIndex() {
 		return consulIndex;
 	}
 
@@ -43,7 +43,7 @@ public final class RawResponse {
 		return consulKnownLeader;
 	}
 
-	public Integer getConsulLastContact() {
+	public Long getConsulLastContact() {
 		return consulLastContact;
 	}
 }

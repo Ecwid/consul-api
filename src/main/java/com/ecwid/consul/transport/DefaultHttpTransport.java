@@ -71,9 +71,9 @@ public final class DefaultHttpTransport implements HttpTransport {
 
 					String content = EntityUtils.toString(response.getEntity(), Charset.forName("UTF-8"));
 
-					Integer consulIndex = parseInteger(response.getFirstHeader("X-Consul-Index"));
+					Long consulIndex = parseLong(response.getFirstHeader("X-Consul-Index"));
 					Boolean consulKnownLeader = parseBoolean(response.getFirstHeader("X-Consul-Knownleader"));
-					Integer consulLastContact = parseInteger(response.getFirstHeader("X-Consul-Lastcontact"));
+					Long consulLastContact = parseLong(response.getFirstHeader("X-Consul-Lastcontact"));
 
 					return new RawResponse(statusCode, statusMessage, content, consulIndex, consulKnownLeader, consulLastContact);
 				}
@@ -83,9 +83,9 @@ public final class DefaultHttpTransport implements HttpTransport {
 		}
 	}
 
-	private Integer parseInteger(Header header) {
+	private Long parseLong(Header header) {
 		try {
-			return Integer.parseInt(header.getValue());
+			return Long.parseLong(header.getValue());
 		} catch (Exception e) {
 			return null;
 		}

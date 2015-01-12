@@ -18,8 +18,8 @@ public final class QueryParams implements UrlParameters {
 	private final String datacenter;
 	private final ConsistencyMode consistencyMode;
 
-	private final int waitTime;
-	private final int index;
+	private final long waitTime;
+	private final long index;
 
 	public QueryParams(String datacenter) {
 		this.datacenter = datacenter;
@@ -42,7 +42,7 @@ public final class QueryParams implements UrlParameters {
 		this.index = -1;
 	}
 
-	public QueryParams(int waitTime, int index) {
+	public QueryParams(long waitTime, long index) {
 		this.datacenter = null;
 		this.consistencyMode = ConsistencyMode.DEFAULT;
 		this.waitTime = waitTime;
@@ -57,11 +57,11 @@ public final class QueryParams implements UrlParameters {
 		return consistencyMode;
 	}
 
-	public int getWaitTime() {
+	public long getWaitTime() {
 		return waitTime;
 	}
 
-	public int getIndex() {
+	public long getIndex() {
 		return index;
 	}
 

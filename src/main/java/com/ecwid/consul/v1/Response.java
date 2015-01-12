@@ -9,11 +9,11 @@ public final class Response<T> {
 
 	private final T value;
 
-	private final Integer consulIndex;
+	private final Long consulIndex;
 	private final Boolean consulKnownLeader;
-	private final Integer consulLastContact;
+	private final Long consulLastContact;
 
-	public Response(T value, Integer consulIndex, Boolean consulKnownLeader, Integer consulLastContact) {
+	public Response(T value, Long consulIndex, Boolean consulKnownLeader, Long consulLastContact) {
 		this.value = value;
 		this.consulIndex = consulIndex;
 		this.consulKnownLeader = consulKnownLeader;
@@ -28,7 +28,7 @@ public final class Response<T> {
 		return value;
 	}
 
-	public Integer getConsulIndex() {
+	public Long getConsulIndex() {
 		return consulIndex;
 	}
 
@@ -36,7 +36,7 @@ public final class Response<T> {
 		return consulKnownLeader;
 	}
 
-	public Integer getConsulLastContact() {
+	public Long getConsulLastContact() {
 		return consulLastContact;
 	}
 
