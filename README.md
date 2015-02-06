@@ -46,5 +46,5 @@ repositories {
 ```
 and use consul-api
 ```
-compile "com.ecwid.consul:consul-api:1.0.5"
+compile "com.ecwid.consul:consul-api:1.0.6"
 ```
