@@ -22,5 +22,5 @@ public interface SessionClient {
 
 	Response<List<Session>> getSessionList(QueryParams queryParams);
 
-    Response<List<Session>> renewSession(String session, QueryParams queryParams);
+    Response<Session> renewSession(String session, QueryParams queryParams);
 }

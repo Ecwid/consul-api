@@ -392,7 +392,7 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
     @Override
-    public Response<List<Session>> renewSession(String session, QueryParams queryParams) {
+    public Response<Session> renewSession(String session, QueryParams queryParams) {
         return sessionClient.renewSession(session, queryParams);
     }
     

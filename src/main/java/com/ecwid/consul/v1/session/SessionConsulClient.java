@@ -108,15 +108,20 @@ public final class SessionConsulClient implements SessionClient {
 		}
 	}
 
-    public Response<List<Session>> renewSession(String session, QueryParams queryParams) {
-        RawResponse rawResponse = rawClient.makePutRequest("/v1/session/renew/" + session, "", queryParams);
+	public Response<Session> renewSession(String session, QueryParams queryParams) {
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/session/renew/" + session, "", queryParams);
 
-        if (rawResponse.getStatusCode() == 200) {
-            List<Session> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Session>>() {
-            }.getType());
-            return new Response<List<Session>>(value, rawResponse);
-        } else {
-            throw new OperationException(rawResponse);
-        }
-    }
+		if (rawResponse.getStatusCode() == 200) {
+			List<Session> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Session>>() {
+			}.getType());
+
+			if (value.size() == 1) {
+				return new Response<Session>(value.get(0), rawResponse);
+			} else {
+				throw new ConsulException("Strange response (list size=" + value.size() + ")");
+			}
+		} else {
+			throw new OperationException(rawResponse);
+		}
+	}
 }

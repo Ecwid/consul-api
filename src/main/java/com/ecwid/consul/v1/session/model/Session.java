@@ -24,6 +24,9 @@ public class Session {
 	@SerializedName("CreateIndex")
 	private long createIndex;
 
+	@SerializedName("TTL")
+	private String ttl;
+
 	public long getLockDelay() {
 		return lockDelay;
 	}
@@ -64,6 +67,14 @@ public class Session {
 		this.createIndex = createIndex;
 	}
 
+	public String getTtl() {
+		return ttl;
+	}
+
+	public void setTtl(String ttl) {
+		this.ttl = ttl;
+	}
+
 	@Override
 	public String toString() {
 		return "Session{" +
@@ -72,6 +83,7 @@ public class Session {
 				", node='" + node + '\'' +
 				", id='" + id + '\'' +
 				", createIndex=" + createIndex +
+				", ttl='" + ttl + '\'' +
 				'}';
 	}
 }

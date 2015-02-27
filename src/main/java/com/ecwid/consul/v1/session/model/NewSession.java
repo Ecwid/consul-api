@@ -24,14 +24,6 @@ public class NewSession {
     @SerializedName("TTL")
     private String ttl;
 
-    public String getTTL() {
-        return ttl;
-    }
-
-    public void setTTL(String ttl) {
-        this.ttl = ttl;
-    }
-
 	public long getLockDelay() {
 		return lockDelay;
 	}
@@ -62,5 +54,13 @@ public class NewSession {
 
 	public void setChecks(List<String> checks) {
 		this.checks = checks;
+	}
+
+	public String getTtl() {
+		return ttl;
+	}
+
+	public void setTtl(String ttl) {
+		this.ttl = ttl;
 	}
 }
