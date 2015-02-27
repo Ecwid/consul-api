@@ -21,6 +21,17 @@ public class NewSession {
 	@SerializedName("Checks")
 	private List<String> checks;
 
+    @SerializedName("TTL")
+    private String ttl;
+
+    public String getTTL() {
+        return ttl;
+    }
+
+    public void setTTL(String ttl) {
+        this.ttl = ttl;
+    }
+
 	public long getLockDelay() {
 		return lockDelay;
 	}
