@@ -20,6 +20,9 @@ public class CatalogRegistration {
 		@SerializedName("Tags")
 		private List<String> tags;
 
+		@SerializedName("Address")
+		private String address;
+
 		@SerializedName("Port")
 		private Integer port;
 
@@ -47,6 +50,14 @@ public class CatalogRegistration {
 			this.tags = tags;
 		}
 
+		public String getAddress() {
+			return address;
+		}
+
+		public void setAddress(String address) {
+			this.address = address;
+		}
+
 		public Integer getPort() {
 			return port;
 		}
@@ -61,6 +72,7 @@ public class CatalogRegistration {
 					"id='" + id + '\'' +
 					", service='" + service + '\'' +
 					", tags=" + tags +
+					", address='" + address + '\'' +
 					", port=" + port +
 					'}';
 		}

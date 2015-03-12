@@ -24,6 +24,9 @@ public class CatalogService {
 	@SerializedName("ServiceTags")
 	private List<String> serviceTags;
 
+	@SerializedName("ServiceAddress")
+	private String serviceAddress;
+
 	@SerializedName("ServicePort")
 	private Integer servicePort;
 
@@ -67,6 +70,14 @@ public class CatalogService {
 		this.serviceTags = serviceTags;
 	}
 
+	public String getServiceAddress() {
+		return serviceAddress;
+	}
+
+	public void setServiceAddress(String serviceAddress) {
+		this.serviceAddress = serviceAddress;
+	}
+
 	public Integer getServicePort() {
 		return servicePort;
 	}
@@ -83,6 +94,7 @@ public class CatalogService {
 				", serviceId='" + serviceId + '\'' +
 				", serviceName='" + serviceName + '\'' +
 				", serviceTags=" + serviceTags +
+				", serviceAddress='" + serviceAddress + '\'' +
 				", servicePort=" + servicePort +
 				'}';
 	}

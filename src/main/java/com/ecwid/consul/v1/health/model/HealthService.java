@@ -51,6 +51,9 @@ public class HealthService {
 		@SerializedName("Tags")
 		private List<String> tags;
 
+		@SerializedName("Address")
+		private String address;
+
 		@SerializedName("Port")
 		private Integer port;
 
@@ -78,6 +81,14 @@ public class HealthService {
 			this.tags = tags;
 		}
 
+		public String getAddress() {
+			return address;
+		}
+
+		public void setAddress(String address) {
+			this.address = address;
+		}
+
 		public Integer getPort() {
 			return port;
 		}
@@ -92,6 +103,7 @@ public class HealthService {
 					"id='" + id + '\'' +
 					", service='" + service + '\'' +
 					", tags=" + tags +
+					", address='" + address + '\'' +
 					", port=" + port +
 					'}';
 		}
