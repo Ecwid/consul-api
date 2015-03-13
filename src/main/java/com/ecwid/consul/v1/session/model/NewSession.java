@@ -63,8 +63,8 @@ public class NewSession {
         return behavior;
     }
 
-    public void setBehavior(String behavior) {
-        this.behavior = behavior;
+    public void setBehavior(Session.Behavior behavior) {
+        this.behavior = behavior.toString().toLowerCase();
     }
 
     public String getTtl() {

@@ -9,6 +9,10 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Session {
 
+    public enum Behavior {
+        RELEASE, DELETE
+    }
+
     @SerializedName("LockDelay")
     private long lockDelay;
 
@@ -74,8 +78,8 @@ public class Session {
         return behavior;
     }
 
-    public void setBehavior(String behavior) {
-        this.behavior = behavior;
+    public void setBehavior(Behavior behavior) {
+        this.behavior = behavior.toString().toLowerCase();
     }
 
     public String getTtl() {
