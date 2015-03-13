@@ -27,4 +27,13 @@ public final class OperationException extends ConsulException {
 	public String getStatusMessage() {
 		return statusMessage;
 	}
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("OperationException{");
+        sb.append("statusCode=").append(statusCode);
+        sb.append(", statusMessage='").append(statusMessage).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
