@@ -17,8 +17,8 @@ public class NewService {
 		private String interval;
 		@SerializedName("TTL")
 		private String ttl;
-        @SerializedName("HTTP")
-        private String http;
+		@SerializedName("HTTP")
+		private String http;
 
 		public String getScript() {
 			return script;
@@ -44,13 +44,13 @@ public class NewService {
 			this.ttl = ttl;
 		}
 
-        public String getHttp() {
-            return http;
-        }
+		public String getHttp() {
+			return http;
+		}
 
-        public void setHttp(String http) {
-            this.http = http;
-        }
+		public void setHttp(String http) {
+			this.http = http;
+		}
 
         @Override
 		public String toString() {
@@ -58,7 +58,7 @@ public class NewService {
 					"script='" + script + '\'' +
 					", interval=" + interval +
 					", ttl=" + ttl +
-                    ", http=" + http +
+					", http=" + http +
 					'}';
 		}
 	}
