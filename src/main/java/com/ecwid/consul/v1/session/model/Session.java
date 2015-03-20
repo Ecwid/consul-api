@@ -1,89 +1,98 @@
 package com.ecwid.consul.v1.session.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
 public class Session {
 
-	@SerializedName("LockDelay")
-	private long lockDelay;
+    public enum Behavior {
+        RELEASE, DELETE
+    }
 
-	@SerializedName("Checks")
-	private List<String> checks;
+    @SerializedName("LockDelay")
+    private long lockDelay;
 
-	@SerializedName("Node")
-	private String node;
+    @SerializedName("Checks")
+    private List<String> checks;
 
-	@SerializedName("ID")
-	private String id;
+    @SerializedName("Node")
+    private String node;
 
-	@SerializedName("CreateIndex")
-	private long createIndex;
+    @SerializedName("ID")
+    private String id;
 
-	@SerializedName("TTL")
-	private String ttl;
+    @SerializedName("CreateIndex")
+    private long createIndex;
 
-	public long getLockDelay() {
-		return lockDelay;
-	}
+    @SerializedName("Behavior")
+    private String behavior;
 
-	public void setLockDelay(long lockDelay) {
-		this.lockDelay = lockDelay;
-	}
+    @SerializedName("TTL")
+    private String ttl;
 
-	public List<String> getChecks() {
-		return checks;
-	}
+    public long getLockDelay() {
+        return lockDelay;
+    }
 
-	public void setChecks(List<String> checks) {
-		this.checks = checks;
-	}
+    public void setLockDelay(long lockDelay) {
+        this.lockDelay = lockDelay;
+    }
 
-	public String getNode() {
-		return node;
-	}
+    public List<String> getChecks() {
+        return checks;
+    }
 
-	public void setNode(String node) {
-		this.node = node;
-	}
+    public void setChecks(List<String> checks) {
+        this.checks = checks;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getNode() {
+        return node;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setNode(String node) {
+        this.node = node;
+    }
 
-	public long getCreateIndex() {
-		return createIndex;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setCreateIndex(long createIndex) {
-		this.createIndex = createIndex;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getTtl() {
-		return ttl;
-	}
+    public long getCreateIndex() {
+        return createIndex;
+    }
 
-	public void setTtl(String ttl) {
-		this.ttl = ttl;
-	}
+    public void setCreateIndex(long createIndex) {
+        this.createIndex = createIndex;
+    }
 
-	@Override
-	public String toString() {
-		return "Session{" +
-				"lockDelay=" + lockDelay +
-				", checks=" + checks +
-				", node='" + node + '\'' +
-				", id='" + id + '\'' +
-				", createIndex=" + createIndex +
-				", ttl='" + ttl + '\'' +
-				'}';
-	}
+    public String getBehavior() {
+        return behavior;
+    }
+
+    public void setBehavior(Behavior behavior) {
+        this.behavior = behavior.toString().toLowerCase();
+    }
+
+    public String getTtl() {
+        return ttl;
+    }
+
+    public void setTtl(String ttl) {
+        this.ttl = ttl;
+    }
+
+    @Override
+    public String toString() {
+        return "Session{" + "lockDelay=" + lockDelay + ", checks=" + checks + ", node='" + node + '\'' + ", id='" + id + '\'' + ", createIndex="
+                + createIndex + ", behavior='" + behavior + "', ttl='" + ttl + '\'' + '}';
+    }
 }

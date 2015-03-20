@@ -1,72 +1,87 @@
 package com.ecwid.consul.v1.kv.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.Utils;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
 public class PutParams implements UrlParameters {
 
-	private long flags;
-	private Long cas;
-	private String acquireSession;
-	private String releaseSession;
+    private final String datacenter;
+    private long flags;
+    private Long cas;
+    private String acquireSession;
+    private String releaseSession;
 
-	public long getFlags() {
-		return flags;
-	}
+    public PutParams() {
+        datacenter = null;
+    }
 
-	public void setFlags(long flags) {
-		this.flags = flags;
-	}
+    public PutParams(String datacenter) {
+        this.datacenter = datacenter;
+    }
 
-	public Long getCas() {
-		return cas;
-	}
+    public long getFlags() {
+        return flags;
+    }
 
-	public void setCas(Long cas) {
-		this.cas = cas;
-	}
+    public void setFlags(long flags) {
+        this.flags = flags;
+    }
 
-	public String getAcquireSession() {
-		return acquireSession;
-	}
+    public Long getCas() {
+        return cas;
+    }
 
-	public void setAcquireSession(String acquireSession) {
-		this.acquireSession = acquireSession;
-	}
+    public void setCas(Long cas) {
+        this.cas = cas;
+    }
 
-	public String getReleaseSession() {
-		return releaseSession;
-	}
+    public String getDatacenter() {
+        return datacenter;
+    }
 
-	public void setReleaseSession(String releaseSession) {
-		this.releaseSession = releaseSession;
-	}
+    public String getAcquireSession() {
+        return acquireSession;
+    }
 
-	@Override
-	public List<String> toUrlParameters() {
-		List<String> params = new ArrayList<String>();
+    public void setAcquireSession(String acquireSession) {
+        this.acquireSession = acquireSession;
+    }
 
-		if (flags != 0) {
-			params.add("flags=" + flags);
-		}
-		if (cas != null) {
-			params.add("cas=" + cas);
-		}
-		if (acquireSession != null) {
-			params.add("acquire=" + Utils.encodeValue(acquireSession));
-		}
-		if (releaseSession != null) {
-			params.add("release=" + Utils.encodeValue(releaseSession));
-		}
+    public String getReleaseSession() {
+        return releaseSession;
+    }
 
-		return params;
-	}
+    public void setReleaseSession(String releaseSession) {
+        this.releaseSession = releaseSession;
+    }
+
+    @Override
+    public List<String> toUrlParameters() {
+        List<String> params = new ArrayList<String>();
+
+        if (datacenter != null) {
+            params.add("dc=" + Utils.encodeValue(datacenter));
+        }
+
+        if (flags != 0) {
+            params.add("flags=" + flags);
+        }
+        if (cas != null) {
+            params.add("cas=" + cas);
+        }
+        if (acquireSession != null) {
+            params.add("acquire=" + Utils.encodeValue(acquireSession));
+        }
+        if (releaseSession != null) {
+            params.add("release=" + Utils.encodeValue(releaseSession));
+        }
+
+        return params;
+    }
 }
