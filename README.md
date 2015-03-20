@@ -30,7 +30,7 @@ System.out.println("Datacenters: " + response.getValue());
 
 ## How to build
 * Checkout the sources
-* ./gradle build
+* ./gradlew build
 
 Gradle will compile sources, package classes (sources and javadocs too) into jars and run all tests. The build results will located in build/libs/ folder
 
