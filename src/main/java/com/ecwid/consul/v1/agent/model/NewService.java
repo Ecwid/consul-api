@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
+ * @author Spencer Gibb (spencer@gibb.us)
  */
 public class NewService {
 
@@ -16,6 +17,8 @@ public class NewService {
 		private String interval;
 		@SerializedName("TTL")
 		private String ttl;
+		@SerializedName("HTTP")
+		private String http;
 
 		public String getScript() {
 			return script;
@@ -41,12 +44,21 @@ public class NewService {
 			this.ttl = ttl;
 		}
 
-		@Override
+		public String getHttp() {
+			return http;
+		}
+
+		public void setHttp(String http) {
+			this.http = http;
+		}
+
+        @Override
 		public String toString() {
 			return "Check{" +
 					"script='" + script + '\'' +
 					", interval=" + interval +
 					", ttl=" + ttl +
+					", http=" + http +
 					'}';
 		}
 	}
