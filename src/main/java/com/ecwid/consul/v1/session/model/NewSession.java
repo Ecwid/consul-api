@@ -21,8 +21,11 @@ public class NewSession {
 	@SerializedName("Checks")
 	private List<String> checks;
 
-    @SerializedName("TTL")
-    private String ttl;
+	@SerializedName("Behavior")
+	private Session.Behavior behavior;
+
+	@SerializedName("TTL")
+	private String ttl;
 
 	public long getLockDelay() {
 		return lockDelay;
@@ -54,6 +57,14 @@ public class NewSession {
 
 	public void setChecks(List<String> checks) {
 		this.checks = checks;
+	}
+
+	public Session.Behavior getBehavior() {
+		return behavior;
+	}
+
+	public void setBehavior(Session.Behavior behavior) {
+		this.behavior = behavior;
 	}
 
 	public String getTtl() {

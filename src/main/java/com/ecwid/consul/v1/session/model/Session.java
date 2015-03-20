@@ -9,6 +9,14 @@ import java.util.List;
  */
 public class Session {
 
+	public static enum Behavior {
+		@SerializedName("release")
+		RELEASE,
+
+		@SerializedName("delete")
+		DELETE
+	}
+
 	@SerializedName("LockDelay")
 	private long lockDelay;
 
@@ -26,6 +34,9 @@ public class Session {
 
 	@SerializedName("TTL")
 	private String ttl;
+
+	@SerializedName("Behavior")
+	private Behavior behavior;
 
 	public long getLockDelay() {
 		return lockDelay;
@@ -75,6 +86,14 @@ public class Session {
 		this.ttl = ttl;
 	}
 
+	public Behavior getBehavior() {
+		return behavior;
+	}
+
+	public void setBehavior(Behavior behavior) {
+		this.behavior = behavior;
+	}
+
 	@Override
 	public String toString() {
 		return "Session{" +
@@ -84,6 +103,7 @@ public class Session {
 				", id='" + id + '\'' +
 				", createIndex=" + createIndex +
 				", ttl='" + ttl + '\'' +
+				", behavior=" + behavior +
 				'}';
 	}
 }
