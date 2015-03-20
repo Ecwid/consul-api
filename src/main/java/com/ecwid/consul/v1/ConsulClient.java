@@ -267,6 +267,16 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
+	public Response<GetValue> getKVValue(String key) {
+		return keyValueClient.getKVValue(key);
+	}
+
+	@Override
+	public Response<GetValue> getKVValue(String key, String token) {
+		return keyValueClient.getKVValue(key, token);
+	}
+
+	@Override
 	public Response<GetValue> getKVValue(String key, QueryParams queryParams) {
 		return keyValueClient.getKVValue(key, queryParams);
 	}
@@ -274,6 +284,16 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	@Override
 	public Response<GetValue> getKVValue(String key, String token, QueryParams queryParams) {
 		return keyValueClient.getKVValue(key, token, queryParams);
+	}
+
+	@Override
+	public Response<GetBinaryValue> getKVBinaryValue(String key) {
+		return keyValueClient.getKVBinaryValue(key);
+	}
+
+	@Override
+	public Response<GetBinaryValue> getKVBinaryValue(String key, String token) {
+		return keyValueClient.getKVBinaryValue(key, token);
 	}
 
 	@Override
@@ -287,6 +307,16 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
+	public Response<List<GetValue>> getKVValues(String keyPrefix) {
+		return keyValueClient.getKVValues(keyPrefix);
+	}
+
+	@Override
+	public Response<List<GetValue>> getKVValues(String keyPrefix, String token) {
+		return keyValueClient.getKVValues(keyPrefix, token);
+	}
+
+	@Override
 	public Response<List<GetValue>> getKVValues(String keyPrefix, QueryParams queryParams) {
 		return keyValueClient.getKVValues(keyPrefix, queryParams);
 	}
@@ -297,6 +327,16 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
+	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix) {
+		return keyValueClient.getKVBinaryValues(keyPrefix);
+	}
+
+	@Override
+	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token) {
+		return keyValueClient.getKVBinaryValues(keyPrefix, token);
+	}
+
+	@Override
 	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, QueryParams queryParams) {
 		return keyValueClient.getKVBinaryValues(keyPrefix, queryParams);
 	}
@@ -304,6 +344,16 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	@Override
 	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token, QueryParams queryParams) {
 		return keyValueClient.getKVBinaryValues(keyPrefix, token, queryParams);
+	}
+
+	@Override
+	public Response<List<String>> getKVKeysOnly(String keyPrefix) {
+		return keyValueClient.getKVKeysOnly(keyPrefix);
+	}
+
+	@Override
+	public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token) {
+		return keyValueClient.getKVKeysOnly(keyPrefix, separator, token);
 	}
 
 	@Override
@@ -332,6 +382,21 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
+	public Response<Boolean> setKVValue(String key, String value, QueryParams queryParams) {
+		return keyValueClient.setKVValue(key, value, queryParams);
+	}
+
+	@Override
+	public Response<Boolean> setKVValue(String key, String value, PutParams putParams, QueryParams queryParams) {
+		return keyValueClient.setKVValue(key, value, putParams, queryParams);
+	}
+
+	@Override
+	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, QueryParams queryParams) {
+		return keyValueClient.setKVValue(key, value, token, putParams, queryParams);
+	}
+
+	@Override
 	public Response<Boolean> setKVBinaryValue(String key, byte[] value) {
 		return keyValueClient.setKVBinaryValue(key, value);
 	}
@@ -347,6 +412,21 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, QueryParams queryParams) {
+		return keyValueClient.setKVBinaryValue(key, value, queryParams);
+	}
+
+	@Override
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, PutParams putParams, QueryParams queryParams) {
+		return keyValueClient.setKVBinaryValue(key, value, putParams, queryParams);
+	}
+
+	@Override
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, String token, PutParams putParams, QueryParams queryParams) {
+		return keyValueClient.setKVBinaryValue(key, value, token, putParams, queryParams);
+	}
+
+	@Override
 	public Response<Void> deleteKVValue(String key) {
 		return keyValueClient.deleteKVValue(key);
 	}
@@ -357,6 +437,16 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
+	public Response<Void> deleteKVValue(String key, QueryParams queryParams) {
+		return keyValueClient.deleteKVValue(key, queryParams);
+	}
+
+	@Override
+	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams) {
+		return keyValueClient.deleteKVValue(key, token, queryParams);
+	}
+
+	@Override
 	public Response<Void> deleteKVValues(String key) {
 		return keyValueClient.deleteKVValues(key);
 	}
@@ -364,6 +454,16 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	@Override
 	public Response<Void> deleteKVValues(String key, String token) {
 		return keyValueClient.deleteKVValues(key, token);
+	}
+
+	@Override
+	public Response<Void> deleteKVValues(String key, QueryParams queryParams) {
+		return keyValueClient.deleteKVValues(key, queryParams);
+	}
+
+	@Override
+	public Response<Void> deleteKVValues(String key, String token, QueryParams queryParams) {
+		return keyValueClient.deleteKVValues(key, token, queryParams);
 	}
 
 	@Override
@@ -391,11 +491,11 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 		return sessionClient.getSessionList(queryParams);
 	}
 
-    @Override
-    public Response<Session> renewSession(String session, QueryParams queryParams) {
-        return sessionClient.renewSession(session, queryParams);
-    }
-    
+	@Override
+	public Response<Session> renewSession(String session, QueryParams queryParams) {
+		return sessionClient.renewSession(session, queryParams);
+	}
+
 	@Override
 	public Response<String> getStatusLeader() {
 		return statusClient.getStatusLeader();
