@@ -12,6 +12,7 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -33,6 +34,10 @@ public final class DefaultHttpTransport implements HttpTransport {
 		connectionManager.setDefaultMaxPerRoute(500);
 
 		this.httpClient = new DefaultHttpClient(connectionManager);
+	}
+
+	public DefaultHttpTransport(HttpClient httpClient) {
+		this.httpClient = httpClient;
 	}
 
 	@Override
