@@ -28,23 +28,23 @@ System.out.println("Datacenters: " + response.getValue());
 
 ```
 
-## How to build
+## How to add consul-api into your project
+### Gradle
+```
+compile "com.ecwid.consul:consul-api:1.1.2"
+```
+### Maven
+```
+<dependency>
+  <groupId>com.ecwid.consul</groupId>
+  <artifactId>consul-api</artifactId>
+  <version>1.1.2</version>
+</dependency>
+```
+
+
+## How to build from sources
 * Checkout the sources
 * ./gradlew build
 
 Gradle will compile sources, package classes (sources and javadocs too) into jars and run all tests. The build results will located in build/libs/ folder
-
-## Jars
-Guys, right now I don't have enough time to upload jars into [Maven Central] (http://maven.apache.org/guides/mini/guide-central-repository-upload.html), but I update jars in our Ecwid Nexus repository every notable commit. You can add our repository in your Gradle build very easy
-```
-repositories {
-	mavenCental()
-	maven {
-		url "http://nexus.ecwid.com/content/groups/public"
-	}
-}
-```
-and use consul-api
-```
-compile "com.ecwid.consul:consul-api:1.1.1"
-```
