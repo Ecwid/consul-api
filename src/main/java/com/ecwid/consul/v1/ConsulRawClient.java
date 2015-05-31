@@ -48,7 +48,15 @@ public class ConsulRawClient {
 	// hidden constructor, for tests
 	ConsulRawClient(HttpTransport httpTransport, String agentHost, int agentPort) {
 		this.httpTransport = httpTransport;
-		this.agentAddress = "http://" + agentHost + ":" + agentPort;
+
+		// check that agentHost has scheme or not
+		String agentHostLowercase = agentHost.toLowerCase();
+		if (!agentHostLowercase.startsWith("https://") && !agentHostLowercase.startsWith("http://")) {
+			// no scheme in host, use default 'http'
+			agentHost = "http://" + agentHost;
+		}
+
+		this.agentAddress = agentHost + ":" + agentPort;
 	}
 
 	public RawResponse makeGetRequest(String endpoint, UrlParameters... urlParams) {

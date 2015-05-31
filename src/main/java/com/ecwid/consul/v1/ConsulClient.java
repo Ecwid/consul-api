@@ -59,14 +59,30 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 		statusClient = new StatusConsulClient(rawClient);
 	}
 
+	/**
+	 * Consul client will connect to local consul agent on 'http://localhost:8500'
+	 */
 	public ConsulClient() {
 		this(new ConsulRawClient());
 	}
 
+	/**
+	 * Connect to consul agent on specific address and default port (8500)
+	 *
+	 * @param agentHost Hostname or IP address of consul agent. You can specify scheme (HTTP/HTTPS) in
+	 *                  address. If there is no scheme in address - client will use HTTP.
+	 */
 	public ConsulClient(String agentHost) {
 		this(new ConsulRawClient(agentHost));
 	}
 
+	/**
+	 * Connect to consul agent on specific address and port
+	 *
+	 * @param agentHost Hostname or IP address of consul agent. You can specify scheme (HTTP/HTTPS) in
+	 *                  address. If there is no scheme in address - client will use HTTP.
+	 * @param agentPort Consul agent port
+	 */
 	public ConsulClient(String agentHost, int agentPort) {
 		this(new ConsulRawClient(agentHost, agentPort));
 	}
