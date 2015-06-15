@@ -11,19 +11,6 @@ Supports all API endpoints (http://www.consul.io/docs/agent/http.html), all cons
 ```java
 ConsulClient client = new ConsulClient("localhost");
 
-// register new service with associated health check
-NewService newService = new NewService();
-newService.setId("myapp_01");
-newService.setName("myapp");
-newService.setPort(8080);
-
-NewService.Check serviceCheck = new NewService.Check();
-serviceCheck.setScript("/usr/bin/some-check-script");
-serviceCheck.setInterval("10s");
-newService.setCheck(serviceCheck);
-
-client.agentServiceRegister(newService);
-
 // KV
 byte[] binaryData = new byte[] {1,2,3,4,5,6,7};
 client.setKVBinaryValue("someKey", binaryData);
@@ -31,6 +18,27 @@ client.setKVBinaryValue("someKey", binaryData);
 //list known datacenters
 Response<List<String>> response = client.getCatalogDatacenters();
 System.out.println("Datacenters: " + response.getValue());
+
+// register new service
+NewService newService = new NewService();
+newService.setId("myapp_01");
+newService.setName("myapp");
+newService.setPort(8080);
+client.agentServiceRegister(newService);
+
+// register new service with associated health check
+// service definition
+NewService newService = new NewService();
+newService.setId("myapp_01");
+newService.setName("myapp");
+newService.setPort(8080);
+// health check definition
+NewService.Check serviceCheck = new NewService.Check();
+serviceCheck.setScript("/usr/bin/some-check-script");
+serviceCheck.setInterval("10s");
+newService.setCheck(serviceCheck);
+
+client.agentServiceRegister(newService);
 
 ```
 
