@@ -19,6 +19,9 @@ public class NewCheck {
 	@SerializedName("Script")
 	private String script;
 
+	@SerializedName("HTTP")
+	private String http;
+
 	@SerializedName("Interval")
 	private String interval;
 
@@ -57,6 +60,14 @@ public class NewCheck {
 		this.script = script;
 	}
 
+	public String getHttp() {
+		return http;
+	}
+
+	public void setHttp(String http) {
+		this.http = http;
+	}
+
 	public String getInterval() {
 		return interval;
 	}
@@ -80,8 +91,9 @@ public class NewCheck {
 				", name='" + name + '\'' +
 				", notes='" + notes + '\'' +
 				", script='" + script + '\'' +
-				", interval=" + interval +
-				", ttl=" + ttl +
+				", http='" + http + '\'' +
+				", interval='" + interval + '\'' +
+				", ttl='" + ttl + '\'' +
 				'}';
 	}
 }
