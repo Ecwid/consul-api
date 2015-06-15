@@ -11,11 +11,17 @@ Supports all API endpoints (http://www.consul.io/docs/agent/http.html), all cons
 ```java
 ConsulClient client = new ConsulClient("localhost");
 
-// register new service
+// register new service with associated health check
 NewService newService = new NewService();
 newService.setId("myapp_01");
 newService.setName("myapp");
 newService.setPort(8080);
+
+NewService.Check serviceCheck = new NewService.Check();
+serviceCheck.setScript("/usr/bin/some-check-script");
+serviceCheck.setInterval("10s");
+newService.setCheck(serviceCheck);
+
 client.agentServiceRegister(newService);
 
 // KV
