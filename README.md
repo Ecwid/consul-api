@@ -27,12 +27,11 @@ newService.setPort(8080);
 client.agentServiceRegister(newService);
 
 // register new service with associated health check
-  // service definition
 NewService newService = new NewService();
 newService.setId("myapp_01");
 newService.setName("myapp");
 newService.setPort(8080);
-  // health check definition
+
 NewService.Check serviceCheck = new NewService.Check();
 serviceCheck.setScript("/usr/bin/some-check-script");
 serviceCheck.setInterval("10s");
