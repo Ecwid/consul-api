@@ -203,8 +203,8 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
-	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration, CatalogDeregistration... catalogDeregistrations) {
-		return catalogClient.catalogDeregister(catalogDeregistration, catalogDeregistrations);
+	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration) {
+		return catalogClient.catalogDeregister(catalogDeregistration);
 	}
 
 	@Override
