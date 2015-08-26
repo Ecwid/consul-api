@@ -194,9 +194,10 @@ public final class KeyValueConsulClient implements KeyValueClient {
 
 	@Override
 	public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token, QueryParams queryParams) {
+		UrlParameters keysParam = new SingleUrlParameters("keys");
 		UrlParameters separatorParam = separator != null ? new SingleUrlParameters("separator", separator) : null;
 		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, separatorParam, tokenParam, queryParams);
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, keysParam, separatorParam, tokenParam, queryParams);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<String> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<String>>() {
