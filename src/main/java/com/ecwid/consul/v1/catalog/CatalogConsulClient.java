@@ -55,13 +55,8 @@ public final class CatalogConsulClient implements CatalogClient {
 	}
 
 	@Override
-	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration, CatalogDeregistration... catalogDeregistrations) {
-		List<CatalogDeregistration> items = new ArrayList<CatalogDeregistration>();
-		items.add(catalogDeregistration);
-		if (catalogDeregistrations != null) {
-			items.addAll(Arrays.asList(catalogDeregistrations));
-		}
-		String json = GsonFactory.getGson().toJson(items);
+	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration) {
+		String json = GsonFactory.getGson().toJson(catalogDeregistration);
 
 		RawResponse rawResponse = rawClient.makePutRequest("/v1/catalog/deregister", json);
 		if (rawResponse.getStatusCode() == 200) {

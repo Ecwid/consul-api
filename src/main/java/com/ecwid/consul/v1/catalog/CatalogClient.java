@@ -17,7 +17,7 @@ public interface CatalogClient {
 
 	public Response<Void> catalogRegister(CatalogRegistration catalogRegistration);
 
-	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration, CatalogDeregistration... catalogDeregistrations);
+	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration);
 
 	public Response<List<String>> getCatalogDatacenters();
 
