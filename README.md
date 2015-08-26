@@ -44,14 +44,14 @@ client.agentServiceRegister(newService);
 ## How to add consul-api into your project
 ### Gradle
 ```
-compile "com.ecwid.consul:consul-api:1.1.4"
+compile "com.ecwid.consul:consul-api:1.1.6"
 ```
 ### Maven
 ```
 <dependency>
   <groupId>com.ecwid.consul</groupId>
   <artifactId>consul-api</artifactId>
-  <version>1.1.4</version>
+  <version>1.1.6</version>
 </dependency>
 ```
 
