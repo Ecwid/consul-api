@@ -152,6 +152,10 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 		return agentClient.agentCheckRegister(newCheck);
 	}
 
+	public Response<Void> agentCheckRegister(NewCheck newCheck, String token) {
+		return agentClient.agentCheckRegister(newCheck, token);
+	}
+
 	@Override
 	public Response<Void> agentCheckDeregister(String checkId) {
 		return agentClient.agentCheckDeregister(checkId);
@@ -190,6 +194,11 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	@Override
 	public Response<Void> agentServiceRegister(NewService newService) {
 		return agentClient.agentServiceRegister(newService);
+	}
+
+	@Override
+	public Response<Void> agentServiceRegister(NewService newService, String token) {
+		return agentClient.agentServiceRegister(newService, token);
 	}
 
 	@Override

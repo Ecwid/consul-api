@@ -25,6 +25,8 @@ public interface AgentClient {
 
 	public Response<Void> agentCheckRegister(NewCheck newCheck);
 
+	public Response<Void> agentCheckRegister(NewCheck newCheck, String token);
+
 	public Response<Void> agentCheckDeregister(String checkId);
 
 	public Response<Void> agentCheckPass(String checkId);
@@ -40,6 +42,8 @@ public interface AgentClient {
 	public Response<Void> agentCheckFail(String checkId, String note);
 
 	public Response<Void> agentServiceRegister(NewService newService);
+
+	public Response<Void> agentServiceRegister(NewService newService, String token);
 
 	public Response<Void> agentServiceDeregister(String serviceId);
 }
