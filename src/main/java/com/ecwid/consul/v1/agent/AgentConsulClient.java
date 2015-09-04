@@ -212,7 +212,14 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentServiceDeregister(String serviceId) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/service/deregister/" + serviceId);
+		return agentServiceDeregister(serviceId, null);
+	}
+
+	@Override
+	public Response<Void> agentServiceDeregister(String serviceId, String token) {
+		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
+
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/service/deregister/" + serviceId, tokenParam);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
