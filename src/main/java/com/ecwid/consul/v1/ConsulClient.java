@@ -207,6 +207,11 @@ public final class ConsulClient implements AclClient, AgentClient, CatalogClient
 	}
 
 	@Override
+	public Response<Void> agentServiceDeregister(String serviceId, String token) {
+		return agentClient.agentServiceDeregister(serviceId, token);
+	}
+
+	@Override
 	public Response<Void> catalogRegister(CatalogRegistration catalogRegistration) {
 		return catalogClient.catalogRegister(catalogRegistration);
 	}
