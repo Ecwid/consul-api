@@ -1,6 +1,7 @@
 package com.ecwid.consul.transport;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -56,8 +57,19 @@ public final class DefaultHttpsTransport extends AbstractHttpTransport {
 	    Scheme sch = new Scheme("https", sf, tlsConfig.getSslPort());
 	    this.httpClient.getConnectionManager().getSchemeRegistry().register(sch);
 
-	} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException | UnrecoverableKeyException
-	        | KeyManagementException e) {
+	} catch (KeyStoreException e) {
+	    throw new TransportException(e);
+	} catch (NoSuchAlgorithmException e) {
+	    throw new TransportException(e);
+	} catch (CertificateException e) {
+	    throw new TransportException(e);
+	} catch (FileNotFoundException e) {
+	    throw new TransportException(e);
+	} catch (IOException e) {
+	    throw new TransportException(e);
+	} catch (UnrecoverableKeyException e) {
+	    throw new TransportException(e);
+	} catch (KeyManagementException e) {
 	    throw new TransportException(e);
 	}
     }
