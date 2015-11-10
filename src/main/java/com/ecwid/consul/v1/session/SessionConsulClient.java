@@ -70,7 +70,7 @@ public final class SessionConsulClient implements SessionClient {
 			List<Session> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Session>>() {
 			}.getType());
 
-			if (value.isEmpty()) {
+			if (value == null || value.isEmpty()) {
 				return new Response<Session>(null, rawResponse);
 			} else if (value.size() == 1) {
 				return new Response<Session>(value.get(0), rawResponse);
