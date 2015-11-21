@@ -25,6 +25,9 @@ public class NewCheck {
 	@SerializedName("Interval")
 	private String interval;
 
+	@SerializedName("Timeout")
+    private String timeout;
+
 	@SerializedName("TTL")
 	private String ttl;
 
@@ -84,7 +87,15 @@ public class NewCheck {
 		this.ttl = ttl;
 	}
 
-	@Override
+	public String getTimeout() {
+	  return timeout;
+    }
+
+    public void setTimeout(String timeout) {
+      this.timeout = timeout;
+    }
+
+    @Override
 	public String toString() {
 		return "NewCheck{" +
 				"id='" + id + '\'' +
@@ -93,6 +104,7 @@ public class NewCheck {
 				", script='" + script + '\'' +
 				", http='" + http + '\'' +
 				", interval='" + interval + '\'' +
+                ", timeout='" + timeout + '\'' +
 				", ttl='" + ttl + '\'' +
 				'}';
 	}

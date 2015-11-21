@@ -19,6 +19,8 @@ public class NewService {
 		private String ttl;
 		@SerializedName("HTTP")
 		private String http;
+        @SerializedName("Timeout")
+        private String timeout;
 
 		public String getScript() {
 			return script;
@@ -52,6 +54,14 @@ public class NewService {
 			this.http = http;
 		}
 
+        public String getTimeout() {
+          return timeout;
+        }
+
+        public void setTimeout(String timeout) {
+          this.timeout = timeout;
+        }
+
         @Override
 		public String toString() {
 			return "Check{" +
@@ -59,6 +69,7 @@ public class NewService {
 					", interval=" + interval +
 					", ttl=" + ttl +
 					", http=" + http +
+                    ", timeout=" + timeout +
 					'}';
 		}
 	}
