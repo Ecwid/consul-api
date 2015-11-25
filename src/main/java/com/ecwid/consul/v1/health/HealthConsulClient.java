@@ -104,7 +104,7 @@ public final class HealthConsulClient implements HealthClient {
 
 	@Override
 	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, QueryParams queryParams) {
-		String status = checkStatus == null ? "ANY" : checkStatus.name().toLowerCase();
+		String status = checkStatus == null ? "any" : checkStatus.name().toLowerCase();
 		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/state/" + status, queryParams);
 
 		if (rawResponse.getStatusCode() == 200) {
