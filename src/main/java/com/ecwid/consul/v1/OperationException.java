@@ -10,11 +10,12 @@ public final class OperationException extends ConsulException {
 
 	private final int statusCode;
 	private final String statusMessage;
+	private final String statusContent;
 
-	public OperationException(int statusCode, String statusMessage, String content) {
-        super(content);
+	public OperationException(int statusCode, String statusMessage, String statusContent) {
 		this.statusCode = statusCode;
 		this.statusMessage = statusMessage;
+		this.statusContent = statusContent;
 	}
 
 	public OperationException(RawResponse rawResponse) {
@@ -29,12 +30,16 @@ public final class OperationException extends ConsulException {
 		return statusMessage;
 	}
 
-    @Override
-    public String toString() {
-        return super.toString() + " {"
-        		+ "statusCode=" + statusCode
-        		+ ", statusMessage='" + statusMessage
-         		+ "}";
-    }
+	public String getStatusContent() {
+		return statusContent;
+	}
 
+	@Override
+	public String toString() {
+		return "OperationException{" +
+				"statusCode=" + statusCode +
+				", statusMessage='" + statusMessage + '\'' +
+				", statusContent='" + statusContent + '\'' +
+				'}';
+	}
 }
