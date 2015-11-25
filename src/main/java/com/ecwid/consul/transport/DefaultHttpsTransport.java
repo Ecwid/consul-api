@@ -30,52 +30,51 @@ import com.ecwid.consul.transport.TLSConfig.KeyStoreInstanceType;
  */
 public final class DefaultHttpsTransport extends AbstractHttpTransport {
 
-    public DefaultHttpsTransport(TLSConfig tlsConfig) {
+	public DefaultHttpsTransport(TLSConfig tlsConfig) {
+		KeyStore clientStore;
+		try {
+			clientStore = KeyStore.getInstance(tlsConfig.getKeyStoreInstanceType().name());
 
-	KeyStore clientStore;
-	try {
-	    clientStore = KeyStore.getInstance(tlsConfig.getKeyStoreInstanceType().name());
+			clientStore.load(new FileInputStream(tlsConfig.getCertficatePath()), tlsConfig.getCertificatePassword().toCharArray());
 
-	    clientStore.load(new FileInputStream(tlsConfig.getCertficatePath()), tlsConfig.getCertificatePassword().toCharArray());
+			KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+			kmf.init(clientStore, "".toCharArray());
+			KeyManager[] kms = kmf.getKeyManagers();
 
-	    KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-	    kmf.init(clientStore, "".toCharArray());
-	    KeyManager[] kms = kmf.getKeyManagers();
+			KeyStore trustStore = KeyStore.getInstance(KeyStoreInstanceType.JKS.name());
+			trustStore.load(new FileInputStream(tlsConfig.getKeyStorePath()), tlsConfig.getKeyStorePassword().toCharArray());
 
-	    KeyStore trustStore = KeyStore.getInstance(KeyStoreInstanceType.JKS.name());
-	    trustStore.load(new FileInputStream(tlsConfig.getKeyStorePath()), tlsConfig.getKeyStorePassword().toCharArray());
+			TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+			tmf.init(trustStore);
+			TrustManager[] tms = tmf.getTrustManagers();
 
-	    TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-	    tmf.init(trustStore);
-	    TrustManager[] tms = tmf.getTrustManagers();
+			SSLContext sslContext = null;
+			sslContext = SSLContext.getInstance("TLS");
+			sslContext.init(kms, tms, new SecureRandom());
 
-	    SSLContext sslContext = null;
-	    sslContext = SSLContext.getInstance("TLS");
-	    sslContext.init(kms, tms, new SecureRandom());
+			SSLSocketFactory sf = new SSLSocketFactory(sslContext);
+			Scheme sch = new Scheme("https", sf, tlsConfig.getSslPort());
+			this.httpClient.getConnectionManager().getSchemeRegistry().register(sch);
 
-	    SSLSocketFactory sf = new SSLSocketFactory(sslContext);
-	    Scheme sch = new Scheme("https", sf, tlsConfig.getSslPort());
-	    this.httpClient.getConnectionManager().getSchemeRegistry().register(sch);
-
-	} catch (KeyStoreException e) {
-	    throw new TransportException(e);
-	} catch (NoSuchAlgorithmException e) {
-	    throw new TransportException(e);
-	} catch (CertificateException e) {
-	    throw new TransportException(e);
-	} catch (FileNotFoundException e) {
-	    throw new TransportException(e);
-	} catch (IOException e) {
-	    throw new TransportException(e);
-	} catch (UnrecoverableKeyException e) {
-	    throw new TransportException(e);
-	} catch (KeyManagementException e) {
-	    throw new TransportException(e);
+		} catch (KeyStoreException e) {
+			throw new TransportException(e);
+		} catch (NoSuchAlgorithmException e) {
+			throw new TransportException(e);
+		} catch (CertificateException e) {
+			throw new TransportException(e);
+		} catch (FileNotFoundException e) {
+			throw new TransportException(e);
+		} catch (IOException e) {
+			throw new TransportException(e);
+		} catch (UnrecoverableKeyException e) {
+			throw new TransportException(e);
+		} catch (KeyManagementException e) {
+			throw new TransportException(e);
+		}
 	}
-    }
 
-    public DefaultHttpsTransport(HttpClient httpClient) {
-	super(httpClient);
-    }
+	public DefaultHttpsTransport(HttpClient httpClient) {
+		super(httpClient);
+	}
 
 }
