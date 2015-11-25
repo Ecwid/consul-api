@@ -11,13 +11,14 @@ public final class OperationException extends ConsulException {
 	private final int statusCode;
 	private final String statusMessage;
 
-	public OperationException(int statusCode, String statusMessage) {
+	public OperationException(int statusCode, String statusMessage, String content) {
+        super(content);
 		this.statusCode = statusCode;
 		this.statusMessage = statusMessage;
 	}
 
 	public OperationException(RawResponse rawResponse) {
-		this(rawResponse.getStatusCode(), rawResponse.getStatusMessage());
+		this(rawResponse.getStatusCode(), rawResponse.getStatusMessage(), rawResponse.getContent());
 	}
 
 	public int getStatusCode() {
@@ -30,10 +31,10 @@ public final class OperationException extends ConsulException {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("OperationException{");
-        sb.append("statusCode=").append(statusCode);
-        sb.append(", statusMessage='").append(statusMessage).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return super.toString() + " {"
+        		+ "statusCode=" + statusCode
+        		+ ", statusMessage='" + statusMessage
+         		+ "}";
     }
+
 }
