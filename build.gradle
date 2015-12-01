@@ -13,10 +13,7 @@ dependencies {
 	compile "org.apache.httpcomponents:httpcore:4.2.5"
 	compile "org.apache.httpcomponents:httpclient:4.2.5"
 
-	compile "commons-logging:commons-logging:1.1"
-
 	testCompile "junit:junit:4.11"
-	testCompile "org.hamcrest:hamcrest-core:1.3"
 }
 
 // --------------------------------------------------------------
