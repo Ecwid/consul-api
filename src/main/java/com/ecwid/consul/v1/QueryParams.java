@@ -49,8 +49,7 @@ public final class QueryParams implements UrlParameters {
 		}
 
 		/**
-		 * Specify a different ConsistencyMode than
-		 * {@value ConsistencyMode.DEFAULT}
+		 * Specify a different ConsistencyMode than ConsistencyMode.DEFAULT
 		 *
 		 * @param consistencyMode
 		 *            the consistency mode to override
