@@ -9,7 +9,6 @@ import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.transport.TLSConfig;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.OperationException;
-import com.ecwid.consul.v1.QueryParams;
 import com.ecwid.consul.v1.Response;
 import com.ecwid.consul.v1.event.model.Event;
 import com.ecwid.consul.v1.event.model.EventParams;
@@ -47,7 +46,7 @@ public final class EventConsulClient implements EventClient {
     }
 
     @Override
-    public Response<Event> eventFire(String event, String payload, EventParams eventParams, QueryParams queryParams) {
+    public Response<Event> eventFire(String event, String payload, EventParams eventParams, UrlParameters queryParams) {
 	RawResponse rawResponse = rawClient.makePutRequest("/v1/event/fire/" + event, payload, eventParams, queryParams);
 
 	if (rawResponse.getStatusCode() == 200) {
@@ -59,12 +58,12 @@ public final class EventConsulClient implements EventClient {
     }
 
     @Override
-    public Response<List<Event>> eventList(QueryParams queryParams) {
+    public Response<List<Event>> eventList(UrlParameters queryParams) {
 	return eventList(null, queryParams);
     }
 
     @Override
-    public Response<List<Event>> eventList(String event, QueryParams queryParams) {
+    public Response<List<Event>> eventList(String event, UrlParameters queryParams) {
 	UrlParameters eventParams = event != null ? new SingleUrlParameters("name", event) : null;
 	RawResponse rawResponse = rawClient.makeGetRequest("/v1/event/list", eventParams, queryParams);
 

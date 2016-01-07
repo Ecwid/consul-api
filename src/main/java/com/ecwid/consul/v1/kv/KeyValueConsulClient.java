@@ -63,14 +63,14 @@ public final class KeyValueConsulClient implements KeyValueClient {
     }
 
     @Override
-    public Response<GetValue> getKVValue(String key, QueryParams queryParams) {
-	return getKVValue(key, null, queryParams);
+    public Response<GetValue> getKVValue(String key, UrlParameters UrlParameters) {
+	return getKVValue(key, null, UrlParameters);
     }
 
     @Override
-    public Response<GetValue> getKVValue(String key, String token, QueryParams queryParams) {
+    public Response<GetValue> getKVValue(String key, String token, UrlParameters UrlParameters) {
 	UrlParameters tokenParams = token != null ? new SingleUrlParameters("token", token) : null;
-	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + key, tokenParams, queryParams);
+	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + key, tokenParams, UrlParameters);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    List<GetValue> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<GetValue>>() {
@@ -101,14 +101,14 @@ public final class KeyValueConsulClient implements KeyValueClient {
     }
 
     @Override
-    public Response<GetBinaryValue> getKVBinaryValue(String key, QueryParams queryParams) {
-	return getKVBinaryValue(key, null, queryParams);
+    public Response<GetBinaryValue> getKVBinaryValue(String key, UrlParameters UrlParameters) {
+	return getKVBinaryValue(key, null, UrlParameters);
     }
 
     @Override
-    public Response<GetBinaryValue> getKVBinaryValue(String key, String token, QueryParams queryParams) {
+    public Response<GetBinaryValue> getKVBinaryValue(String key, String token, UrlParameters UrlParameters) {
 	UrlParameters tokenParams = token != null ? new SingleUrlParameters("token", token) : null;
-	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + key, tokenParams, queryParams);
+	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + key, tokenParams, UrlParameters);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    List<GetBinaryValue> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<GetBinaryValue>>() {
@@ -139,15 +139,15 @@ public final class KeyValueConsulClient implements KeyValueClient {
     }
 
     @Override
-    public Response<List<GetValue>> getKVValues(String keyPrefix, QueryParams queryParams) {
-	return getKVValues(keyPrefix, null, queryParams);
+    public Response<List<GetValue>> getKVValues(String keyPrefix, UrlParameters UrlParameters) {
+	return getKVValues(keyPrefix, null, UrlParameters);
     }
 
     @Override
-    public Response<List<GetValue>> getKVValues(String keyPrefix, String token, QueryParams queryParams) {
+    public Response<List<GetValue>> getKVValues(String keyPrefix, String token, UrlParameters UrlParameters) {
 	UrlParameters recurseParam = new SingleUrlParameters("recurse");
 	UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, recurseParam, tokenParam, queryParams);
+	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, recurseParam, tokenParam, UrlParameters);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    List<GetValue> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<GetValue>>() {
@@ -171,15 +171,15 @@ public final class KeyValueConsulClient implements KeyValueClient {
     }
 
     @Override
-    public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, QueryParams queryParams) {
-	return getKVBinaryValues(keyPrefix, null, queryParams);
+    public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, UrlParameters UrlParameters) {
+	return getKVBinaryValues(keyPrefix, null, UrlParameters);
     }
 
     @Override
-    public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token, QueryParams queryParams) {
+    public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token, UrlParameters UrlParameters) {
 	UrlParameters recurseParam = new SingleUrlParameters("recurse");
 	UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, recurseParam, tokenParam, queryParams);
+	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, recurseParam, tokenParam, UrlParameters);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    List<GetBinaryValue> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<GetBinaryValue>>() {
@@ -203,16 +203,16 @@ public final class KeyValueConsulClient implements KeyValueClient {
     }
 
     @Override
-    public Response<List<String>> getKVKeysOnly(String keyPrefix, QueryParams queryParams) {
-	return getKVKeysOnly(keyPrefix, null, null, queryParams);
+    public Response<List<String>> getKVKeysOnly(String keyPrefix, UrlParameters UrlParameters) {
+	return getKVKeysOnly(keyPrefix, null, null, UrlParameters);
     }
 
     @Override
-    public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token, QueryParams queryParams) {
+    public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token, UrlParameters UrlParameters) {
 	UrlParameters keysParam = new SingleUrlParameters("keys");
 	UrlParameters separatorParam = separator != null ? new SingleUrlParameters("separator", separator) : null;
 	UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, keysParam, separatorParam, tokenParam, queryParams);
+	RawResponse rawResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, keysParam, separatorParam, tokenParam, UrlParameters);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    List<String> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<String>>() {
@@ -241,19 +241,19 @@ public final class KeyValueConsulClient implements KeyValueClient {
     }
 
     @Override
-    public Response<Boolean> setKVValue(String key, String value, QueryParams queryParams) {
-	return setKVValue(key, value, null, null, queryParams);
+    public Response<Boolean> setKVValue(String key, String value, UrlParameters UrlParameters) {
+	return setKVValue(key, value, null, null, UrlParameters);
     }
 
     @Override
-    public Response<Boolean> setKVValue(String key, String value, PutParams putParams, QueryParams queryParams) {
-	return setKVValue(key, value, null, putParams, queryParams);
+    public Response<Boolean> setKVValue(String key, String value, PutParams putParams, UrlParameters UrlParameters) {
+	return setKVValue(key, value, null, putParams, UrlParameters);
     }
 
     @Override
-    public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, QueryParams queryParams) {
+    public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, UrlParameters UrlParameters) {
 	UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-	RawResponse rawResponse = rawClient.makePutRequest("/v1/kv/" + key, value, putParams, tokenParam, queryParams);
+	RawResponse rawResponse = rawClient.makePutRequest("/v1/kv/" + key, value, putParams, tokenParam, UrlParameters);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    boolean result = GsonFactory.getGson().fromJson(rawResponse.getContent(), boolean.class);
@@ -279,19 +279,19 @@ public final class KeyValueConsulClient implements KeyValueClient {
     }
 
     @Override
-    public Response<Boolean> setKVBinaryValue(String key, byte[] value, QueryParams queryParams) {
-	return setKVBinaryValue(key, value, null, null, queryParams);
+    public Response<Boolean> setKVBinaryValue(String key, byte[] value, UrlParameters UrlParameters) {
+	return setKVBinaryValue(key, value, null, null, UrlParameters);
     }
 
     @Override
-    public Response<Boolean> setKVBinaryValue(String key, byte[] value, PutParams putParams, QueryParams queryParams) {
-	return setKVBinaryValue(key, value, null, putParams, queryParams);
+    public Response<Boolean> setKVBinaryValue(String key, byte[] value, PutParams putParams, UrlParameters UrlParameters) {
+	return setKVBinaryValue(key, value, null, putParams, UrlParameters);
     }
 
     @Override
-    public Response<Boolean> setKVBinaryValue(String key, byte[] value, String token, PutParams putParams, QueryParams queryParams) {
+    public Response<Boolean> setKVBinaryValue(String key, byte[] value, String token, PutParams putParams, UrlParameters UrlParameters) {
 	UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-	RawResponse rawResponse = rawClient.makePutRequest("/v1/kv/" + key, value, putParams, tokenParam, queryParams);
+	RawResponse rawResponse = rawClient.makePutRequest("/v1/kv/" + key, value, putParams, tokenParam, UrlParameters);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    boolean result = GsonFactory.getGson().fromJson(rawResponse.getContent(), boolean.class);
@@ -312,14 +312,14 @@ public final class KeyValueConsulClient implements KeyValueClient {
     }
 
     @Override
-    public Response<Void> deleteKVValue(String key, QueryParams queryParams) {
-	return deleteKVValue(key, null, queryParams);
+    public Response<Void> deleteKVValue(String key, UrlParameters UrlParameters) {
+	return deleteKVValue(key, null, UrlParameters);
     }
 
     @Override
-    public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams) {
+    public Response<Void> deleteKVValue(String key, String token, UrlParameters UrlParameters) {
 	UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-	RawResponse rawResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam, queryParams);
+	RawResponse rawResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam, UrlParameters);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    return new Response<Void>(null, rawResponse);
@@ -339,15 +339,15 @@ public final class KeyValueConsulClient implements KeyValueClient {
     }
 
     @Override
-    public Response<Void> deleteKVValues(String key, QueryParams queryParams) {
-	return deleteKVValues(key, null, queryParams);
+    public Response<Void> deleteKVValues(String key, UrlParameters UrlParameters) {
+	return deleteKVValues(key, null, UrlParameters);
     }
 
     @Override
-    public Response<Void> deleteKVValues(String key, String token, QueryParams queryParams) {
+    public Response<Void> deleteKVValues(String key, String token, UrlParameters UrlParameters) {
 	UrlParameters recurseParam = new SingleUrlParameters("recurse");
 	UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-	RawResponse rawResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam, recurseParam, queryParams);
+	RawResponse rawResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam, recurseParam, UrlParameters);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    return new Response<Void>(null, rawResponse);
