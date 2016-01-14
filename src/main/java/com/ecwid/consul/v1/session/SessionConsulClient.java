@@ -1,18 +1,18 @@
 package com.ecwid.consul.v1.session;
 
+import java.util.List;
+import java.util.Map;
+
 import com.ecwid.consul.ConsulException;
+import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.v1.ConsulRawClient;
-import com.ecwid.consul.v1.QueryParams;
+import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.v1.Response;
 import com.ecwid.consul.v1.session.model.NewSession;
 import com.ecwid.consul.v1.session.model.Session;
 import com.google.gson.reflect.TypeToken;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -38,9 +38,9 @@ public final class SessionConsulClient implements SessionClient {
 	}
 
 	@Override
-	public Response<String> sessionCreate(NewSession newSession, QueryParams queryParams) {
+	public Response<String> sessionCreate(NewSession newSession, UrlParameters UrlParameters) {
 		String json = GsonFactory.getGson().toJson(newSession);
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/session/create", json, queryParams);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/session/create", json, UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			Map<String, String> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<Map<String, String>>() {
@@ -52,8 +52,8 @@ public final class SessionConsulClient implements SessionClient {
 	}
 
 	@Override
-	public Response<Void> sessionDestroy(String session, QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/session/destroy/" + session, "", queryParams);
+	public Response<Void> sessionDestroy(String session, UrlParameters UrlParameters) {
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/session/destroy/" + session, "", UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -63,8 +63,8 @@ public final class SessionConsulClient implements SessionClient {
 	}
 
 	@Override
-	public Response<Session> getSessionInfo(String session, QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/session/info/" + session, queryParams);
+	public Response<Session> getSessionInfo(String session, UrlParameters UrlParameters) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/session/info/" + session, UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Session> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Session>>() {
@@ -83,8 +83,8 @@ public final class SessionConsulClient implements SessionClient {
 	}
 
 	@Override
-	public Response<List<Session>> getSessionNode(String node, QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/session/node/" + node, queryParams);
+	public Response<List<Session>> getSessionNode(String node, UrlParameters UrlParameters) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/session/node/" + node, UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Session> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Session>>() {
@@ -96,8 +96,8 @@ public final class SessionConsulClient implements SessionClient {
 	}
 
 	@Override
-	public Response<List<Session>> getSessionList(QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/session/list", queryParams);
+	public Response<List<Session>> getSessionList(UrlParameters UrlParameters) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/session/list", UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Session> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Session>>() {
@@ -108,8 +108,8 @@ public final class SessionConsulClient implements SessionClient {
 		}
 	}
 
-	public Response<Session> renewSession(String session, QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/session/renew/" + session, "", queryParams);
+	public Response<Session> renewSession(String session, UrlParameters UrlParameters) {
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/session/renew/" + session, "", UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Session> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Session>>() {

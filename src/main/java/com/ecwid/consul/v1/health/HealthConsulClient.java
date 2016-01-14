@@ -9,7 +9,6 @@ import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.transport.TLSConfig;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.OperationException;
-import com.ecwid.consul.v1.QueryParams;
 import com.ecwid.consul.v1.Response;
 import com.ecwid.consul.v1.health.model.Check;
 import com.google.gson.reflect.TypeToken;
@@ -50,8 +49,8 @@ public final class HealthConsulClient implements HealthClient {
 	}
 
 	@Override
-	public Response<List<Check>> getHealthChecksForNode(String nodeName, QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/node/" + nodeName, queryParams);
+	public Response<List<Check>> getHealthChecksForNode(String nodeName, UrlParameters UrlParameters) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/node/" + nodeName, UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Check> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Check>>() {
@@ -63,8 +62,8 @@ public final class HealthConsulClient implements HealthClient {
 	}
 
 	@Override
-	public Response<List<Check>> getHealthChecksForService(String serviceName, QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/checks/" + serviceName, queryParams);
+	public Response<List<Check>> getHealthChecksForService(String serviceName, UrlParameters UrlParameters) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/checks/" + serviceName, UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Check> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Check>>() {
@@ -76,16 +75,16 @@ public final class HealthConsulClient implements HealthClient {
 	}
 
 	@Override
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams) {
-		return getHealthServices(serviceName, null, onlyPassing, queryParams);
+	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, UrlParameters UrlParameters) {
+		return getHealthServices(serviceName, null, onlyPassing, UrlParameters);
 	}
 
 	@Override
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams) {
+	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, UrlParameters UrlParameters) {
 		UrlParameters tagParams = tag != null ? new SingleUrlParameters("tag", tag) : null;
 		UrlParameters passingParams = onlyPassing ? new SingleUrlParameters("passing") : null;
 
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/service/" + serviceName, tagParams, passingParams, queryParams);
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/service/" + serviceName, tagParams, passingParams, UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<com.ecwid.consul.v1.health.model.HealthService> value = GsonFactory.getGson().fromJson(rawResponse.getContent(),
@@ -98,14 +97,14 @@ public final class HealthConsulClient implements HealthClient {
 	}
 
 	@Override
-	public Response<List<Check>> getHealthChecksState(QueryParams queryParams) {
-		return getHealthChecksState(null, queryParams);
+	public Response<List<Check>> getHealthChecksState(UrlParameters UrlParameters) {
+		return getHealthChecksState(null, UrlParameters);
 	}
 
 	@Override
-	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, QueryParams queryParams) {
+	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, UrlParameters UrlParameters) {
 		String status = checkStatus == null ? "any" : checkStatus.name().toLowerCase();
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/state/" + status, queryParams);
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/state/" + status, UrlParameters);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Check> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Check>>() {

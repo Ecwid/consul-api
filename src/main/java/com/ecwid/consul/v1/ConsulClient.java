@@ -3,6 +3,7 @@ package com.ecwid.consul.v1;
 import java.util.List;
 import java.util.Map;
 
+import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.transport.TLSConfig;
 import com.ecwid.consul.v1.acl.AclClient;
 import com.ecwid.consul.v1.acl.AclConsulClient;
@@ -270,73 +271,73 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<List<Node>> getCatalogNodes(QueryParams queryParams) {
-		return catalogClient.getCatalogNodes(queryParams);
+	public Response<List<Node>> getCatalogNodes(UrlParameters UrlParameters) {
+		return catalogClient.getCatalogNodes(UrlParameters);
 	}
 
 	@Override
-	public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams) {
-		return catalogClient.getCatalogServices(queryParams);
+	public Response<Map<String, List<String>>> getCatalogServices(UrlParameters UrlParameters) {
+		return catalogClient.getCatalogServices(UrlParameters);
 	}
 
 	@Override
-	public Response<List<CatalogService>> getCatalogService(String serviceName, QueryParams queryParams) {
-		return catalogClient.getCatalogService(serviceName, queryParams);
+	public Response<List<CatalogService>> getCatalogService(String serviceName, UrlParameters UrlParameters) {
+		return catalogClient.getCatalogService(serviceName, UrlParameters);
 	}
 
 	@Override
-	public Response<List<CatalogService>> getCatalogService(String serviceName, String tag, QueryParams queryParams) {
-		return catalogClient.getCatalogService(serviceName, tag, queryParams);
+	public Response<List<CatalogService>> getCatalogService(String serviceName, String tag, UrlParameters UrlParameters) {
+		return catalogClient.getCatalogService(serviceName, tag, UrlParameters);
 	}
 
 	@Override
-	public Response<CatalogNode> getCatalogNode(String nodeName, QueryParams queryParams) {
-		return catalogClient.getCatalogNode(nodeName, queryParams);
+	public Response<CatalogNode> getCatalogNode(String nodeName, UrlParameters UrlParameters) {
+		return catalogClient.getCatalogNode(nodeName, UrlParameters);
 	}
 
 	@Override
-	public Response<Event> eventFire(String event, String payload, EventParams eventParams, QueryParams queryParams) {
-		return eventClient.eventFire(event, payload, eventParams, queryParams);
+	public Response<Event> eventFire(String event, String payload, EventParams eventParams, UrlParameters UrlParameters) {
+		return eventClient.eventFire(event, payload, eventParams, UrlParameters);
 	}
 
 	@Override
-	public Response<List<Event>> eventList(QueryParams queryParams) {
-		return eventClient.eventList(queryParams);
+	public Response<List<Event>> eventList(UrlParameters UrlParameters) {
+		return eventClient.eventList(UrlParameters);
 	}
 
 	@Override
-	public Response<List<Event>> eventList(String event, QueryParams queryParams) {
-		return eventClient.eventList(event, queryParams);
+	public Response<List<Event>> eventList(String event, UrlParameters UrlParameters) {
+		return eventClient.eventList(event, UrlParameters);
 	}
 
 	@Override
-	public Response<List<Check>> getHealthChecksForNode(String nodeName, QueryParams queryParams) {
-		return healthClient.getHealthChecksForNode(nodeName, queryParams);
+	public Response<List<Check>> getHealthChecksForNode(String nodeName, UrlParameters UrlParameters) {
+		return healthClient.getHealthChecksForNode(nodeName, UrlParameters);
 	}
 
 	@Override
-	public Response<List<Check>> getHealthChecksForService(String serviceName, QueryParams queryParams) {
-		return healthClient.getHealthChecksForService(serviceName, queryParams);
+	public Response<List<Check>> getHealthChecksForService(String serviceName, UrlParameters UrlParameters) {
+		return healthClient.getHealthChecksForService(serviceName, UrlParameters);
 	}
 
 	@Override
-	public Response<List<HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams) {
-		return healthClient.getHealthServices(serviceName, onlyPassing, queryParams);
+	public Response<List<HealthService>> getHealthServices(String serviceName, boolean onlyPassing, UrlParameters UrlParameters) {
+		return healthClient.getHealthServices(serviceName, onlyPassing, UrlParameters);
 	}
 
 	@Override
-	public Response<List<HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams) {
-		return healthClient.getHealthServices(serviceName, tag, onlyPassing, queryParams);
+	public Response<List<HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, UrlParameters UrlParameters) {
+		return healthClient.getHealthServices(serviceName, tag, onlyPassing, UrlParameters);
 	}
 
 	@Override
-	public Response<List<Check>> getHealthChecksState(QueryParams queryParams) {
-		return healthClient.getHealthChecksState(queryParams);
+	public Response<List<Check>> getHealthChecksState(UrlParameters UrlParameters) {
+		return healthClient.getHealthChecksState(UrlParameters);
 	}
 
 	@Override
-	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, QueryParams queryParams) {
-		return healthClient.getHealthChecksState(checkStatus, queryParams);
+	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, UrlParameters UrlParameters) {
+		return healthClient.getHealthChecksState(checkStatus, UrlParameters);
 	}
 
 	@Override
@@ -350,13 +351,13 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<GetValue> getKVValue(String key, QueryParams queryParams) {
-		return keyValueClient.getKVValue(key, queryParams);
+	public Response<GetValue> getKVValue(String key, UrlParameters UrlParameters) {
+		return keyValueClient.getKVValue(key, UrlParameters);
 	}
 
 	@Override
-	public Response<GetValue> getKVValue(String key, String token, QueryParams queryParams) {
-		return keyValueClient.getKVValue(key, token, queryParams);
+	public Response<GetValue> getKVValue(String key, String token, UrlParameters UrlParameters) {
+		return keyValueClient.getKVValue(key, token, UrlParameters);
 	}
 
 	@Override
@@ -370,13 +371,13 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<GetBinaryValue> getKVBinaryValue(String key, QueryParams queryParams) {
-		return keyValueClient.getKVBinaryValue(key, queryParams);
+	public Response<GetBinaryValue> getKVBinaryValue(String key, UrlParameters UrlParameters) {
+		return keyValueClient.getKVBinaryValue(key, UrlParameters);
 	}
 
 	@Override
-	public Response<GetBinaryValue> getKVBinaryValue(String key, String token, QueryParams queryParams) {
-		return keyValueClient.getKVBinaryValue(key, token, queryParams);
+	public Response<GetBinaryValue> getKVBinaryValue(String key, String token, UrlParameters UrlParameters) {
+		return keyValueClient.getKVBinaryValue(key, token, UrlParameters);
 	}
 
 	@Override
@@ -390,13 +391,13 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<List<GetValue>> getKVValues(String keyPrefix, QueryParams queryParams) {
-		return keyValueClient.getKVValues(keyPrefix, queryParams);
+	public Response<List<GetValue>> getKVValues(String keyPrefix, UrlParameters UrlParameters) {
+		return keyValueClient.getKVValues(keyPrefix, UrlParameters);
 	}
 
 	@Override
-	public Response<List<GetValue>> getKVValues(String keyPrefix, String token, QueryParams queryParams) {
-		return keyValueClient.getKVValues(keyPrefix, token, queryParams);
+	public Response<List<GetValue>> getKVValues(String keyPrefix, String token, UrlParameters UrlParameters) {
+		return keyValueClient.getKVValues(keyPrefix, token, UrlParameters);
 	}
 
 	@Override
@@ -410,13 +411,13 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, QueryParams queryParams) {
-		return keyValueClient.getKVBinaryValues(keyPrefix, queryParams);
+	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, UrlParameters UrlParameters) {
+		return keyValueClient.getKVBinaryValues(keyPrefix, UrlParameters);
 	}
 
 	@Override
-	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token, QueryParams queryParams) {
-		return keyValueClient.getKVBinaryValues(keyPrefix, token, queryParams);
+	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token, UrlParameters UrlParameters) {
+		return keyValueClient.getKVBinaryValues(keyPrefix, token, UrlParameters);
 	}
 
 	@Override
@@ -430,13 +431,13 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<List<String>> getKVKeysOnly(String keyPrefix, QueryParams queryParams) {
-		return keyValueClient.getKVKeysOnly(keyPrefix, queryParams);
+	public Response<List<String>> getKVKeysOnly(String keyPrefix, UrlParameters UrlParameters) {
+		return keyValueClient.getKVKeysOnly(keyPrefix, UrlParameters);
 	}
 
 	@Override
-	public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token, QueryParams queryParams) {
-		return keyValueClient.getKVKeysOnly(keyPrefix, separator, token, queryParams);
+	public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token, UrlParameters UrlParameters) {
+		return keyValueClient.getKVKeysOnly(keyPrefix, separator, token, UrlParameters);
 	}
 
 	@Override
@@ -455,18 +456,18 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<Boolean> setKVValue(String key, String value, QueryParams queryParams) {
-		return keyValueClient.setKVValue(key, value, queryParams);
+	public Response<Boolean> setKVValue(String key, String value, UrlParameters UrlParameters) {
+		return keyValueClient.setKVValue(key, value, UrlParameters);
 	}
 
 	@Override
-	public Response<Boolean> setKVValue(String key, String value, PutParams putParams, QueryParams queryParams) {
-		return keyValueClient.setKVValue(key, value, putParams, queryParams);
+	public Response<Boolean> setKVValue(String key, String value, PutParams putParams, UrlParameters UrlParameters) {
+		return keyValueClient.setKVValue(key, value, putParams, UrlParameters);
 	}
 
 	@Override
-	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, QueryParams queryParams) {
-		return keyValueClient.setKVValue(key, value, token, putParams, queryParams);
+	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, UrlParameters UrlParameters) {
+		return keyValueClient.setKVValue(key, value, token, putParams, UrlParameters);
 	}
 
 	@Override
@@ -485,18 +486,18 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<Boolean> setKVBinaryValue(String key, byte[] value, QueryParams queryParams) {
-		return keyValueClient.setKVBinaryValue(key, value, queryParams);
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, UrlParameters UrlParameters) {
+		return keyValueClient.setKVBinaryValue(key, value, UrlParameters);
 	}
 
 	@Override
-	public Response<Boolean> setKVBinaryValue(String key, byte[] value, PutParams putParams, QueryParams queryParams) {
-		return keyValueClient.setKVBinaryValue(key, value, putParams, queryParams);
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, PutParams putParams, UrlParameters UrlParameters) {
+		return keyValueClient.setKVBinaryValue(key, value, putParams, UrlParameters);
 	}
 
 	@Override
-	public Response<Boolean> setKVBinaryValue(String key, byte[] value, String token, PutParams putParams, QueryParams queryParams) {
-		return keyValueClient.setKVBinaryValue(key, value, token, putParams, queryParams);
+	public Response<Boolean> setKVBinaryValue(String key, byte[] value, String token, PutParams putParams, UrlParameters UrlParameters) {
+		return keyValueClient.setKVBinaryValue(key, value, token, putParams, UrlParameters);
 	}
 
 	@Override
@@ -510,13 +511,13 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<Void> deleteKVValue(String key, QueryParams queryParams) {
-		return keyValueClient.deleteKVValue(key, queryParams);
+	public Response<Void> deleteKVValue(String key, UrlParameters UrlParameters) {
+		return keyValueClient.deleteKVValue(key, UrlParameters);
 	}
 
 	@Override
-	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams) {
-		return keyValueClient.deleteKVValue(key, token, queryParams);
+	public Response<Void> deleteKVValue(String key, String token, UrlParameters UrlParameters) {
+		return keyValueClient.deleteKVValue(key, token, UrlParameters);
 	}
 
 	@Override
@@ -530,43 +531,43 @@ public final class ConsulClient
 	}
 
 	@Override
-	public Response<Void> deleteKVValues(String key, QueryParams queryParams) {
-		return keyValueClient.deleteKVValues(key, queryParams);
+	public Response<Void> deleteKVValues(String key, UrlParameters UrlParameters) {
+		return keyValueClient.deleteKVValues(key, UrlParameters);
 	}
 
 	@Override
-	public Response<Void> deleteKVValues(String key, String token, QueryParams queryParams) {
-		return keyValueClient.deleteKVValues(key, token, queryParams);
+	public Response<Void> deleteKVValues(String key, String token, UrlParameters UrlParameters) {
+		return keyValueClient.deleteKVValues(key, token, UrlParameters);
 	}
 
 	@Override
-	public Response<String> sessionCreate(NewSession newSession, QueryParams queryParams) {
-		return sessionClient.sessionCreate(newSession, queryParams);
+	public Response<String> sessionCreate(NewSession newSession, UrlParameters UrlParameters) {
+		return sessionClient.sessionCreate(newSession, UrlParameters);
 	}
 
 	@Override
-	public Response<Void> sessionDestroy(String session, QueryParams queryParams) {
-		return sessionClient.sessionDestroy(session, queryParams);
+	public Response<Void> sessionDestroy(String session, UrlParameters UrlParameters) {
+		return sessionClient.sessionDestroy(session, UrlParameters);
 	}
 
 	@Override
-	public Response<Session> getSessionInfo(String session, QueryParams queryParams) {
-		return sessionClient.getSessionInfo(session, queryParams);
+	public Response<Session> getSessionInfo(String session, UrlParameters UrlParameters) {
+		return sessionClient.getSessionInfo(session, UrlParameters);
 	}
 
 	@Override
-	public Response<List<Session>> getSessionNode(String node, QueryParams queryParams) {
-		return sessionClient.getSessionNode(node, queryParams);
+	public Response<List<Session>> getSessionNode(String node, UrlParameters UrlParameters) {
+		return sessionClient.getSessionNode(node, UrlParameters);
 	}
 
 	@Override
-	public Response<List<Session>> getSessionList(QueryParams queryParams) {
-		return sessionClient.getSessionList(queryParams);
+	public Response<List<Session>> getSessionList(UrlParameters UrlParameters) {
+		return sessionClient.getSessionList(UrlParameters);
 	}
 
 	@Override
-	public Response<Session> renewSession(String session, QueryParams queryParams) {
-		return sessionClient.renewSession(session, queryParams);
+	public Response<Session> renewSession(String session, UrlParameters UrlParameters) {
+		return sessionClient.renewSession(session, UrlParameters);
 	}
 
 	@Override

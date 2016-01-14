@@ -1,7 +1,7 @@
 consul-api
 ==========
 
-[![Build Status](https://api.travis-ci.org/Ecwid/consul-api.svg)](http://travis-ci.org/Ecwid/consul-api)
+[![Build Status](https://api.travis-ci.org/pierresouchay/consul-api.svg)](http://travis-ci.org/pierresouchay/consul-api)
 
 Java client for Consul HTTP API (http://consul.io)
 
