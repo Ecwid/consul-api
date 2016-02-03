@@ -46,4 +46,6 @@ public interface AgentClient {
 	public Response<Void> agentServiceRegister(NewService newService, String token);
 
 	public Response<Void> agentServiceDeregister(String serviceId);
+
+	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled);
 }
