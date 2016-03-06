@@ -240,4 +240,15 @@ public final class AgentConsulClient implements AgentClient {
 	}
     }
 
+    @Override
+    public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled) {
+	UrlParameters maintenanceParameter = new SingleUrlParameters("enable", Boolean.toString(maintenanceEnabled));
+	RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/service/maintenance/" + serviceId, "", maintenanceParameter);
+
+	if (rawResponse.getStatusCode() == 200) {
+	    return new Response<Void>(null, rawResponse);
+	} else {
+	    throw new OperationException(rawResponse);
+	}
+    }
 }

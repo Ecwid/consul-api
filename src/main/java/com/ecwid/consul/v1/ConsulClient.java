@@ -255,6 +255,11 @@ public final class ConsulClient
 	}
 
 	@Override
+	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled) {
+		return agentClient.agentServiceSetMaintenance(serviceId, maintenanceEnabled);
+	}
+
+	@Override
 	public Response<Void> catalogRegister(CatalogRegistration catalogRegistration) {
 		return catalogClient.catalogRegister(catalogRegistration);
 	}
