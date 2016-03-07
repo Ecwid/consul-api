@@ -1,8 +1,5 @@
 package com.ecwid.consul.transport;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -15,9 +12,18 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+
 public class AbstractHttpTransport implements HttpTransport {
+
+	private static final int DEFAULT_CONNECTION_TIMEOUT = 10000; // 10 sec
+	private static final int DEFAULT_READ_TIMEOUT = 60000; // 60 sec
 
 	protected final HttpClient httpClient;
 
@@ -26,7 +32,11 @@ public class AbstractHttpTransport implements HttpTransport {
 		connectionManager.setMaxTotal(1000);
 		connectionManager.setDefaultMaxPerRoute(500);
 
-		this.httpClient = new DefaultHttpClient(connectionManager);
+		HttpParams httpParams = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(httpParams, DEFAULT_CONNECTION_TIMEOUT);
+		HttpConnectionParams.setSoTimeout(httpParams, DEFAULT_READ_TIMEOUT);
+
+		this.httpClient = new DefaultHttpClient(connectionManager, httpParams);
 	}
 
 	public AbstractHttpTransport(HttpClient httpClient) {
