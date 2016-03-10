@@ -22,6 +22,9 @@ public class NewCheck {
 	@SerializedName("HTTP")
 	private String http;
 
+	@SerializedName("TCP")
+	private String tcp;
+
 	@SerializedName("Interval")
 	private String interval;
 
@@ -71,6 +74,14 @@ public class NewCheck {
 		this.http = http;
 	}
 
+	public String getTcp() {
+		return tcp;
+	}
+
+	public void setTcp(String tcp) {
+		this.tcp = tcp;
+	}
+
 	public String getInterval() {
 		return interval;
 	}
@@ -103,6 +114,7 @@ public class NewCheck {
 				", notes='" + notes + '\'' +
 				", script='" + script + '\'' +
 				", http='" + http + '\'' +
+				", tcp='" + tcp + '\'' +
 				", interval='" + interval + '\'' +
                 ", timeout='" + timeout + '\'' +
 				", ttl='" + ttl + '\'' +
