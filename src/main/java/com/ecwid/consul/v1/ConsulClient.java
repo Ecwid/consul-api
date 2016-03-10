@@ -46,7 +46,7 @@ import com.ecwid.consul.v1.status.StatusConsulClient;
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
-public final class ConsulClient
+public class ConsulClient
 		implements AclClient, AgentClient, CatalogClient, EventClient, HealthClient, KeyValueClient, SessionClient, StatusClient {
 
 	private final AclClient aclClient;
