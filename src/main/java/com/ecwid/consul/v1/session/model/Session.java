@@ -29,8 +29,14 @@ public class Session {
 	@SerializedName("ID")
 	private String id;
 
+	@SerializedName("Name")
+	private String name;
+
 	@SerializedName("CreateIndex")
 	private long createIndex;
+
+	@SerializedName("ModifyIndex")
+	private long modifyIndex;
 
 	@SerializedName("TTL")
 	private String ttl;
@@ -70,12 +76,28 @@ public class Session {
 		this.id = id;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public long getCreateIndex() {
 		return createIndex;
 	}
 
 	public void setCreateIndex(long createIndex) {
 		this.createIndex = createIndex;
+	}
+
+	public long getModifyIndex() {
+		return modifyIndex;
+	}
+
+	public void setModifyIndex(long modifyIndex) {
+		this.modifyIndex = modifyIndex;
 	}
 
 	public String getTtl() {
@@ -101,7 +123,9 @@ public class Session {
 				", checks=" + checks +
 				", node='" + node + '\'' +
 				", id='" + id + '\'' +
+				", name='" + name + '\'' +
 				", createIndex=" + createIndex +
+				", modifyIndex=" + modifyIndex +
 				", ttl='" + ttl + '\'' +
 				", behavior=" + behavior +
 				'}';
