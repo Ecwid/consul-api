@@ -25,6 +25,12 @@ public class NewCheck {
 	@SerializedName("TCP")
 	private String tcp;
 
+	@SerializedName("DockerContainerID")
+	private String dockerContainerID;
+
+	@SerializedName("Shell")
+	private String shell;
+
 	@SerializedName("Interval")
 	private String interval;
 
@@ -82,6 +88,22 @@ public class NewCheck {
 		this.tcp = tcp;
 	}
 
+	public String getDockerContainerID() {
+		return dockerContainerID;
+	}
+
+	public void setDockerContainerID(String dockerContainerID) {
+		this.dockerContainerID = dockerContainerID;
+	}
+
+	public String getShell() {
+		return shell;
+	}
+
+	public void setShell(String shell) {
+		this.shell = shell;
+	}
+
 	public String getInterval() {
 		return interval;
 	}
@@ -106,7 +128,7 @@ public class NewCheck {
       this.timeout = timeout;
     }
 
-    @Override
+	@Override
 	public String toString() {
 		return "NewCheck{" +
 				"id='" + id + '\'' +
@@ -115,8 +137,10 @@ public class NewCheck {
 				", script='" + script + '\'' +
 				", http='" + http + '\'' +
 				", tcp='" + tcp + '\'' +
+				", dockerContainerID='" + dockerContainerID + '\'' +
+				", shell='" + shell + '\'' +
 				", interval='" + interval + '\'' +
-                ", timeout='" + timeout + '\'' +
+				", timeout='" + timeout + '\'' +
 				", ttl='" + ttl + '\'' +
 				'}';
 	}
