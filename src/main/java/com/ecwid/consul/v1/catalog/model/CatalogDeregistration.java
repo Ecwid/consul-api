@@ -19,6 +19,9 @@ public class CatalogDeregistration {
 	@SerializedName("ServiceID")
 	private String serviceId;
 
+	@SerializedName("WriteRequest")
+	private WriteRequest writeRequest;
+
 	public String getDatacenter() {
 		return datacenter;
 	}
@@ -51,6 +54,14 @@ public class CatalogDeregistration {
 		this.serviceId = serviceId;
 	}
 
+	public WriteRequest getWriteRequest() {
+		return writeRequest;
+	}
+
+	public void setWriteRequest(WriteRequest writeRequest) {
+		this.writeRequest = writeRequest;
+	}
+
 	@Override
 	public String toString() {
 		return "CatalogDeregistration{" +
@@ -58,6 +69,7 @@ public class CatalogDeregistration {
 				", node='" + node + '\'' +
 				", checkId='" + checkId + '\'' +
 				", serviceId='" + serviceId + '\'' +
+				", writeRequest=" + writeRequest +
 				'}';
 	}
 }

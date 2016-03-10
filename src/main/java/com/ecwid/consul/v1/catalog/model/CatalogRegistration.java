@@ -2,7 +2,6 @@ package com.ecwid.consul.v1.catalog.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -181,6 +180,9 @@ public class CatalogRegistration {
 	@SerializedName("Check")
 	private Check check;
 
+	@SerializedName("WriteRequest")
+	private WriteRequest writeRequest;
+
 	public String getDatacenter() {
 		return datacenter;
 	}
@@ -221,6 +223,14 @@ public class CatalogRegistration {
 		this.check = check;
 	}
 
+	public WriteRequest getWriteRequest() {
+		return writeRequest;
+	}
+
+	public void setWriteRequest(WriteRequest writeRequest) {
+		this.writeRequest = writeRequest;
+	}
+
 	@Override
 	public String toString() {
 		return "CatalogRegistration{" +
@@ -229,6 +239,7 @@ public class CatalogRegistration {
 				", address='" + address + '\'' +
 				", service=" + service +
 				", check=" + check +
+				", writeRequest=" + writeRequest +
 				'}';
 	}
 }
