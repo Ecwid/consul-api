@@ -1,5 +1,6 @@
 package com.ecwid.consul.transport;
 
+import com.ecwid.consul.Utils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -79,9 +80,9 @@ public class AbstractHttpTransport implements HttpTransport {
 
 					String content = EntityUtils.toString(response.getEntity(), Charset.forName("UTF-8"));
 
-					Long consulIndex = parseLong(response.getFirstHeader("X-Consul-Index"));
+					Long consulIndex = parseUnsignedLong(response.getFirstHeader("X-Consul-Index"));
 					Boolean consulKnownLeader = parseBoolean(response.getFirstHeader("X-Consul-Knownleader"));
-					Long consulLastContact = parseLong(response.getFirstHeader("X-Consul-Lastcontact"));
+					Long consulLastContact = parseUnsignedLong(response.getFirstHeader("X-Consul-Lastcontact"));
 
 					return new RawResponse(statusCode, statusMessage, content, consulIndex, consulKnownLeader, consulLastContact);
 				}
@@ -91,9 +92,18 @@ public class AbstractHttpTransport implements HttpTransport {
 		}
 	}
 
-	private Long parseLong(Header header) {
+	private Long parseUnsignedLong(Header header) {
+		if (header == null) {
+			return null;
+		}
+
+		String value = header.getValue();
+		if (value == null) {
+			return null;
+		}
+
 		try {
-			return Long.parseLong(header.getValue());
+			return Utils.parseUnsignedLong(value);
 		} catch (Exception e) {
 			return null;
 		}
