@@ -10,9 +10,13 @@ import java.util.Map;
 public class Check {
 
 	public static enum CheckStatus {
+		@SerializedName("unknown")
 		UNKNOWN,
+		@SerializedName("passing")
 		PASSING,
+		@SerializedName("warning")
 		WARNING,
+		@SerializedName("critical")
 		CRITICAL
 	}
 

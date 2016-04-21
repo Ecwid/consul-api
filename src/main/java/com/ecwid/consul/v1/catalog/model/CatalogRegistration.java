@@ -78,9 +78,13 @@ public class CatalogRegistration {
 	}
 
 	public static enum CheckStatus {
+		@SerializedName("unknown")
 		UNKNOWN,
+		@SerializedName("passing")
 		PASSING,
+		@SerializedName("warning")
 		WARNING,
+		@SerializedName("critical")
 		CRITICAL
 	}
 
