@@ -19,6 +19,8 @@ public class NewService {
 		private String ttl;
 		@SerializedName("HTTP")
 		private String http;
+		@SerializedName("TCP")
+		private String tcp;
         @SerializedName("Timeout")
         private String timeout;
 
@@ -54,7 +56,15 @@ public class NewService {
 			this.http = http;
 		}
 
-        public String getTimeout() {
+		public String getTcp() {
+			return tcp;
+		}
+
+		public void setTcp(String tcp) {
+			this.tcp = tcp;
+		}
+
+		public String getTimeout() {
           return timeout;
         }
 
@@ -69,6 +79,7 @@ public class NewService {
 					", interval=" + interval +
 					", ttl=" + ttl +
 					", http=" + http +
+					", tcp=" + tcp +
                     ", timeout=" + timeout +
 					'}';
 		}
