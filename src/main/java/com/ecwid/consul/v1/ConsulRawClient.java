@@ -77,7 +77,6 @@ public class ConsulRawClient {
 	public RawResponse makeGetRequest(String endpoint, UrlParameters... urlParams) {
 		String url = agentAddress + endpoint;
 		url = Utils.generateUrl(url, urlParams);
-		System.out.println("GET request URL: " + url);
 
 		return httpTransport.makeGetRequest(url);
 	}
