@@ -77,15 +77,16 @@ public final class HealthConsulClient implements HealthClient {
 
 	@Override
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams) {
-		return getHealthServices(serviceName, null, onlyPassing, queryParams);
+		return getHealthServices(serviceName, null, null, onlyPassing, queryParams);
 	}
 
 	@Override
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams) {
+	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, String token, boolean onlyPassing, QueryParams queryParams) {
 		UrlParameters tagParams = tag != null ? new SingleUrlParameters("tag", tag) : null;
+		UrlParameters tokenParams = token != null ? new SingleUrlParameters("token", token) : null;
 		UrlParameters passingParams = onlyPassing ? new SingleUrlParameters("passing") : null;
 
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/service/" + serviceName, tagParams, passingParams, queryParams);
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/service/" + serviceName, tagParams, tokenParams, passingParams, queryParams);
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<com.ecwid.consul.v1.health.model.HealthService> value = GsonFactory.getGson().fromJson(rawResponse.getContent(),

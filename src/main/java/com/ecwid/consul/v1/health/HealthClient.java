@@ -17,7 +17,7 @@ public interface HealthClient {
 
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams);
 
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams);
+	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, String token, boolean onlyPassing, QueryParams queryParams);
 
 	public Response<List<Check>> getHealthChecksState(QueryParams queryParams);
 
