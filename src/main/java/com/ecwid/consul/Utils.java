@@ -70,9 +70,13 @@ public class Utils {
 			throw new NumberFormatException("Invalid last digit for " + onesDigit);
 		}
 		long result = front * 10 + onesDigit;
-		if (Long.compare(result + Long.MIN_VALUE, front + Long.MIN_VALUE) < 0) {
+		if (compareLong(result + Long.MIN_VALUE, front + Long.MIN_VALUE) < 0) {
 			throw new NumberFormatException("The number " + s + " is greater than 2^64");
 		}
 		return result;
+	}
+
+	private static int compareLong(long x, long y) {
+		return (x < y) ? -1 : ((x == y) ? 0 : 1);
 	}
 }
