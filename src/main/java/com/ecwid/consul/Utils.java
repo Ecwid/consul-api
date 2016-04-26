@@ -44,4 +44,35 @@ public class Utils {
 		return result.toString();
 	}
 
+	public static String toUnsignedString(long l) {
+		if (l >= 0) {
+			return Long.toString(l);
+		} else {
+			long quot = (l >>> 1) / 5;
+			long rem = l - quot * 10;
+			return Long.toString(quot) + rem;
+		}
+	}
+
+	public static long parseUnsignedLong(String s) {
+		if (s.charAt(0) == '-') {
+			throw new NumberFormatException("An unsigned long was expected. Cannot parse negative number " + s);
+		}
+		int length = s.length();
+		// Long.MAX_VALUE is 19 digits in length so anything
+		// shorter than that is trivial to parse.
+		if (length < 19) {
+			return Long.parseLong(s);
+		}
+		long front = Long.parseLong(s.substring(0, length - 1));
+		int onesDigit = Character.digit(s.charAt(length - 1), 10);
+		if (onesDigit < 0) {
+			throw new NumberFormatException("Invalid last digit for " + onesDigit);
+		}
+		long result = front * 10 + onesDigit;
+		if (Long.compare(result + Long.MIN_VALUE, front + Long.MIN_VALUE) < 0) {
+			throw new NumberFormatException("The number " + s + " is greater than 2^64");
+		}
+		return result;
+	}
 }

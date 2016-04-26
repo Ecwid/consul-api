@@ -95,6 +95,31 @@ public class Event {
 		this.lTime = lTime;
 	}
 
+	/**
+	 * Converted from https://github.com/hashicorp/consul/blob/master/api/event.go#L90-L104
+	 * This is a hack. It simulates the index generation to convert an event ID into a WaitIndex.
+	 *
+	 * @return a Wait Index value suitable for passing in to {@link com.ecwid.consul.v1.QueryParams}
+	 * for blocking eventList calls.
+	 */
+	public long getWaitIndex() {
+		if (id == null || id.length() != 36) {
+			return 0;
+		}
+		long lower = 0, upper = 0;
+		for (int i = 0; i < 18; i++) {
+			if (i != 8 && i != 13) {
+				lower = lower * 16 + Character.digit(id.charAt(i), 16);
+			}
+		}
+		for (int i = 19; i < 36; i++) {
+			if (i != 23) {
+				upper = upper * 16 + Character.digit(id.charAt(i), 16);
+			}
+		}
+		return lower ^ upper;
+	}
+
 	@Override
 	public String toString() {
 		return "Event{" +

@@ -4,9 +4,7 @@ import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.Utils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -82,7 +80,7 @@ public final class QueryParams implements UrlParameters {
 			params.add("wait=" + waitTime + "s");
 		}
 		if (index != -1) {
-			params.add("index=" + index);
+			params.add("index=" + Utils.toUnsignedString(index));
 		}
 
 		return params;
