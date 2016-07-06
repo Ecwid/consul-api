@@ -105,7 +105,13 @@ public final class CatalogConsulClient implements CatalogClient {
 
     @Override
     public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams) {
-	RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/services", queryParams);
+	return getCatalogServices(queryParams, null);
+    }
+
+    @Override
+    public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams, String token) {
+	UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
+	RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/services", queryParams, tokenParam);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    Map<String, List<String>> value = GsonFactory.getGson().fromJson(rawResponse.getContent(),
@@ -119,14 +125,26 @@ public final class CatalogConsulClient implements CatalogClient {
 
     @Override
     public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, QueryParams queryParams) {
-	return getCatalogService(serviceName, null, queryParams);
+	return getCatalogService(serviceName, null, queryParams, null);
+    }
+
+    @Override
+    public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, QueryParams queryParams, String token) {
+	return getCatalogService(serviceName, null, queryParams, token);
     }
 
     @Override
     public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, String tag,
             QueryParams queryParams) {
+	return getCatalogService(serviceName, tag, queryParams, null);
+    }
+
+    @Override
+    public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, String tag,
+            QueryParams queryParams, String token) {
+	UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
 	UrlParameters tagParam = tag != null ? new SingleUrlParameters("tag", tag) : null;
-	RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/service/" + serviceName, tagParam, queryParams);
+	RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/service/" + serviceName, tagParam, queryParams, tokenParam);
 
 	if (rawResponse.getStatusCode() == 200) {
 	    List<com.ecwid.consul.v1.catalog.model.CatalogService> value = GsonFactory.getGson().fromJson(rawResponse.getContent(),

@@ -285,13 +285,28 @@ public class ConsulClient
 	}
 
 	@Override
+	public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams, String token) {
+		return catalogClient.getCatalogServices(queryParams, token);
+	}
+
+	@Override
 	public Response<List<CatalogService>> getCatalogService(String serviceName, QueryParams queryParams) {
 		return catalogClient.getCatalogService(serviceName, queryParams);
 	}
 
 	@Override
+	public Response<List<CatalogService>> getCatalogService(String serviceName, QueryParams queryParams, String token) {
+		return catalogClient.getCatalogService(serviceName, queryParams, token);
+	}
+
+	@Override
 	public Response<List<CatalogService>> getCatalogService(String serviceName, String tag, QueryParams queryParams) {
 		return catalogClient.getCatalogService(serviceName, tag, queryParams);
+	}
+
+	@Override
+	public Response<List<CatalogService>> getCatalogService(String serviceName, String tag, QueryParams queryParams, String token) {
+		return catalogClient.getCatalogService(serviceName, tag, queryParams, token);
 	}
 
 	@Override
@@ -332,6 +347,16 @@ public class ConsulClient
 	@Override
 	public Response<List<HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams) {
 		return healthClient.getHealthServices(serviceName, tag, onlyPassing, queryParams);
+	}
+
+	@Override
+	public Response<List<HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams, String token) {
+		return healthClient.getHealthServices(serviceName, onlyPassing, queryParams, token);
+	}
+
+	@Override
+	public Response<List<HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams, String token) {
+		return healthClient.getHealthServices(serviceName, tag, onlyPassing, queryParams, token);
 	}
 
 	@Override
