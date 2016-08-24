@@ -102,6 +102,9 @@ public class NewService {
 
 	@SerializedName("Check")
 	private Check check;
+	
+	@SerializedName("DeregisterCriticalServiceAfter")
+	private String deregisterCriticalServiceAfter;
 
 	public String getId() {
 		return id;
@@ -149,6 +152,14 @@ public class NewService {
 
 	public void setCheck(Check check) {
 		this.check = check;
+	}
+	
+	public String getDeregisterCriticalServiceAfter(){
+		return deregisterCriticalServiceAfter;
+	}
+	
+	public void setDeregisterCriticalServiceAfter(String deregisterCriticalServiceAfter){
+		this.deregisterCriticalServiceAfter = deregisterCriticalServiceAfter
 	}
 
 	@Override
