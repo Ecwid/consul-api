@@ -5,17 +5,16 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.config.SocketConfig;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.PoolingClientConnectionManager;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -29,15 +28,21 @@ public class AbstractHttpTransport implements HttpTransport {
 	protected final HttpClient httpClient;
 
 	public AbstractHttpTransport() {
-		PoolingClientConnectionManager connectionManager = new PoolingClientConnectionManager();
+		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
 		connectionManager.setMaxTotal(1000);
 		connectionManager.setDefaultMaxPerRoute(500);
 
-		HttpParams httpParams = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(httpParams, DEFAULT_CONNECTION_TIMEOUT);
-		HttpConnectionParams.setSoTimeout(httpParams, DEFAULT_READ_TIMEOUT);
+		RequestConfig requestConfig = RequestConfig.custom().
+				setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT).
+				setConnectionRequestTimeout(DEFAULT_CONNECTION_TIMEOUT).
+				setSocketTimeout(DEFAULT_READ_TIMEOUT).
+				build();
 
-		this.httpClient = new DefaultHttpClient(connectionManager, httpParams);
+		this.httpClient = HttpClientBuilder.create().
+				setConnectionManager(connectionManager).
+				setDefaultRequestConfig(requestConfig).
+				useSystemProperties().
+				build();
 	}
 
 	public AbstractHttpTransport(HttpClient httpClient) {
