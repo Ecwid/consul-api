@@ -13,6 +13,7 @@ public final class OperationException extends ConsulException {
 	private final String statusContent;
 
 	public OperationException(int statusCode, String statusMessage, String statusContent) {
+		super("OperationException(statusCode=" + statusCode + ", statusMessage='" + statusMessage + "', statusContent='" + statusContent + "')");
 		this.statusCode = statusCode;
 		this.statusMessage = statusMessage;
 		this.statusContent = statusContent;
