@@ -1,7 +1,5 @@
 package com.ecwid.consul.transport;
 
-import java.io.InputStream;
-
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
