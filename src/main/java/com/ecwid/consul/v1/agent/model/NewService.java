@@ -23,6 +23,8 @@ public class NewService {
 		private String tcp;
         @SerializedName("Timeout")
         private String timeout;
+		@SerializedName("DeregisterCriticalServiceAfter")
+		private String deregisterCriticalServiceAfter;
 
 		public String getScript() {
 			return script;
@@ -72,7 +74,15 @@ public class NewService {
           this.timeout = timeout;
         }
 
-        @Override
+		public String getDeregisterCriticalServiceAfter() {
+			return deregisterCriticalServiceAfter;
+		}
+
+		public void setDeregisterCriticalServiceAfter(String deregisterCriticalServiceAfter) {
+			this.deregisterCriticalServiceAfter = deregisterCriticalServiceAfter;
+		}
+
+		@Override
 		public String toString() {
 			return "Check{" +
 					"script='" + script + '\'' +
@@ -81,6 +91,7 @@ public class NewService {
 					", http=" + http +
 					", tcp=" + tcp +
                     ", timeout=" + timeout +
+					", deregisterCriticalServiceAfter=" + deregisterCriticalServiceAfter +
 					'}';
 		}
 	}
