@@ -203,6 +203,16 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled) {
+		return agentClient.agentSetMaintenance(maintenanceEnabled);
+	}
+
+	@Override
+	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled, String reason) {
+		return agentClient.agentSetMaintenance(maintenanceEnabled, reason);
+	}
+
+	@Override
 	public Response<Void> agentJoin(String address, boolean wan) {
 		return agentClient.agentJoin(address, wan);
 	}
@@ -275,6 +285,11 @@ public class ConsulClient implements
 	@Override
 	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled) {
 		return agentClient.agentServiceSetMaintenance(serviceId, maintenanceEnabled);
+	}
+
+	@Override
+	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled, String reason) {
+		return agentClient.agentServiceSetMaintenance(serviceId, maintenanceEnabled, reason);
 	}
 
 	// -------------------------------------------------------------------------------------------

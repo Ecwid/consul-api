@@ -102,6 +102,26 @@ public final class AgentConsulClient implements AgentClient {
 	}
 
 	@Override
+	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled) {
+		return agentSetMaintenance(maintenanceEnabled, null);
+	}
+
+	@Override
+	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled, String reason) {
+		UrlParameters maintenanceParameter = new SingleUrlParameters("enable", Boolean.toString(maintenanceEnabled));
+		UrlParameters reasonParamenter = reason != null ? new SingleUrlParameters("reason", reason) : null;
+
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/maintenance", "", maintenanceParameter, reasonParamenter);
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new OperationException(rawResponse);
+		}
+
+	}
+
+	@Override
 	public Response<Void> agentJoin(String address, boolean wan) {
 		UrlParameters wanParams = wan ? new SingleUrlParameters("wan", "1") : null;
 		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/join/" + address, wanParams);
@@ -237,8 +257,15 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled) {
+		return agentServiceSetMaintenance(serviceId, maintenanceEnabled, null);
+	}
+
+	@Override
+	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled, String reason) {
 		UrlParameters maintenanceParameter = new SingleUrlParameters("enable", Boolean.toString(maintenanceEnabled));
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/service/maintenance/" + serviceId, "", maintenanceParameter);
+		UrlParameters reasonParameter = reason != null ? new SingleUrlParameters("reason", reason) : null;
+
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/service/maintenance/" + serviceId, "", maintenanceParameter, reasonParameter);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);

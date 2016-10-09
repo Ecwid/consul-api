@@ -19,6 +19,10 @@ public interface AgentClient {
 
 	public Response<Self> getAgentSelf();
 
+	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled);
+
+	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled, String reason);
+
 	public Response<Void> agentJoin(String address, boolean wan);
 
 	public Response<Void> agentForceLeave(String node);
@@ -48,4 +52,6 @@ public interface AgentClient {
 	public Response<Void> agentServiceDeregister(String serviceId);
 
 	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled);
+
+	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled, String reason);
 }
