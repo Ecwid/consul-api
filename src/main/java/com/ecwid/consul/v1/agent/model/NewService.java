@@ -111,6 +111,9 @@ public class NewService {
 	@SerializedName("Port")
 	private Integer port;
 
+	@SerializedName("EnableTagOverride")
+	private Boolean enableTagOverride;
+
 	@SerializedName("Check")
 	private Check check;
 
@@ -154,6 +157,14 @@ public class NewService {
 		this.port = port;
 	}
 
+	public Boolean getEnableTagOverride() {
+		return enableTagOverride;
+	}
+
+	public void setEnableTagOverride(Boolean enableTagOverride) {
+		this.enableTagOverride = enableTagOverride;
+	}
+
 	public Check getCheck() {
 		return check;
 	}
@@ -170,6 +181,7 @@ public class NewService {
 				", tags=" + tags +
 				", address='" + address + '\'' +
 				", port=" + port +
+				", enableTagOverride=" + enableTagOverride +
 				", check=" + check +
 				'}';
 	}
