@@ -13,6 +13,9 @@ public class NewCheck {
 	@SerializedName("Name")
 	private String name;
 
+	@SerializedName("ServiceID")
+	private String serviceId;
+
 	@SerializedName("Notes")
 	private String notes;
 
@@ -35,7 +38,7 @@ public class NewCheck {
 	private String interval;
 
 	@SerializedName("Timeout")
-    private String timeout;
+	private String timeout;
 
 	@SerializedName("TTL")
 	private String ttl;
@@ -57,6 +60,14 @@ public class NewCheck {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getServiceId() {
+		return serviceId;
+	}
+
+	public void setServiceId(String serviceId) {
+		this.serviceId = serviceId;
 	}
 
 	public String getNotes() {
@@ -124,12 +135,12 @@ public class NewCheck {
 	}
 
 	public String getTimeout() {
-	  return timeout;
-    }
+		return timeout;
+	}
 
-    public void setTimeout(String timeout) {
-      this.timeout = timeout;
-    }
+	public void setTimeout(String timeout) {
+		this.timeout = timeout;
+	}
 
 	public String getDeregisterCriticalServiceAfter() {
 		return deregisterCriticalServiceAfter;
@@ -144,6 +155,7 @@ public class NewCheck {
 		return "NewCheck{" +
 				"id='" + id + '\'' +
 				", name='" + name + '\'' +
+				", serviceId='" + serviceId + '\'' +
 				", notes='" + notes + '\'' +
 				", script='" + script + '\'' +
 				", http='" + http + '\'' +
