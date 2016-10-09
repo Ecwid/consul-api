@@ -21,8 +21,8 @@ public class NewService {
 		private String http;
 		@SerializedName("TCP")
 		private String tcp;
-        @SerializedName("Timeout")
-        private String timeout;
+		@SerializedName("Timeout")
+		private String timeout;
 		@SerializedName("DeregisterCriticalServiceAfter")
 		private String deregisterCriticalServiceAfter;
 
@@ -67,12 +67,12 @@ public class NewService {
 		}
 
 		public String getTimeout() {
-          return timeout;
-        }
+			return timeout;
+		}
 
-        public void setTimeout(String timeout) {
-          this.timeout = timeout;
-        }
+		public void setTimeout(String timeout) {
+			this.timeout = timeout;
+		}
 
 		public String getDeregisterCriticalServiceAfter() {
 			return deregisterCriticalServiceAfter;
@@ -90,7 +90,7 @@ public class NewService {
 					", ttl=" + ttl +
 					", http=" + http +
 					", tcp=" + tcp +
-                    ", timeout=" + timeout +
+					", timeout=" + timeout +
 					", deregisterCriticalServiceAfter=" + deregisterCriticalServiceAfter +
 					'}';
 		}

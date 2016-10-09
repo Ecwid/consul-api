@@ -31,7 +31,6 @@ public interface KeyValueClient {
 	public Response<GetBinaryValue> getKVBinaryValue(String key, String token, QueryParams queryParams);
 
 
-
 	public Response<List<GetValue>> getKVValues(String keyPrefix);
 
 	public Response<List<GetValue>> getKVValues(String keyPrefix, String token);
@@ -39,7 +38,6 @@ public interface KeyValueClient {
 	public Response<List<GetValue>> getKVValues(String keyPrefix, QueryParams queryParams);
 
 	public Response<List<GetValue>> getKVValues(String keyPrefix, String token, QueryParams queryParams);
-
 
 
 	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix);
@@ -51,7 +49,6 @@ public interface KeyValueClient {
 	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token, QueryParams queryParams);
 
 
-
 	public Response<List<String>> getKVKeysOnly(String keyPrefix);
 
 	public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token);
@@ -59,7 +56,6 @@ public interface KeyValueClient {
 	public Response<List<String>> getKVKeysOnly(String keyPrefix, QueryParams queryParams);
 
 	public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token, QueryParams queryParams);
-
 
 
 	public Response<Boolean> setKVValue(String key, String value);
@@ -75,7 +71,6 @@ public interface KeyValueClient {
 	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, QueryParams queryParams);
 
 
-
 	public Response<Boolean> setKVBinaryValue(String key, byte[] value);
 
 	public Response<Boolean> setKVBinaryValue(String key, byte[] value, PutParams putParams);
@@ -89,7 +84,6 @@ public interface KeyValueClient {
 	public Response<Boolean> setKVBinaryValue(String key, byte[] value, String token, PutParams putParams, QueryParams queryParams);
 
 
-
 	public Response<Void> deleteKVValue(String key);
 
 	public Response<Void> deleteKVValue(String key, String token);
@@ -97,7 +91,6 @@ public interface KeyValueClient {
 	public Response<Void> deleteKVValue(String key, QueryParams queryParams);
 
 	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams);
-
 
 
 	public Response<Void> deleteKVValues(String key);

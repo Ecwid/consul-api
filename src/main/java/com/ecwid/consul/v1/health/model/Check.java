@@ -8,13 +8,13 @@ import com.google.gson.annotations.SerializedName;
 public class Check {
 
 	public static enum CheckStatus {
-        @SerializedName("unknown")
+		@SerializedName("unknown")
 		UNKNOWN,
-        @SerializedName("passing")
+		@SerializedName("passing")
 		PASSING,
-        @SerializedName("warning")
+		@SerializedName("warning")
 		WARNING,
-        @SerializedName("critical")
+		@SerializedName("critical")
 		CRITICAL
 	}
 
