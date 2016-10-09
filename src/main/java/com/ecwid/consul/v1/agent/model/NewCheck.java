@@ -40,6 +40,9 @@ public class NewCheck {
 	@SerializedName("TTL")
 	private String ttl;
 
+	@SerializedName("DeregisterCriticalServiceAfter")
+	private String deregisterCriticalServiceAfter;
+
 	public String getId() {
 		return id;
 	}
@@ -128,6 +131,14 @@ public class NewCheck {
       this.timeout = timeout;
     }
 
+	public String getDeregisterCriticalServiceAfter() {
+		return deregisterCriticalServiceAfter;
+	}
+
+	public void setDeregisterCriticalServiceAfter(String deregisterCriticalServiceAfter) {
+		this.deregisterCriticalServiceAfter = deregisterCriticalServiceAfter;
+	}
+
 	@Override
 	public String toString() {
 		return "NewCheck{" +
@@ -142,6 +153,7 @@ public class NewCheck {
 				", interval='" + interval + '\'' +
 				", timeout='" + timeout + '\'' +
 				", ttl='" + ttl + '\'' +
+				", deregisterCriticalServiceAfter='" + deregisterCriticalServiceAfter + '\'' +
 				'}';
 	}
 }
