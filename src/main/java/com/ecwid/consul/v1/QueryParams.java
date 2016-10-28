@@ -47,6 +47,13 @@ public final class QueryParams implements UrlParameters {
 		this.index = index;
 	}
 
+    public QueryParams(String datacenter, long waitTime, long index) {
+        this.datacenter = datacenter;
+        this.consistencyMode = ConsistencyMode.DEFAULT;
+        this.waitTime = waitTime;
+        this.index = index;
+    }
+
 	public String getDatacenter() {
 		return datacenter;
 	}
