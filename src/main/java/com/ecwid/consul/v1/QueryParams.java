@@ -10,6 +10,47 @@ import java.util.List;
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
 public final class QueryParams implements UrlParameters {
+	public static final class Builder {
+		public static Builder builder() {
+			return new Builder();
+		}
+
+		private String datacenter;
+		private ConsistencyMode consistencyMode;
+		private long waitTime;
+		private long index;
+
+		private Builder() {
+			this.datacenter = null;
+			this.consistencyMode = ConsistencyMode.DEFAULT;
+			this.waitTime = -1;
+			this.index = -1;
+		}
+
+		public Builder setConsistencyMode(ConsistencyMode consistencyMode) {
+			this.consistencyMode = consistencyMode;
+			return this;
+		}
+
+		public Builder setDatacenter(String datacenter) {
+			this.datacenter = datacenter;
+			return this;
+		}
+
+		public Builder setWaitTime(long waitTime) {
+			this.waitTime = waitTime;
+			return this;
+		}
+
+		public Builder setIndex(long index) {
+			this.index = index;
+			return this;
+		}
+
+		public QueryParams build() {
+			return new QueryParams(datacenter, consistencyMode, waitTime, index);
+		}
+	}
 
 	public static final QueryParams DEFAULT = new QueryParams(ConsistencyMode.DEFAULT);
 
@@ -19,32 +60,27 @@ public final class QueryParams implements UrlParameters {
 	private final long waitTime;
 	private final long index;
 
-	public QueryParams(String datacenter) {
+	private QueryParams(String datacenter, ConsistencyMode consistencyMode, long waitTime, long index) {
 		this.datacenter = datacenter;
-		this.consistencyMode = ConsistencyMode.DEFAULT;
-		this.waitTime = -1;
-		this.index = -1;
+		this.consistencyMode = consistencyMode;
+		this.waitTime = waitTime;
+		this.index = index;
+	}
+
+	public QueryParams(String datacenter) {
+		this(datacenter, ConsistencyMode.DEFAULT, -1, -1);
 	}
 
 	public QueryParams(ConsistencyMode consistencyMode) {
-		this.datacenter = null;
-		this.consistencyMode = consistencyMode;
-		this.waitTime = -1;
-		this.index = -1;
+		this(null, consistencyMode, -1, -1);
 	}
 
 	public QueryParams(String datacenter, ConsistencyMode consistencyMode) {
-		this.datacenter = datacenter;
-		this.consistencyMode = consistencyMode;
-		this.waitTime = -1;
-		this.index = -1;
+		this(datacenter, consistencyMode, -1, -1);
 	}
 
 	public QueryParams(long waitTime, long index) {
-		this.datacenter = null;
-		this.consistencyMode = ConsistencyMode.DEFAULT;
-		this.waitTime = waitTime;
-		this.index = index;
+		this(null, ConsistencyMode.DEFAULT, waitTime, index);
 	}
 
     public QueryParams(String datacenter, long waitTime, long index) {
