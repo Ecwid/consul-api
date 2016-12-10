@@ -46,6 +46,9 @@ public class NewCheck {
 	@SerializedName("DeregisterCriticalServiceAfter")
 	private String deregisterCriticalServiceAfter;
 
+	@SerializedName("TLSSkipVerify")
+	private Boolean tlsSkipVerify;
+
 	public String getId() {
 		return id;
 	}
@@ -150,6 +153,14 @@ public class NewCheck {
 		this.deregisterCriticalServiceAfter = deregisterCriticalServiceAfter;
 	}
 
+	public Boolean getTlsSkipVerify() {
+		return tlsSkipVerify;
+	}
+
+	public void setTlsSkipVerify(Boolean tlsSkipVerify) {
+		this.tlsSkipVerify = tlsSkipVerify;
+	}
+
 	@Override
 	public String toString() {
 		return "NewCheck{" +
@@ -166,6 +177,7 @@ public class NewCheck {
 				", timeout='" + timeout + '\'' +
 				", ttl='" + ttl + '\'' +
 				", deregisterCriticalServiceAfter='" + deregisterCriticalServiceAfter + '\'' +
+				", tlsSkipVerify='" + tlsSkipVerify + '\'' +
 				'}';
 	}
 }

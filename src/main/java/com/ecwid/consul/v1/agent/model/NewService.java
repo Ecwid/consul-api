@@ -25,6 +25,8 @@ public class NewService {
 		private String timeout;
 		@SerializedName("DeregisterCriticalServiceAfter")
 		private String deregisterCriticalServiceAfter;
+		@SerializedName("TLSSkipVerify")
+		private Boolean tlsSkipVerify;
 
 		public String getScript() {
 			return script;
@@ -82,6 +84,14 @@ public class NewService {
 			this.deregisterCriticalServiceAfter = deregisterCriticalServiceAfter;
 		}
 
+		public Boolean getTlsSkipVerify() {
+			return tlsSkipVerify;
+		}
+
+		public void setTlsSkipVerify(Boolean tlsSkipVerify) {
+			this.tlsSkipVerify = tlsSkipVerify;
+		}
+
 		@Override
 		public String toString() {
 			return "Check{" +
@@ -92,6 +102,7 @@ public class NewService {
 					", tcp=" + tcp +
 					", timeout=" + timeout +
 					", deregisterCriticalServiceAfter=" + deregisterCriticalServiceAfter +
+					", tlsSkipVerify=" + tlsSkipVerify +
 					'}';
 		}
 	}
