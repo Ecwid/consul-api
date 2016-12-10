@@ -117,6 +117,9 @@ public class NewService {
 	@SerializedName("Check")
 	private Check check;
 
+	@SerializedName("Checks")
+	private List<Check> checks;
+
 	public String getId() {
 		return id;
 	}
@@ -173,6 +176,14 @@ public class NewService {
 		this.check = check;
 	}
 
+	public List<Check> getChecks() {
+		return checks;
+	}
+
+	public void setChecks(List<Check> checks) {
+		this.checks = checks;
+	}
+
 	@Override
 	public String toString() {
 		return "NewService{" +
@@ -183,6 +194,7 @@ public class NewService {
 				", port=" + port +
 				", enableTagOverride=" + enableTagOverride +
 				", check=" + check +
+				", checks=" + checks +
 				'}';
 	}
 }
