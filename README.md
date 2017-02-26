@@ -18,9 +18,22 @@ Supports all API endpoints (http://www.consul.io/docs/agent/http.html), all cons
 ```java
 ConsulClient client = new ConsulClient("localhost");
 
-// KV
+// set KV
 byte[] binaryData = new byte[] {1,2,3,4,5,6,7};
 client.setKVBinaryValue("someKey", binaryData);
+
+client.setKVValue("com.my.app.foo", "foo");
+client.setKVValue("com.my.app.bar", "bar");
+client.setKVValue("com.your.app.foo", "hello");
+client.setKVValue("com.your.app.bar", "world");
+
+// get single KV for key
+// returns KV "com.my.app.foo: foo"
+client.getKVValue("com.my.app.foo");
+
+// get list of KVs for key prefix (recursive)
+// returns KVs "com.my.app.foo: foo" and "com.my.app.bar: bar"
+client.getKVValues("com.my");
 
 //list known datacenters
 Response<List<String>> response = client.getCatalogDatacenters();
@@ -30,12 +43,14 @@ System.out.println("Datacenters: " + response.getValue());
 NewService newService = new NewService();
 newService.setId("myapp_01");
 newService.setName("myapp");
+newService.setTags(Arrays.asList("EU-West", "EU-East"));
 newService.setPort(8080);
 client.agentServiceRegister(newService);
 
 // register new service with associated health check
 NewService newService = new NewService();
-newService.setId("myapp_01");
+newService.setId("myapp_02");
+newService.setTags(Collections.singletonList("EU-East"));
 newService.setName("myapp");
 newService.setPort(8080);
 
@@ -46,6 +61,11 @@ newService.setCheck(serviceCheck);
 
 client.agentServiceRegister(newService);
 
+// query for healthy services based on name (returns myapp_01 and myapp_02 if healthy)
+Response<List<HealthService>> healthyServices = client.getHealthServices("myapp", true, QueryParams.DEFAULT);
+
+// query for healthy services based on name and tag (returns myapp_01 if healthy)
+Response<List<HealthService>> healthyServices = client.getHealthServices("myapp", "EU-West", true, QueryParams.DEFAULT);
 ```
 
 ## How to add consul-api into your project
