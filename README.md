@@ -28,12 +28,12 @@ client.setKVValue("com.your.app.foo", "hello");
 client.setKVValue("com.your.app.bar", "world");
 
 // get single KV for key
-// returns KV "com.my.app.foo: foo"
-client.getKVValue("com.my.app.foo");
+Response<GetValue> keyValueResponse = client.getKVValue("com.my.app.foo");
+System.out.println(keyValueResponse.getValue().getKey() + ": " + keyValueResponse.getValue().getDecodedValue()); // prints "com.my.app.foo: foo"
 
 // get list of KVs for key prefix (recursive)
-// returns KVs "com.my.app.foo: foo" and "com.my.app.bar: bar"
-client.getKVValues("com.my");
+Response<List<GetValue>> keyValuesReponse = client.getKVValues("com.my");
+keyValuesResponse.getValue().forEach(value -> System.out.println(value.getKey() + ": " + value.getDecodedValue())); // prints "com.my.app.foo: foo" and "com.my.app.bar: bar"
 
 //list known datacenters
 Response<List<String>> response = client.getCatalogDatacenters();
