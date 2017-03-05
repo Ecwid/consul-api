@@ -133,8 +133,9 @@ public final class QueryParams implements UrlParameters {
 		}
 
 		if (waitTime != -1) {
-			params.add("wait=" + waitTime + "s");
+			params.add("wait=" + Utils.toSecondsString(waitTime));
 		}
+
 		if (index != -1) {
 			params.add("index=" + Utils.toUnsignedString(index));
 		}
