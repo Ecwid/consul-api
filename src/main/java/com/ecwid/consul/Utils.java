@@ -79,4 +79,8 @@ public class Utils {
 	private static int compareLong(long x, long y) {
 		return (x < y) ? -1 : ((x == y) ? 0 : 1);
 	}
+
+	public static String toSecondsString(long waitTime) {
+		return String.valueOf(waitTime) + "s";
+	}
 }

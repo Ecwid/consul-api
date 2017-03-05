@@ -19,12 +19,14 @@ public final class QueryParams implements UrlParameters {
 		private ConsistencyMode consistencyMode;
 		private long waitTime;
 		private long index;
+		private String near;
 
 		private Builder() {
 			this.datacenter = null;
 			this.consistencyMode = ConsistencyMode.DEFAULT;
 			this.waitTime = -1;
 			this.index = -1;
+			this.near = null;
 		}
 
 		public Builder setConsistencyMode(ConsistencyMode consistencyMode) {
@@ -47,8 +49,13 @@ public final class QueryParams implements UrlParameters {
 			return this;
 		}
 
+		public Builder setNear(String near) {
+			this.near = near;
+			return this;
+		}
+
 		public QueryParams build() {
-			return new QueryParams(datacenter, consistencyMode, waitTime, index);
+			return new QueryParams(datacenter, consistencyMode, waitTime, index, near);
 		}
 	}
 
@@ -56,15 +63,20 @@ public final class QueryParams implements UrlParameters {
 
 	private final String datacenter;
 	private final ConsistencyMode consistencyMode;
-
 	private final long waitTime;
 	private final long index;
+	private final String near;
 
-	private QueryParams(String datacenter, ConsistencyMode consistencyMode, long waitTime, long index) {
+	private QueryParams(String datacenter, ConsistencyMode consistencyMode, long waitTime, long index, String near) {
 		this.datacenter = datacenter;
 		this.consistencyMode = consistencyMode;
 		this.waitTime = waitTime;
 		this.index = index;
+		this.near = near;
+	}
+
+	private QueryParams(String datacenter, ConsistencyMode consistencyMode, long waitTime, long index) {
+		this(datacenter, consistencyMode, waitTime, index, null);
 	}
 
 	public QueryParams(String datacenter) {
@@ -84,10 +96,7 @@ public final class QueryParams implements UrlParameters {
 	}
 
     public QueryParams(String datacenter, long waitTime, long index) {
-        this.datacenter = datacenter;
-        this.consistencyMode = ConsistencyMode.DEFAULT;
-        this.waitTime = waitTime;
-        this.index = index;
+		this(datacenter, ConsistencyMode.DEFAULT, waitTime, index, null);
     }
 
 	public String getDatacenter() {
@@ -104,6 +113,10 @@ public final class QueryParams implements UrlParameters {
 
 	public long getIndex() {
 		return index;
+	}
+
+	public String getNear() {
+		return near;
 	}
 
 	@Override
@@ -124,6 +137,10 @@ public final class QueryParams implements UrlParameters {
 		}
 		if (index != -1) {
 			params.add("index=" + Utils.toUnsignedString(index));
+		}
+
+		if (near != null) {
+			params.add("near=" + Utils.encodeValue(near));
 		}
 
 		return params;
