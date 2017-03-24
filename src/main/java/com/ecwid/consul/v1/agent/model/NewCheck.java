@@ -162,6 +162,7 @@ public class NewCheck {
 
 	public void setTlsSkipVerify(Boolean tlsSkipVerify) {
 		this.tlsSkipVerify = tlsSkipVerify;
+	}
 	
 	public String getStatus() {
 		return status;
