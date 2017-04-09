@@ -38,7 +38,7 @@ public final class DefaultHttpsTransport extends AbstractHttpTransport {
 			clientStore.load(new FileInputStream(tlsConfig.getCertficatePath()), tlsConfig.getCertificatePassword().toCharArray());
 
 			KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-			kmf.init(clientStore, "".toCharArray());
+			kmf.init(clientStore, tlsConfig.getCertificatePassword().toCharArray());
 			KeyManager[] kms = kmf.getKeyManagers();
 
 			KeyStore trustStore = KeyStore.getInstance(KeyStoreInstanceType.JKS.name());
