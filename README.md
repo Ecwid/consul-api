@@ -34,7 +34,7 @@ Response<GetValue> keyValueResponse = client.getKVValue("com.my.app.foo");
 System.out.println(keyValueResponse.getValue().getKey() + ": " + keyValueResponse.getValue().getDecodedValue()); // prints "com.my.app.foo: foo"
 
 // get list of KVs for key prefix (recursive)
-Response<List<GetValue>> keyValuesReponse = client.getKVValues("com.my");
+Response<List<GetValue>> keyValuesResponse = client.getKVValues("com.my");
 keyValuesResponse.getValue().forEach(value -> System.out.println(value.getKey() + ": " + value.getDecodedValue())); // prints "com.my.app.foo: foo" and "com.my.app.bar: bar"
 
 //list known datacenters
