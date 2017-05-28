@@ -3,7 +3,6 @@ package com.ecwid.consul.v1;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.Utils;
 import com.ecwid.consul.transport.*;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.HttpClient;
 
 /**
@@ -13,7 +12,7 @@ public class ConsulRawClient {
 
 	private static final String DEFAULT_HOST = "localhost";
 	private static final int DEFAULT_PORT = 8500;
-	private static final String DEFAULT_PATH = StringUtils.EMPTY;
+	private static final String DEFAULT_PATH = "";
 
 	// one real HTTP client for all instances
 	private static final HttpTransport DEFAULT_HTTP_TRANSPORT = new DefaultHttpTransport();

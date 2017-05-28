@@ -1,7 +1,5 @@
 package com.ecwid.consul;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -87,8 +85,8 @@ public class Utils {
 	}
 
 	public static String assembleAgentAddress(String host, int port, String path) {
-		String agentPath = StringUtils.EMPTY;
-		if (StringUtils.isNotBlank(path)) {
+		String agentPath = "";
+		if (path != null && !path.trim().isEmpty()) {
 			agentPath = "/" + path;
 		}
 

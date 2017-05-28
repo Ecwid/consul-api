@@ -72,6 +72,23 @@ public class UtilsTest {
 	}
 
 	@Test
+	public void testAssembleAgentAddressWithEmptyPath() {
+		// Given
+		String expectedHost = "http://host";
+		int expectedPort = 8888;
+		String expectedPath = "   ";
+
+		// When
+		String actualAddress = Utils.assembleAgentAddress(expectedHost, expectedPort, expectedPath);
+
+		// Then
+		assertEquals(
+				String.format("%s:%d", expectedHost, expectedPort),
+				actualAddress
+		);
+	}
+
+	@Test
 	public void testAssembleAgentAddressWithoutPath() {
 		// Given
 		String expectedHost = "https://host";
