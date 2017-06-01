@@ -127,6 +127,9 @@ public class NewService {
 
 	@SerializedName("Check")
 	private Check check;
+	
+	@SerializedName("DeregisterCriticalServiceAfter")
+	private String deregisterCriticalServiceAfter;
 
 	@SerializedName("Checks")
 	private List<Check> checks;
@@ -185,6 +188,14 @@ public class NewService {
 
 	public void setCheck(Check check) {
 		this.check = check;
+	}
+	
+	public String getDeregisterCriticalServiceAfter(){
+		return deregisterCriticalServiceAfter;
+	}
+	
+	public void setDeregisterCriticalServiceAfter(String deregisterCriticalServiceAfter){
+		this.deregisterCriticalServiceAfter = deregisterCriticalServiceAfter
 	}
 
 	public List<Check> getChecks() {
