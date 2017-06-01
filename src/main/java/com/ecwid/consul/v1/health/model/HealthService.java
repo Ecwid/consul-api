@@ -2,6 +2,7 @@ package com.ecwid.consul.v1.health.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,6 +16,9 @@ public class HealthService {
 
 		@SerializedName("Address")
 		private String address;
+
+		@SerializedName("Meta")
+		private HashMap<String, String> meta;
 
 		public String getNode() {
 			return node;
@@ -31,6 +35,10 @@ public class HealthService {
 		public void setAddress(String address) {
 			this.address = address;
 		}
+
+		public void setMeta(HashMap<String, String> meta) { this.meta = meta; }
+
+		public HashMap<String, String> getMeta() { return meta; }
 
 		@Override
 		public String toString() {
