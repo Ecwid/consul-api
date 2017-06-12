@@ -54,4 +54,6 @@ public interface AgentClient {
 	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled);
 
 	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled, String reason);
+
+	public Response<Void> agentReload();
 }

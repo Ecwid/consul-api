@@ -273,4 +273,16 @@ public final class AgentConsulClient implements AgentClient {
 			throw new OperationException(rawResponse);
 		}
 	}
+
+	@Override
+	public Response<Void> agentReload() {
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/reload", "");
+
+		if (rawResponse.getStatusCode() == 200) {
+			return new Response<Void>(null, rawResponse);
+		} else {
+			throw new OperationException(rawResponse);
+		}
+
+	}
 }

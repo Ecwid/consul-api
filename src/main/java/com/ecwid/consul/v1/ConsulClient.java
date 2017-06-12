@@ -292,6 +292,11 @@ public class ConsulClient implements
 		return agentClient.agentServiceSetMaintenance(serviceId, maintenanceEnabled, reason);
 	}
 
+	@Override
+	public Response<Void> agentReload() {
+		return agentClient.agentReload();
+	}
+
 	// -------------------------------------------------------------------------------------------
 	// Catalog
 
