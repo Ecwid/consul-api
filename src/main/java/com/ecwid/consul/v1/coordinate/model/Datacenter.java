@@ -12,6 +12,9 @@ public class Datacenter {
 	@SerializedName("Datacenter")
 	private String datacenter;
 
+	@SerializedName("AreaID")
+	private String areaId;
+
 	@SerializedName("Coordinates")
 	private List<Node> coordinates;
 
@@ -21,6 +24,14 @@ public class Datacenter {
 
 	public void setDatacenter(String datacenter) {
 		this.datacenter = datacenter;
+	}
+
+	public String getAreaId() {
+		return areaId;
+	}
+
+	public void setAreaId(String areaId) {
+		this.areaId = areaId;
 	}
 
 	public List<Node> getCoordinates() {
@@ -35,6 +46,7 @@ public class Datacenter {
 	public String toString() {
 		return "Datacenter{" +
 				"datacenter='" + datacenter + '\'' +
+				", areaId='" + areaId + '\'' +
 				", coordinates=" + coordinates +
 				'}';
 	}
