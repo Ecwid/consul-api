@@ -3,6 +3,7 @@ package com.ecwid.consul.v1.catalog.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -187,6 +188,9 @@ public class CatalogRegistration {
 	@SerializedName("WriteRequest")
 	private WriteRequest writeRequest;
 
+	@SerializedName("NodeMeta")
+	private Map<String, String> nodeMeta;
+
 	public String getDatacenter() {
 		return datacenter;
 	}
@@ -235,6 +239,14 @@ public class CatalogRegistration {
 		this.writeRequest = writeRequest;
 	}
 
+	public Map<String, String> getNodeMeta() {
+		return nodeMeta;
+	}
+
+	public void setNodeMeta(Map<String, String> nodeMeta) {
+		this.nodeMeta = nodeMeta;
+	}
+
 	@Override
 	public String toString() {
 		return "CatalogRegistration{" +
@@ -244,6 +256,7 @@ public class CatalogRegistration {
 				", service=" + service +
 				", check=" + check +
 				", writeRequest=" + writeRequest +
+				", nodeMeta=" + nodeMeta +
 				'}';
 	}
 }
