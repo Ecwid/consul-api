@@ -8,15 +8,15 @@ Java client for Consul HTTP API (http://consul.io)
 Supports all API endpoints (http://www.consul.io/docs/agent/http.html), all consistency modes and parameters (tags, datacenters etc.)
 
 ## Latest releases
-[1.2.3] (https://github.com/Ecwid/consul-api/milestone/7?closed=1) - 12 Jun 2017
+[1.2.3](https://github.com/Ecwid/consul-api/milestone/7?closed=1) - 12 Jun 2017
 
-[1.2.2] (https://github.com/Ecwid/consul-api/milestone/6?closed=1) - 10 Apr 2017
+[1.2.2](https://github.com/Ecwid/consul-api/milestone/6?closed=1) - 10 Apr 2017
 
-[1.2.1] (https://github.com/Ecwid/consul-api/milestone/5?closed=1) - 9 Oct 2016
+[1.2.1](https://github.com/Ecwid/consul-api/milestone/5?closed=1) - 9 Oct 2016
 
-[1.2.0] (https://github.com/Ecwid/consul-api/milestone/4?closed=1) - 6 Oct 2016
+[1.2.0](https://github.com/Ecwid/consul-api/milestone/4?closed=1) - 6 Oct 2016
 
-[1.1.11] (https://github.com/Ecwid/consul-api/milestone/3?closed=1) - 11 Jul 2016
+[1.1.11](https://github.com/Ecwid/consul-api/milestone/3?closed=1) - 11 Jul 2016
 
 ## How to use
 ```java
