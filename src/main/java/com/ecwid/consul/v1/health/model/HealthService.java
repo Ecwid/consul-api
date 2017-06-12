@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -18,7 +19,7 @@ public class HealthService {
 		private String address;
 
 		@SerializedName("Meta")
-		private HashMap<String, String> meta;
+		private Map<String, String> meta;
 
 		public String getNode() {
 			return node;
@@ -36,9 +37,13 @@ public class HealthService {
 			this.address = address;
 		}
 
-		public void setMeta(HashMap<String, String> meta) { this.meta = meta; }
+		public void setMeta(Map<String, String> meta) {
+			this.meta = meta;
+		}
 
-		public HashMap<String, String> getMeta() { return meta; }
+		public Map<String, String> getMeta() {
+			return meta;
+		}
 
 		@Override
 		public String toString() {
