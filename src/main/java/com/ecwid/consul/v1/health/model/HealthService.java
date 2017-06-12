@@ -11,156 +11,254 @@ import java.util.Map;
  */
 public class HealthService {
 
-	public static class Node {
-		@SerializedName("Node")
-		private String node;
+    public static class Node {
 
-		@SerializedName("Address")
-		private String address;
+        @SerializedName("ID")
+        private String id;
 
-		@SerializedName("Meta")
-		private Map<String, String> meta;
+        @SerializedName("Node")
+        private String node;
 
-		public String getNode() {
-			return node;
-		}
+        @SerializedName("Address")
+        private String address;
 
-		public void setNode(String node) {
-			this.node = node;
-		}
+        @SerializedName("Datacenter")
+        private String datacenter;
 
-		public String getAddress() {
-			return address;
-		}
+        @SerializedName("TaggedAddresses")
+        private Map<String, String> taggedAddresses;
 
-		public void setAddress(String address) {
-			this.address = address;
-		}
+        @SerializedName("Meta")
+        private Map<String, String> meta;
 
-		public void setMeta(Map<String, String> meta) {
-			this.meta = meta;
-		}
+        @SerializedName("CreateIndex")
+        private Long createIndex;
 
-		public Map<String, String> getMeta() {
-			return meta;
-		}
+        @SerializedName("ModifyIndex")
+        private Long modifyIndex;
 
-		@Override
-		public String toString() {
-			return "Node{" +
-					"node='" + node + '\'' +
-					", address='" + address + '\'' +
-					'}';
-		}
-	}
+        public String getId() {
+            return id;
+        }
 
-	public static class Service {
-		@SerializedName("ID")
-		private String id;
+        public void setId(String id) {
+            this.id = id;
+        }
 
-		@SerializedName("Service")
-		private String service;
+        public String getNode() {
+            return node;
+        }
 
-		@SerializedName("Tags")
-		private List<String> tags;
+        public void setNode(String node) {
+            this.node = node;
+        }
 
-		@SerializedName("Address")
-		private String address;
+        public String getAddress() {
+            return address;
+        }
 
-		@SerializedName("Port")
-		private Integer port;
+        public void setAddress(String address) {
+            this.address = address;
+        }
 
-		public String getId() {
-			return id;
-		}
+        public String getDatacenter() {
+            return datacenter;
+        }
 
-		public void setId(String id) {
-			this.id = id;
-		}
+        public void setDatacenter(String datacenter) {
+            this.datacenter = datacenter;
+        }
 
-		public String getService() {
-			return service;
-		}
+        public Map<String, String> getTaggedAddresses() {
+            return taggedAddresses;
+        }
 
-		public void setService(String service) {
-			this.service = service;
-		}
+        public void setTaggedAddresses(Map<String, String> taggedAddresses) {
+            this.taggedAddresses = taggedAddresses;
+        }
 
-		public List<String> getTags() {
-			return tags;
-		}
+        public Map<String, String> getMeta() {
+            return meta;
+        }
 
-		public void setTags(List<String> tags) {
-			this.tags = tags;
-		}
+        public void setMeta(Map<String, String> meta) {
+            this.meta = meta;
+        }
 
-		public String getAddress() {
-			return address;
-		}
+        public Long getCreateIndex() {
+            return createIndex;
+        }
 
-		public void setAddress(String address) {
-			this.address = address;
-		}
+        public void setCreateIndex(Long createIndex) {
+            this.createIndex = createIndex;
+        }
 
-		public Integer getPort() {
-			return port;
-		}
+        public Long getModifyIndex() {
+            return modifyIndex;
+        }
 
-		public void setPort(Integer port) {
-			this.port = port;
-		}
+        public void setModifyIndex(Long modifyIndex) {
+            this.modifyIndex = modifyIndex;
+        }
 
-		@Override
-		public String toString() {
-			return "Service{" +
-					"id='" + id + '\'' +
-					", service='" + service + '\'' +
-					", tags=" + tags +
-					", address='" + address + '\'' +
-					", port=" + port +
-					'}';
-		}
-	}
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "id='" + id + '\'' +
+                    ", node='" + node + '\'' +
+                    ", address='" + address + '\'' +
+                    ", datacenter='" + datacenter + '\'' +
+                    ", taggedAddresses=" + taggedAddresses +
+                    ", meta=" + meta +
+                    ", createIndex=" + createIndex +
+                    ", modifyIndex=" + modifyIndex +
+                    '}';
+        }
+    }
 
-	@SerializedName("Node")
-	private Node node;
+    public static class Service {
+        @SerializedName("ID")
+        private String id;
 
-	@SerializedName("Service")
-	private Service service;
+        @SerializedName("Service")
+        private String service;
 
-	@SerializedName("Checks")
-	private List<Check> checks;
+        @SerializedName("Tags")
+        private List<String> tags;
 
-	public Node getNode() {
-		return node;
-	}
+        @SerializedName("Address")
+        private String address;
 
-	public void setNode(Node node) {
-		this.node = node;
-	}
+        @SerializedName("Port")
+        private Integer port;
 
-	public Service getService() {
-		return service;
-	}
+        @SerializedName("EnableTagOverride")
+        private Boolean enableTagOverride;
 
-	public void setService(Service service) {
-		this.service = service;
-	}
+        @SerializedName("CreateIndex")
+        private Long createIndex;
 
-	public List<Check> getChecks() {
-		return checks;
-	}
+        @SerializedName("ModifyIndex")
+        private Long modifyIndex;
 
-	public void setChecks(List<Check> checks) {
-		this.checks = checks;
-	}
+        public String getId() {
+            return id;
+        }
 
-	@Override
-	public String toString() {
-		return "HealthService{" +
-				"node=" + node +
-				", service=" + service +
-				", checks=" + checks +
-				'}';
-	}
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getService() {
+            return service;
+        }
+
+        public void setService(String service) {
+            this.service = service;
+        }
+
+        public List<String> getTags() {
+            return tags;
+        }
+
+        public void setTags(List<String> tags) {
+            this.tags = tags;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public Integer getPort() {
+            return port;
+        }
+
+        public void setPort(Integer port) {
+            this.port = port;
+        }
+
+        public Boolean getEnableTagOverride() {
+            return enableTagOverride;
+        }
+
+        public void setEnableTagOverride(Boolean enableTagOverride) {
+            this.enableTagOverride = enableTagOverride;
+        }
+
+        public Long getCreateIndex() {
+            return createIndex;
+        }
+
+        public void setCreateIndex(Long createIndex) {
+            this.createIndex = createIndex;
+        }
+
+        public Long getModifyIndex() {
+            return modifyIndex;
+        }
+
+        public void setModifyIndex(Long modifyIndex) {
+            this.modifyIndex = modifyIndex;
+        }
+
+        @Override
+        public String toString() {
+            return "Service{" +
+                    "id='" + id + '\'' +
+                    ", service='" + service + '\'' +
+                    ", tags=" + tags +
+                    ", address='" + address + '\'' +
+                    ", port=" + port +
+                    ", enableTagOverride=" + enableTagOverride +
+                    ", createIndex=" + createIndex +
+                    ", modifyIndex=" + modifyIndex +
+                    '}';
+        }
+    }
+
+    @SerializedName("Node")
+    private Node node;
+
+    @SerializedName("Service")
+    private Service service;
+
+    @SerializedName("Checks")
+    private List<Check> checks;
+
+    public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public List<Check> getChecks() {
+        return checks;
+    }
+
+    public void setChecks(List<Check> checks) {
+        this.checks = checks;
+    }
+
+    @Override
+    public String toString() {
+        return "HealthService{" +
+                "node=" + node +
+                ", service=" + service +
+                ", checks=" + checks +
+                '}';
+    }
 }
