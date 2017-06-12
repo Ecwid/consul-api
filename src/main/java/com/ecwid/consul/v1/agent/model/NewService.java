@@ -11,22 +11,33 @@ import java.util.List;
 public class NewService {
 
 	public static class Check {
+
 		@SerializedName("Script")
 		private String script;
+
 		@SerializedName("Interval")
 		private String interval;
+
 		@SerializedName("TTL")
 		private String ttl;
+
 		@SerializedName("HTTP")
 		private String http;
+
 		@SerializedName("TCP")
 		private String tcp;
+
 		@SerializedName("Timeout")
 		private String timeout;
+
 		@SerializedName("DeregisterCriticalServiceAfter")
 		private String deregisterCriticalServiceAfter;
+
 		@SerializedName("TLSSkipVerify")
 		private Boolean tlsSkipVerify;
+
+		@SerializedName("Status")
+		private String status;
 
 		public String getScript() {
 			return script;
@@ -92,17 +103,26 @@ public class NewService {
 			this.tlsSkipVerify = tlsSkipVerify;
 		}
 
+		public String getStatus() {
+			return status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
+		}
+
 		@Override
 		public String toString() {
 			return "Check{" +
 					"script='" + script + '\'' +
-					", interval=" + interval +
-					", ttl=" + ttl +
-					", http=" + http +
-					", tcp=" + tcp +
-					", timeout=" + timeout +
-					", deregisterCriticalServiceAfter=" + deregisterCriticalServiceAfter +
+					", interval='" + interval + '\'' +
+					", ttl='" + ttl + '\'' +
+					", http='" + http + '\'' +
+					", tcp='" + tcp + '\'' +
+					", timeout='" + timeout + '\'' +
+					", deregisterCriticalServiceAfter='" + deregisterCriticalServiceAfter + '\'' +
 					", tlsSkipVerify=" + tlsSkipVerify +
+					", status='" + status + '\'' +
 					'}';
 		}
 	}
