@@ -2,6 +2,7 @@ package com.ecwid.consul.v1.agent.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +44,15 @@ public class Check {
 
 	@SerializedName("ServiceName")
 	private String serviceName;
+
+	@SerializedName("ServiceTags")
+	private List<String> serviceTags;
+
+	@SerializedName("CreateIndex")
+	private Long createIndex;
+
+	@SerializedName("ModifyIndex")
+	private Long modifyIndex;
 
 	public String getNode() {
 		return node;
@@ -108,6 +118,30 @@ public class Check {
 		this.serviceName = serviceName;
 	}
 
+	public List<String> getServiceTags() {
+		return serviceTags;
+	}
+
+	public void setServiceTags(List<String> serviceTags) {
+		this.serviceTags = serviceTags;
+	}
+
+	public Long getCreateIndex() {
+		return createIndex;
+	}
+
+	public void setCreateIndex(Long createIndex) {
+		this.createIndex = createIndex;
+	}
+
+	public Long getModifyIndex() {
+		return modifyIndex;
+	}
+
+	public void setModifyIndex(Long modifyIndex) {
+		this.modifyIndex = modifyIndex;
+	}
+
 	@Override
 	public String toString() {
 		return "Check{" +
@@ -119,6 +153,9 @@ public class Check {
 				", output='" + output + '\'' +
 				", serviceId='" + serviceId + '\'' +
 				", serviceName='" + serviceName + '\'' +
+				", serviceTags=" + serviceTags +
+				", createIndex=" + createIndex +
+				", modifyIndex=" + modifyIndex +
 				'}';
 	}
 }
