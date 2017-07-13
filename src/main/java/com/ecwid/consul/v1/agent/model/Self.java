@@ -44,6 +44,9 @@ public class Self {
 		@SerializedName("NodeName")
 		private String nodeName;
 
+		@SerializedName("NodeID")
+		private String nodeId;
+
 		@SerializedName("ClientAddr")
 		private String clientAddress;
 
@@ -163,6 +166,14 @@ public class Self {
 
 		public void setNodeName(String nodeName) {
 			this.nodeName = nodeName;
+		}
+
+		public String getNodeId() {
+			return nodeId;
+		}
+
+		public void setNodeId(String nodeId) {
+			this.nodeId = nodeId;
 		}
 
 		public String getClientAddress() {
@@ -328,6 +339,7 @@ public class Self {
 					", domain='" + domain + '\'' +
 					", logLevel='" + logLevel + '\'' +
 					", nodeName='" + nodeName + '\'' +
+					", nodeId='" + nodeId + '\'' +
 					", clientAddress='" + clientAddress + '\'' +
 					", bindAddress='" + bindAddress + '\'' +
 					", advertiseAddress='" + advertiseAddress + '\'' +
