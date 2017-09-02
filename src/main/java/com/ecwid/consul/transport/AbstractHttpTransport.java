@@ -10,11 +10,9 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.config.SocketConfig;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -25,25 +23,23 @@ public class AbstractHttpTransport implements HttpTransport {
 	private static final int DEFAULT_CONNECTION_TIMEOUT = 10000; // 10 sec
 	private static final int DEFAULT_READ_TIMEOUT = 60000; // 60 sec
 
-	protected final HttpClient httpClient;
+    private HttpClient httpClient;
+    protected final HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
 
-	public AbstractHttpTransport() {
-		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
-		connectionManager.setMaxTotal(1000);
-		connectionManager.setDefaultMaxPerRoute(500);
-
+    public AbstractHttpTransport() {
 		RequestConfig requestConfig = RequestConfig.custom().
 				setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT).
 				setConnectionRequestTimeout(DEFAULT_CONNECTION_TIMEOUT).
 				setSocketTimeout(DEFAULT_READ_TIMEOUT).
 				build();
 
-		this.httpClient = HttpClientBuilder.create().
-				setConnectionManager(connectionManager).
-				setDefaultRequestConfig(requestConfig).
-				useSystemProperties().
-				build();
-	}
+        httpClientBuilder.setDefaultRequestConfig(requestConfig).
+                useSystemProperties();
+    }
+
+    protected void buildHttpClient(){
+        this.httpClient = httpClientBuilder.build();
+    }
 
 	public AbstractHttpTransport(HttpClient httpClient) {
 		this.httpClient = httpClient;

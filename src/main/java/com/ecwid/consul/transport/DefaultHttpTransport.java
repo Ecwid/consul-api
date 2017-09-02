@@ -10,7 +10,7 @@ import org.apache.http.client.HttpClient;
 public final class DefaultHttpTransport extends AbstractHttpTransport {
 
 	public DefaultHttpTransport() {
-		super();
+		buildHttpClient();
 	}
 
 	public DefaultHttpTransport(HttpClient httpClient) {
