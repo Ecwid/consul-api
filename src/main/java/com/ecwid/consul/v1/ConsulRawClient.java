@@ -1,14 +1,9 @@
 package com.ecwid.consul.v1;
 
-import org.apache.http.client.HttpClient;
-
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.Utils;
-import com.ecwid.consul.transport.DefaultHttpTransport;
-import com.ecwid.consul.transport.DefaultHttpsTransport;
-import com.ecwid.consul.transport.HttpTransport;
-import com.ecwid.consul.transport.RawResponse;
-import com.ecwid.consul.transport.TLSConfig;
+import com.ecwid.consul.transport.*;
+import org.apache.http.client.HttpClient;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -17,12 +12,60 @@ public class ConsulRawClient {
 
 	private static final String DEFAULT_HOST = "localhost";
 	private static final int DEFAULT_PORT = 8500;
+	private static final String DEFAULT_PATH = "";
 
 	// one real HTTP client for all instances
 	private static final HttpTransport DEFAULT_HTTP_TRANSPORT = new DefaultHttpTransport();
 
 	private final HttpTransport httpTransport;
 	private final String agentAddress;
+
+	public static final class Builder {
+		private String agentHost;
+		private int agentPort;
+		private String agentPath;
+		private HttpTransport httpTransport;
+
+		public static ConsulRawClient.Builder builder() {
+			return new ConsulRawClient.Builder();
+		}
+
+		private Builder() {
+			this.agentHost = DEFAULT_HOST;
+			this.agentPort = DEFAULT_PORT;
+			this.agentPath = DEFAULT_PATH;
+			this.httpTransport = DEFAULT_HTTP_TRANSPORT;
+		}
+
+		public Builder setHost(String host) {
+			this.agentHost = host;
+			return this;
+		}
+
+		public Builder setPort(int port) {
+			this.agentPort = port;
+			return this;
+		}
+
+		public Builder setPath(String path) {
+			this.agentPath = path;
+			return this;
+		}
+
+		public Builder setTlsConfig(TLSConfig tlsConfig) {
+			this.httpTransport = new DefaultHttpsTransport(tlsConfig);
+			return this;
+		}
+
+		public Builder setHttpClient(HttpClient httpClient) {
+			this.httpTransport = new DefaultHttpTransport(httpClient);
+			return this;
+		}
+
+		public ConsulRawClient build() {
+			return new ConsulRawClient(httpTransport, agentHost, agentPort, agentPath);
+		}
+	}
 
 	public ConsulRawClient() {
 		this(DEFAULT_HOST);
@@ -41,7 +84,7 @@ public class ConsulRawClient {
 	}
 
 	public ConsulRawClient(String agentHost, int agentPort) {
-		this(DEFAULT_HTTP_TRANSPORT, agentHost, agentPort);
+		this(DEFAULT_HTTP_TRANSPORT, agentHost, agentPort, DEFAULT_PATH);
 	}
 
 	public ConsulRawClient(HttpClient httpClient) {
@@ -49,19 +92,23 @@ public class ConsulRawClient {
 	}
 
 	public ConsulRawClient(String agentHost, HttpClient httpClient) {
-		this(new DefaultHttpTransport(httpClient), agentHost, DEFAULT_PORT);
+		this(new DefaultHttpTransport(httpClient), agentHost, DEFAULT_PORT, DEFAULT_PATH);
 	}
 
 	public ConsulRawClient(String agentHost, int agentPort, HttpClient httpClient) {
-		this(new DefaultHttpTransport(httpClient), agentHost, agentPort);
+		this(new DefaultHttpTransport(httpClient), agentHost, agentPort, DEFAULT_PATH);
 	}
 
 	public ConsulRawClient(String agentHost, int agentPort, TLSConfig tlsConfig) {
-		this(new DefaultHttpsTransport(tlsConfig), agentHost, agentPort);
+		this(new DefaultHttpsTransport(tlsConfig), agentHost, agentPort, DEFAULT_PATH);
+	}
+
+	public ConsulRawClient(HttpClient httpClient, String host, int port, String path) {
+		this(new DefaultHttpTransport(httpClient), host, port, path);
 	}
 
 	// hidden constructor, for tests
-	ConsulRawClient(HttpTransport httpTransport, String agentHost, int agentPort) {
+	ConsulRawClient(HttpTransport httpTransport, String agentHost, int agentPort, String path) {
 		this.httpTransport = httpTransport;
 
 		// check that agentHost has scheme or not
@@ -71,7 +118,7 @@ public class ConsulRawClient {
 			agentHost = "http://" + agentHost;
 		}
 
-		this.agentAddress = agentHost + ":" + agentPort;
+		this.agentAddress = Utils.assembleAgentAddress(agentHost, agentPort, path);
 	}
 
 	public RawResponse makeGetRequest(String endpoint, UrlParameters... urlParams) {

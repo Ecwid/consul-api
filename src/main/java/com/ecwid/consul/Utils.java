@@ -83,4 +83,13 @@ public class Utils {
 	public static String toSecondsString(long waitTime) {
 		return String.valueOf(waitTime) + "s";
 	}
+
+	public static String assembleAgentAddress(String host, int port, String path) {
+		String agentPath = "";
+		if (path != null && !path.trim().isEmpty()) {
+			agentPath = "/" + path;
+		}
+
+		return String.format("%s:%d%s", host, port, agentPath);
+	}
 }
