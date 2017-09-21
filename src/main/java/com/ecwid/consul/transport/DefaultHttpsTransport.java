@@ -54,8 +54,10 @@ public final class DefaultHttpsTransport extends AbstractHttpTransport {
             httpClientBuilder.setConnectionManager(connPool).
                     setConnectionManagerShared(true);
             buildHttpClient();
-        } catch (GeneralSecurityException | IOException e) {
+        } catch (GeneralSecurityException e) {
+            throw new TransportException(e);
+        } catch (IOException e) {
             throw new TransportException(e);
         }
-    }
+	}
 }

@@ -11,8 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
 import java.util.Map;
 
 import static org.junit.Assert.assertThat;
@@ -25,8 +24,7 @@ public class ConsulClientTest {
     @Before
     public void setup() {
         String path = "src/test/resources/ssl";
-        Path resourceDirectory = Paths.get(path);
-        String certRootPath = resourceDirectory.toFile().getAbsolutePath();
+        String certRootPath = new File(path).getAbsolutePath();
         //language=JSON
         String customConfiguration =
                 "{\n" +
@@ -68,8 +66,7 @@ public class ConsulClientTest {
         int httpsPort = randomHttpsPort;
 
         String path = "src/test/resources/ssl";
-        Path resourceDirectory = Paths.get(path);
-        String certRootPath = resourceDirectory.toFile().getAbsolutePath();
+        String certRootPath = new File(path).getAbsolutePath();
         String certificatePath = certRootPath + "/trustStore.jks";
         String certificatePassword = "change_me";
         String keyStorePath = certRootPath + "/keyStore.jks";
