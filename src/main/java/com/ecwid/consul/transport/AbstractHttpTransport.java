@@ -23,7 +23,10 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 	static final int DEFAULT_MAX_CONNECTIONS = 1000;
 	static final int DEFAULT_MAX_PER_ROUTE_CONNECTIONS = 500;
 	static final int DEFAULT_CONNECTION_TIMEOUT = 10000; // 10 sec
-	static final int DEFAULT_READ_TIMEOUT = 60000; // 60 sec
+
+	// 10 minutes for read timeout due to blocking queries timeout
+	// https://www.consul.io/api/index.html#blocking-queries
+	static final int DEFAULT_READ_TIMEOUT = 60000 * 10; // 10 min
 
 	@Override
 	public RawResponse makeGetRequest(String url) {
