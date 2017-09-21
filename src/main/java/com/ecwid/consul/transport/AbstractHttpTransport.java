@@ -18,32 +18,12 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-public class AbstractHttpTransport implements HttpTransport {
+public abstract class AbstractHttpTransport implements HttpTransport {
 
-	private static final int DEFAULT_CONNECTION_TIMEOUT = 10000; // 10 sec
-	private static final int DEFAULT_READ_TIMEOUT = 60000; // 60 sec
-
-    private HttpClient httpClient;
-    protected final HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-
-    public AbstractHttpTransport() {
-		RequestConfig requestConfig = RequestConfig.custom().
-				setConnectTimeout(DEFAULT_CONNECTION_TIMEOUT).
-				setConnectionRequestTimeout(DEFAULT_CONNECTION_TIMEOUT).
-				setSocketTimeout(DEFAULT_READ_TIMEOUT).
-				build();
-
-        httpClientBuilder.setDefaultRequestConfig(requestConfig).
-                useSystemProperties();
-    }
-
-    protected void buildHttpClient(){
-        this.httpClient = httpClientBuilder.build();
-    }
-
-	public AbstractHttpTransport(HttpClient httpClient) {
-		this.httpClient = httpClient;
-	}
+	static final int DEFAULT_MAX_CONNECTIONS = 1000;
+	static final int DEFAULT_MAX_PER_ROUTE_CONNECTIONS = 500;
+	static final int DEFAULT_CONNECTION_TIMEOUT = 10000; // 10 sec
+	static final int DEFAULT_READ_TIMEOUT = 60000; // 60 sec
 
 	@Override
 	public RawResponse makeGetRequest(String url) {
@@ -71,9 +51,11 @@ public class AbstractHttpTransport implements HttpTransport {
 		return executeRequest(httpDelete);
 	}
 
+	protected abstract HttpClient getHttpClient();
+
 	private RawResponse executeRequest(HttpUriRequest httpRequest) {
 		try {
-			return httpClient.execute(httpRequest, new ResponseHandler<RawResponse>() {
+			return getHttpClient().execute(httpRequest, new ResponseHandler<RawResponse>() {
 				@Override
 				public RawResponse handleResponse(HttpResponse response) throws IOException {
 					int statusCode = response.getStatusLine().getStatusCode();
