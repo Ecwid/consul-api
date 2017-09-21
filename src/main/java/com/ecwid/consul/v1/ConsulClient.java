@@ -201,6 +201,11 @@ public class ConsulClient implements
 	public Response<Self> getAgentSelf() {
 		return agentClient.getAgentSelf();
 	}
+	
+	@Override
+	public Response<Self> getAgentSelf(String token) {
+		return agentClient.getAgentSelf(token);
+	}
 
 	@Override
 	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled) {
@@ -280,6 +285,11 @@ public class ConsulClient implements
 	@Override
 	public Response<Void> agentServiceDeregister(String serviceId) {
 		return agentClient.agentServiceDeregister(serviceId);
+	}
+
+	@Override
+	public Response<Void> agentServiceDeregister(String serviceId, String token) {
+		return agentClient.agentServiceDeregister(serviceId, token);
 	}
 
 	@Override

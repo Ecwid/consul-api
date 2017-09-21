@@ -18,6 +18,8 @@ public interface AgentClient {
 	public Response<List<Member>> getAgentMembers();
 
 	public Response<Self> getAgentSelf();
+	
+	public Response<Self> getAgentSelf(String token);
 
 	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled);
 
@@ -50,6 +52,8 @@ public interface AgentClient {
 	public Response<Void> agentServiceRegister(NewService newService, String token);
 
 	public Response<Void> agentServiceDeregister(String serviceId);
+
+	public Response<Void> agentServiceDeregister(String serviceId, String token);
 
 	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled);
 

@@ -91,7 +91,14 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Self> getAgentSelf() {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/self");
+		return getAgentSelf(null);
+	}
+	
+	@Override
+	public Response<Self> getAgentSelf(String token) {
+		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
+		
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/self", tokenParam);
 
 		if (rawResponse.getStatusCode() == 200) {
 			Self self = GsonFactory.getGson().fromJson(rawResponse.getContent(), Self.class);
@@ -246,7 +253,14 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentServiceDeregister(String serviceId) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/service/deregister/" + serviceId);
+		return agentServiceDeregister(serviceId, null);
+	}
+
+	@Override
+	public Response<Void> agentServiceDeregister(String serviceId, String token) {
+		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
+
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/service/deregister/" + serviceId, tokenParam);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
