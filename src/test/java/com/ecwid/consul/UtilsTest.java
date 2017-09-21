@@ -8,6 +8,14 @@ import static org.junit.Assert.assertEquals;
 public class UtilsTest {
 
 	@Test
+	public void testEncodeUrl() throws Exception {
+		String uri = "http://example.com/path with spaces";
+		String expected = "http://example.com/path%20with%20spaces";
+
+		Assert.assertEquals(expected, Utils.encodeUrl(uri));
+	}
+
+	@Test
 	public void testGenerateUrl_Simple() throws Exception {
 		assertEquals("/some-url", Utils.generateUrl("/some-url"));
 		assertEquals("/some-url", Utils.generateUrl("/some-url", (UrlParameters) null));

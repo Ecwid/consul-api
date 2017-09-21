@@ -1,7 +1,7 @@
 package com.ecwid.consul;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +16,16 @@ public class Utils {
 			return URLEncoder.encode(value, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException("So strange - every JVM has to support UTF-8 encoding.");
+		}
+	}
+
+	public static String encodeUrl(String str) {
+		try {
+			URL url = new URL(str);
+			URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+			return uri.toASCIIString();
+		} catch (Exception e) {
+			throw new RuntimeException("Can't encode url", e);
 		}
 	}
 
