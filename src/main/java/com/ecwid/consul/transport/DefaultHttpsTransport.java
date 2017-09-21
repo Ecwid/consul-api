@@ -1,15 +1,8 @@
 package com.ecwid.consul.transport;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
+import java.security.*;
 
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
@@ -17,11 +10,15 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.config.Registry;
+import org.apache.http.config.RegistryBuilder;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 
 import com.ecwid.consul.transport.TLSConfig.KeyStoreInstanceType;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.ssl.SSLContexts;
 
 /**
  * Default HTTPS client This class is thread safe
@@ -31,11 +28,9 @@ import com.ecwid.consul.transport.TLSConfig.KeyStoreInstanceType;
 public final class DefaultHttpsTransport extends AbstractHttpTransport {
 
 	public DefaultHttpsTransport(TLSConfig tlsConfig) {
-		KeyStore clientStore;
 		try {
-			clientStore = KeyStore.getInstance(tlsConfig.getKeyStoreInstanceType().name());
-
-			clientStore.load(new FileInputStream(tlsConfig.getCertficatePath()), tlsConfig.getCertificatePassword().toCharArray());
+            KeyStore clientStore = KeyStore.getInstance(tlsConfig.getKeyStoreInstanceType().name());
+            clientStore.load(new FileInputStream(tlsConfig.getCertificatePath()), tlsConfig.getCertificatePassword().toCharArray());
 
 			KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
 			kmf.init(clientStore, tlsConfig.getCertificatePassword().toCharArray());
@@ -48,33 +43,19 @@ public final class DefaultHttpsTransport extends AbstractHttpTransport {
 			tmf.init(trustStore);
 			TrustManager[] tms = tmf.getTrustManagers();
 
-			SSLContext sslContext = null;
-			sslContext = SSLContext.getInstance("TLS");
-			sslContext.init(kms, tms, new SecureRandom());
+            SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(new TrustSelfSignedStrategy()).build();
+            sslContext.init(kms, tms, new SecureRandom());
+            SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(sslContext);
 
-			SSLSocketFactory sf = new SSLSocketFactory(sslContext);
-			Scheme sch = new Scheme("https", sf, tlsConfig.getSslPort());
-			this.httpClient.getConnectionManager().getSchemeRegistry().register(sch);
+            Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
+                    .register("https", factory).build();
 
-		} catch (KeyStoreException e) {
-			throw new TransportException(e);
-		} catch (NoSuchAlgorithmException e) {
-			throw new TransportException(e);
-		} catch (CertificateException e) {
-			throw new TransportException(e);
-		} catch (FileNotFoundException e) {
-			throw new TransportException(e);
-		} catch (IOException e) {
-			throw new TransportException(e);
-		} catch (UnrecoverableKeyException e) {
-			throw new TransportException(e);
-		} catch (KeyManagementException e) {
-			throw new TransportException(e);
-		}
-	}
-
-	public DefaultHttpsTransport(HttpClient httpClient) {
-		super(httpClient);
-	}
-
+            PoolingHttpClientConnectionManager connPool = new PoolingHttpClientConnectionManager(registry);
+            httpClientBuilder.setConnectionManager(connPool).
+                    setConnectionManagerShared(true);
+            buildHttpClient();
+        } catch (GeneralSecurityException | IOException e) {
+            throw new TransportException(e);
+        }
+    }
 }
