@@ -18,6 +18,8 @@ public interface AgentClient {
 	public Response<List<Member>> getAgentMembers();
 
 	public Response<Self> getAgentSelf();
+	
+	public Response<Self> getAgentSelf(String token);
 
 	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled);
 

@@ -201,6 +201,11 @@ public class ConsulClient implements
 	public Response<Self> getAgentSelf() {
 		return agentClient.getAgentSelf();
 	}
+	
+	@Override
+	public Response<Self> getAgentSelf(String token) {
+		return agentClient.getAgentSelf(token);
+	}
 
 	@Override
 	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled) {
