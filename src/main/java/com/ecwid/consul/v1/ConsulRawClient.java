@@ -122,31 +122,40 @@ public class ConsulRawClient {
 	}
 
 	public RawResponse makeGetRequest(String endpoint, UrlParameters... urlParams) {
-		String url = Utils.encodeUrl(agentAddress + endpoint);
+		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
 		return httpTransport.makeGetRequest(url);
 	}
 
 	public RawResponse makePutRequest(String endpoint, String content, UrlParameters... urlParams) {
-		String url = Utils.encodeUrl(agentAddress + endpoint);
+		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
 		return httpTransport.makePutRequest(url, content);
 	}
 
 	public RawResponse makePutRequest(String endpoint, byte[] content, UrlParameters... urlParams) {
-		String url = Utils.encodeUrl(agentAddress + endpoint);
+		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
 		return httpTransport.makePutRequest(url, content);
 	}
 
 	public RawResponse makeDeleteRequest(String endpoint, UrlParameters... urlParams) {
-		String url = Utils.encodeUrl(agentAddress + endpoint);
+		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
 		return httpTransport.makeDeleteRequest(url);
+	}
+
+	private String prepareUrl(String url) {
+		if (url.contains(" ")) {
+			// temp hack for old clients who did manual encoding and just use %20
+			return Utils.encodeUrl(url);
+		} else {
+			return url;
+		}
 	}
 
 }
