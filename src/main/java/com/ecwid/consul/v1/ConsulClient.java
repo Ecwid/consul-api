@@ -283,6 +283,11 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<Void> agentServiceDeregister(String serviceId, String token) {
+		return agentClient.agentServiceDeregister(serviceId, token);
+	}
+
+	@Override
 	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled) {
 		return agentClient.agentServiceSetMaintenance(serviceId, maintenanceEnabled);
 	}
