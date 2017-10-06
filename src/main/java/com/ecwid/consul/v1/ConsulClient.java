@@ -27,6 +27,9 @@ import com.ecwid.consul.v1.kv.KeyValueConsulClient;
 import com.ecwid.consul.v1.kv.model.GetBinaryValue;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import com.ecwid.consul.v1.kv.model.PutParams;
+import com.ecwid.consul.v1.query.QueryClient;
+import com.ecwid.consul.v1.query.QueryConsulClient;
+import com.ecwid.consul.v1.query.model.QueryExecution;
 import com.ecwid.consul.v1.session.SessionClient;
 import com.ecwid.consul.v1.session.SessionConsulClient;
 import com.ecwid.consul.v1.session.model.NewSession;
@@ -55,6 +58,7 @@ public class ConsulClient implements
 		EventClient,
 		HealthClient,
 		KeyValueClient,
+		QueryClient,
 		SessionClient,
 		StatusClient {
 
@@ -65,6 +69,7 @@ public class ConsulClient implements
 	private final EventClient eventClient;
 	private final HealthClient healthClient;
 	private final KeyValueClient keyValueClient;
+	private final QueryClient queryClient;
 	private final SessionClient sessionClient;
 	private final StatusClient statusClient;
 
@@ -76,6 +81,7 @@ public class ConsulClient implements
 		eventClient = new EventConsulClient(rawClient);
 		healthClient = new HealthConsulClient(rawClient);
 		keyValueClient = new KeyValueConsulClient(rawClient);
+		queryClient = new QueryConsulClient(rawClient);
 		sessionClient = new SessionConsulClient(rawClient);
 		statusClient = new StatusConsulClient(rawClient);
 	}
@@ -640,6 +646,14 @@ public class ConsulClient implements
 	@Override
 	public Response<Void> deleteKVValues(String key, String token, QueryParams queryParams) {
 		return keyValueClient.deleteKVValues(key, token, queryParams);
+	}
+
+	// -------------------------------------------------------------------------------------------
+	// Prepared Query
+
+	@Override
+	public Response<QueryExecution> executePreparedQuery(String uuid, QueryParams queryParams) {
+		return queryClient.executePreparedQuery(uuid, queryParams);
 	}
 
 	// -------------------------------------------------------------------------------------------
