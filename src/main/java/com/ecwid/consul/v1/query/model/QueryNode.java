@@ -244,6 +244,4 @@ public class QueryNode {
 			", checks=" + checks +
 			'}';
 	}
-
-
 }
