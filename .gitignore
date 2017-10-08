@@ -5,3 +5,6 @@
 # Gradle
 .gradle/
 build/
+out/
+
+.DS_Store
