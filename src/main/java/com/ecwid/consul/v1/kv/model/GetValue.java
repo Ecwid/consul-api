@@ -10,6 +10,8 @@ import java.nio.charset.Charset;
  */
 public class GetValue {
 
+	private static final Charset UTF_8 = Charset.forName("UTF-8");
+
 	@SerializedName("CreateIndex")
 	private long createIndex;
 
@@ -92,13 +94,13 @@ public class GetValue {
 			return null;
 		}
 		if (charset == null) {
-			charset = Charset.forName("UTF-8");
+			charset = UTF_8;
 		}
 		return new String(DatatypeConverter.parseBase64Binary(value), charset);
 	}
 
 	public String getDecodedValue() {
-		return getDecodedValue(null);
+		return getDecodedValue(UTF_8);
 	}
 
 	@Override

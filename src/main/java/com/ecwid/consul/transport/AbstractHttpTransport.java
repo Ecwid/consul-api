@@ -5,14 +5,12 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -28,6 +26,8 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 	// https://www.consul.io/api/index.html#blocking-queries
 	static final int DEFAULT_READ_TIMEOUT = 60000 * 10; // 10 min
 
+	private static final Charset UTF_8 = Charset.forName("UTF-8");
+
 	@Override
 	public RawResponse makeGetRequest(String url) {
 		HttpGet httpGet = new HttpGet(url);
@@ -37,7 +37,7 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 	@Override
 	public RawResponse makePutRequest(String url, String content) {
 		HttpPut httpPut = new HttpPut(url);
-		httpPut.setEntity(new StringEntity(content, Charset.forName("UTF-8")));
+		httpPut.setEntity(new StringEntity(content, UTF_8));
 		return executeRequest(httpPut);
 	}
 
@@ -64,7 +64,7 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 					int statusCode = response.getStatusLine().getStatusCode();
 					String statusMessage = response.getStatusLine().getReasonPhrase();
 
-					String content = EntityUtils.toString(response.getEntity(), Charset.forName("UTF-8"));
+					String content = EntityUtils.toString(response.getEntity(), UTF_8);
 
 					Long consulIndex = parseUnsignedLong(response.getFirstHeader("X-Consul-Index"));
 					Boolean consulKnownLeader = parseBoolean(response.getFirstHeader("X-Consul-Knownleader"));
