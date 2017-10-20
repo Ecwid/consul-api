@@ -39,7 +39,7 @@ public class ConsulClientTest {
                 "}\n";
 
         consul = ConsulStarterBuilder.consulStarter()
-                .withConsulVersion("0.9.2")
+                .withConsulVersion("1.0.0")
                 .withCustomConfig(customConfiguration)
                 .build()
                 .start();
