@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class Self {
 
-	public static enum LogLevel {
+	public enum LogLevel {
 		TRACE,
 		DEBUG,
 		INFO,
@@ -20,14 +20,67 @@ public class Self {
 
 	public static class Config {
 
-		@SerializedName("Bootstrap")
-		private boolean bootstrap;
+		@SerializedName("Datacenter")
+		private String datacenter;
+
+		@SerializedName("NodeName")
+		private String nodeName;
+
+		@SerializedName("Revision")
+		private String revision;
 
 		@SerializedName("Server")
 		private boolean server;
 
-		@SerializedName("Datacenter")
-		private String datacenter;
+		@SerializedName("Version")
+		private String version;
+
+		public String getDatacenter() {
+			return datacenter;
+		}
+
+		public void setDatacenter(String datacenter) {
+			this.datacenter = datacenter;
+		}
+
+		public String getNodeName() {
+			return nodeName;
+		}
+
+		public void setNodeName(String nodeName) {
+			this.nodeName = nodeName;
+		}
+
+		public String getRevision() {
+			return revision;
+		}
+
+		public void setRevision(String revision) {
+			this.revision = revision;
+		}
+
+		public boolean isServer() {
+			return server;
+		}
+
+		public void setServer(boolean server) {
+			this.server = server;
+		}
+
+		public String getVersion() {
+			return version;
+		}
+
+		public void setVersion(String version) {
+			this.version = version;
+		}
+
+	}
+
+	public static class DebugConfig {
+
+		@SerializedName("Bootstrap")
+		private boolean bootstrap;
 
 		@SerializedName("DataDir")
 		private String dataDir;
@@ -35,41 +88,26 @@ public class Self {
 		@SerializedName("DNSRecursor")
 		private String dnsRecursor;
 
-		@SerializedName("Domain")
-		private String domain;
+		@SerializedName("DNSDomain")
+		private String dnsDomain;
 
 		@SerializedName("LogLevel")
 		private LogLevel logLevel;
 
-		@SerializedName("NodeName")
-		private String nodeName;
-
 		@SerializedName("NodeID")
 		private String nodeId;
 
-		@SerializedName("ClientAddr")
-		private String clientAddress;
+		@SerializedName("ClientAddrs")
+		private String[] clientAddresses;
 
 		@SerializedName("BindAddr")
 		private String bindAddress;
-
-		@SerializedName("AdvertiseAddr")
-		private String advertiseAddress;
-
-		@SerializedName("Ports")
-		private Map<String, Integer> ports;
 
 		@SerializedName("LeaveOnTerm")
 		private boolean leaveOnTerm;
 
 		@SerializedName("SkipLeaveOnInt")
 		private boolean skipLeaveOnInt;
-
-		@SerializedName("StatsiteAddr")
-		private String statsiteAddress;
-
-		@SerializedName("Protocol")
-		private int protocol;
 
 		@SerializedName("EnableDebug")
 		private boolean enableDebug;
@@ -88,9 +126,6 @@ public class Self {
 
 		@SerializedName("KeyFile")
 		private String keyFile;
-
-		@SerializedName("StartJoin")
-		private List<String> startJoin;
 
 		@SerializedName("UiDir")
 		private String uiDir;
@@ -112,21 +147,6 @@ public class Self {
 			this.bootstrap = bootstrap;
 		}
 
-		public boolean isServer() {
-			return server;
-		}
-
-		public void setServer(boolean server) {
-			this.server = server;
-		}
-
-		public String getDatacenter() {
-			return datacenter;
-		}
-
-		public void setDatacenter(String datacenter) {
-			this.datacenter = datacenter;
-		}
 
 		public String getDataDir() {
 			return dataDir;
@@ -144,12 +164,12 @@ public class Self {
 			this.dnsRecursor = dnsRecursor;
 		}
 
-		public String getDomain() {
-			return domain;
+		public String getDnsDomain() {
+			return dnsDomain;
 		}
 
-		public void setDomain(String domain) {
-			this.domain = domain;
+		public void setDnsDomain(String dnsDomain) {
+			this.dnsDomain = dnsDomain;
 		}
 
 		public LogLevel getLogLevel() {
@@ -160,14 +180,6 @@ public class Self {
 			this.logLevel = logLevel;
 		}
 
-		public String getNodeName() {
-			return nodeName;
-		}
-
-		public void setNodeName(String nodeName) {
-			this.nodeName = nodeName;
-		}
-
 		public String getNodeId() {
 			return nodeId;
 		}
@@ -176,12 +188,12 @@ public class Self {
 			this.nodeId = nodeId;
 		}
 
-		public String getClientAddress() {
-			return clientAddress;
+		public String[] getClientAddresses() {
+			return clientAddresses;
 		}
 
-		public void setClientAddress(String clientAddress) {
-			this.clientAddress = clientAddress;
+		public void setClientAddresses(String[] clientAddresses) {
+			this.clientAddresses = clientAddresses;
 		}
 
 		public String getBindAddress() {
@@ -190,22 +202,6 @@ public class Self {
 
 		public void setBindAddress(String bindAddress) {
 			this.bindAddress = bindAddress;
-		}
-
-		public String getAdvertiseAddress() {
-			return advertiseAddress;
-		}
-
-		public void setAdvertiseAddress(String advertiseAddress) {
-			this.advertiseAddress = advertiseAddress;
-		}
-
-		public Map<String, Integer> getPorts() {
-			return ports;
-		}
-
-		public void setPorts(Map<String, Integer> ports) {
-			this.ports = ports;
 		}
 
 		public boolean isLeaveOnTerm() {
@@ -222,22 +218,6 @@ public class Self {
 
 		public void setSkipLeaveOnInt(boolean skipLeaveOnInt) {
 			this.skipLeaveOnInt = skipLeaveOnInt;
-		}
-
-		public String getStatsiteAddress() {
-			return statsiteAddress;
-		}
-
-		public void setStatsiteAddress(String statsiteAddress) {
-			this.statsiteAddress = statsiteAddress;
-		}
-
-		public int getProtocol() {
-			return protocol;
-		}
-
-		public void setProtocol(int protocol) {
-			this.protocol = protocol;
 		}
 
 		public boolean isEnableDebug() {
@@ -288,14 +268,6 @@ public class Self {
 			this.keyFile = keyFile;
 		}
 
-		public List<String> getStartJoin() {
-			return startJoin;
-		}
-
-		public void setStartJoin(List<String> startJoin) {
-			this.startJoin = startJoin;
-		}
-
 		public String getUiDir() {
 			return uiDir;
 		}
@@ -328,43 +300,41 @@ public class Self {
 			this.rejoinAfterLeave = rejoinAfterLeave;
 		}
 
+
 		@Override
 		public String toString() {
 			return "Config{" +
-					"bootstrap=" + bootstrap +
-					", server=" + server +
-					", datacenter='" + datacenter + '\'' +
-					", dataDir='" + dataDir + '\'' +
-					", dnsRecursor='" + dnsRecursor + '\'' +
-					", domain='" + domain + '\'' +
-					", logLevel='" + logLevel + '\'' +
-					", nodeName='" + nodeName + '\'' +
-					", nodeId='" + nodeId + '\'' +
-					", clientAddress='" + clientAddress + '\'' +
-					", bindAddress='" + bindAddress + '\'' +
-					", advertiseAddress='" + advertiseAddress + '\'' +
-					", ports=" + ports +
-					", leaveOnTerm=" + leaveOnTerm +
-					", skipLeaveOnInt=" + skipLeaveOnInt +
-					", statsiteAddress='" + statsiteAddress + '\'' +
-					", protocol=" + protocol +
-					", enableDebug=" + enableDebug +
-					", verifyIncoming=" + verifyIncoming +
-					", verifyOutgoing=" + verifyOutgoing +
-					", caFile='" + caFile + '\'' +
-					", certFile='" + certFile + '\'' +
-					", keyFile='" + keyFile + '\'' +
-					", startJoin=" + startJoin +
-					", uiDir='" + uiDir + '\'' +
-					", pidFile='" + pidFile + '\'' +
-					", enableSyslog=" + enableSyslog +
-					", rejoinAfterLeave=" + rejoinAfterLeave +
-					'}';
+							"bootstrap=" + bootstrap +
+							", dataDir='" + dataDir + '\'' +
+							", dnsRecursor='" + dnsRecursor + '\'' +
+							", dnsDomain='" + dnsDomain + '\'' +
+							", logLevel='" + logLevel + '\'' +
+							", nodeId='" + nodeId + '\'' +
+							", clientAddresses='" + clientAddresses + '\'' +
+							", bindAddress='" + bindAddress + '\'' +
+							", leaveOnTerm=" + leaveOnTerm +
+							", skipLeaveOnInt=" + skipLeaveOnInt +
+							", enableDebug=" + enableDebug +
+							", verifyIncoming=" + verifyIncoming +
+							", verifyOutgoing=" + verifyOutgoing +
+							", caFile='" + caFile + '\'' +
+							", certFile='" + certFile + '\'' +
+							", keyFile='" + keyFile + '\'' +
+							", uiDir='" + uiDir + '\'' +
+							", pidFile='" + pidFile + '\'' +
+							", enableSyslog=" + enableSyslog +
+							", rejoinAfterLeave=" + rejoinAfterLeave +
+							'}';
 		}
+
+
 	}
 
 	@SerializedName("Config")
 	private Config config;
+
+	@SerializedName("DebugConfig")
+	private DebugConfig debugConfig;
 
 	@SerializedName("Member")
 	private Member member;
@@ -375,6 +345,14 @@ public class Self {
 
 	public void setConfig(Config config) {
 		this.config = config;
+	}
+
+	public DebugConfig getDebugConfig() {
+		return debugConfig;
+	}
+
+	public void setDebugConfig(DebugConfig debugConfig) {
+		this.debugConfig = debugConfig;
 	}
 
 	public Member getMember() {
