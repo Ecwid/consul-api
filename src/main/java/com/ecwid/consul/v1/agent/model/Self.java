@@ -75,17 +75,6 @@ public class Self {
 			this.version = version;
 		}
 
-		@Override
-		public String toString() {
-			return "DebugConfig{" +
-							"datacenter='" + datacenter + "'" +
-							", nodeName='" + nodeName + "'" +
-							", revision='" + revision + '\'' +
-							", server=" + server +
-							", version='" + version + '\'' +
-							'}';
-		}
-
 	}
 
 	public static class DebugConfig {
@@ -378,7 +367,6 @@ public class Self {
 	public String toString() {
 		return "Self{" +
 				"config=" + config +
-				", debugCongig=" + debugConfig +
 				", member=" + member +
 				'}';
 	}
