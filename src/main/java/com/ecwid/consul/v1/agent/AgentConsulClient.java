@@ -223,7 +223,7 @@ public final class AgentConsulClient implements AgentClient {
 	@Override
 	public Response<Void> agentCheckFail(String checkId, String note) {
 		UrlParameters noteParams = note != null ? new SingleUrlParameters("note", note) : null;
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/fail/" + checkId, noteParams);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/fail/" + checkId, noteParams);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
