@@ -131,7 +131,7 @@ public final class AgentConsulClient implements AgentClient {
 	@Override
 	public Response<Void> agentJoin(String address, boolean wan) {
 		UrlParameters wanParams = wan ? new SingleUrlParameters("wan", "1") : null;
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/join/" + address, wanParams);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/join/" + address, wanParams);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
