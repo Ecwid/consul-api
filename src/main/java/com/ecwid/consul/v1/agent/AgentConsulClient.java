@@ -142,7 +142,7 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentForceLeave(String node) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/force-leave/" + node);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/force-leave/" + node);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
