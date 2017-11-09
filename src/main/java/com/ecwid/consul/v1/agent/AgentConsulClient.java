@@ -172,7 +172,7 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentCheckDeregister(String checkId) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/deregister/" + checkId);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/deregister/" + checkId);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
