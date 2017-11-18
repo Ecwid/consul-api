@@ -35,17 +35,25 @@ public interface AgentClient {
 
 	public Response<Void> agentCheckDeregister(String checkId);
 
+	public Response<Void> agentCheckDeregister(String checkId, String token);
+
 	public Response<Void> agentCheckPass(String checkId);
 
 	public Response<Void> agentCheckPass(String checkId, String note);
+
+	public Response<Void> agentCheckPass(String checkId, String note, String token);
 
 	public Response<Void> agentCheckWarn(String checkId);
 
 	public Response<Void> agentCheckWarn(String checkId, String note);
 
+	public Response<Void> agentCheckWarn(String checkId, String note, String token);
+
 	public Response<Void> agentCheckFail(String checkId);
 
 	public Response<Void> agentCheckFail(String checkId, String note);
+
+	public Response<Void> agentCheckFail(String checkId, String note, String token);
 
 	public Response<Void> agentServiceRegister(NewService newService);
 
