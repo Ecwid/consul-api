@@ -93,11 +93,11 @@ public final class AgentConsulClient implements AgentClient {
 	public Response<Self> getAgentSelf() {
 		return getAgentSelf(null);
 	}
-	
+
 	@Override
 	public Response<Self> getAgentSelf(String token) {
 		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		
+
 		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/self", tokenParam);
 
 		if (rawResponse.getStatusCode() == 200) {
@@ -131,7 +131,7 @@ public final class AgentConsulClient implements AgentClient {
 	@Override
 	public Response<Void> agentJoin(String address, boolean wan) {
 		UrlParameters wanParams = wan ? new SingleUrlParameters("wan", "1") : null;
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/join/" + address, wanParams);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/join/" + address, "", wanParams);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -142,7 +142,7 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentForceLeave(String node) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/force-leave/" + node);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/force-leave/" + node, "");
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -179,7 +179,7 @@ public final class AgentConsulClient implements AgentClient {
 	public Response<Void> agentCheckDeregister(String checkId, String token) {
 		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
 
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/deregister/" + checkId, tokenParameter);
+    RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/deregister/" + checkId, "", tokenParameter);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -203,8 +203,8 @@ public final class AgentConsulClient implements AgentClient {
 		UrlParameters noteParameter = note != null ? new SingleUrlParameters("note", note) : null;
 		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
 
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/pass/" + checkId, noteParameter, tokenParameter);
-
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/pass/" + checkId, "", noteParams);
+    
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
@@ -227,7 +227,7 @@ public final class AgentConsulClient implements AgentClient {
 		UrlParameters noteParameter = note != null ? new SingleUrlParameters("note", note) : null;
 		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
 
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/warn/" + checkId, noteParameter, tokenParameter);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/warn/" + checkId, "", noteParams);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -251,7 +251,7 @@ public final class AgentConsulClient implements AgentClient {
 		UrlParameters noteParameter = note != null ? new SingleUrlParameters("note", note) : null;
 		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
 
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/check/fail/" + checkId, noteParameter, tokenParameter);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/fail/" + checkId, "", noteParams);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -288,7 +288,7 @@ public final class AgentConsulClient implements AgentClient {
 	public Response<Void> agentServiceDeregister(String serviceId, String token) {
 		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
 
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/agent/service/deregister/" + serviceId, tokenParam);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/service/deregister/" + serviceId, "", tokenParam);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
