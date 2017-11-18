@@ -179,7 +179,7 @@ public final class AgentConsulClient implements AgentClient {
 	public Response<Void> agentCheckDeregister(String checkId, String token) {
 		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
 
-    RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/deregister/" + checkId, "", tokenParameter);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/deregister/" + checkId, "", tokenParameter);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -203,7 +203,7 @@ public final class AgentConsulClient implements AgentClient {
 		UrlParameters noteParameter = note != null ? new SingleUrlParameters("note", note) : null;
 		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
 
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/pass/" + checkId, "", noteParams);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/pass/" + checkId, "", noteParameter, tokenParameter);
     
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -227,7 +227,7 @@ public final class AgentConsulClient implements AgentClient {
 		UrlParameters noteParameter = note != null ? new SingleUrlParameters("note", note) : null;
 		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
 
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/warn/" + checkId, "", noteParams);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/warn/" + checkId, "", noteParameter, tokenParameter);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -251,7 +251,7 @@ public final class AgentConsulClient implements AgentClient {
 		UrlParameters noteParameter = note != null ? new SingleUrlParameters("note", note) : null;
 		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
 
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/fail/" + checkId, "", noteParams);
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/fail/" + checkId, "", noteParameter, tokenParameter);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);

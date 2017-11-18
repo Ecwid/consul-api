@@ -3,6 +3,8 @@ apply plugin: "idea"
 apply plugin: 'maven'
 apply plugin: 'signing'
 
+sourceCompatibility = 1.6
+
 repositories {
 	mavenCentral()
 }
