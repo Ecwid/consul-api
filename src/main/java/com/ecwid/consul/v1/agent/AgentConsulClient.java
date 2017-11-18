@@ -172,7 +172,14 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentCheckDeregister(String checkId) {
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/deregister/" + checkId, "");
+		return agentCheckDeregister(checkId, null);
+	}
+
+	@Override
+	public Response<Void> agentCheckDeregister(String checkId, String token) {
+		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
+
+    RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/deregister/" + checkId, "", tokenParameter);
 
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
@@ -188,9 +195,16 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentCheckPass(String checkId, String note) {
-		UrlParameters noteParams = note != null ? new SingleUrlParameters("note", note) : null;
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/pass/" + checkId, "", noteParams);
+		return agentCheckPass(checkId, note, null);
+	}
 
+	@Override
+	public Response<Void> agentCheckPass(String checkId, String note, String token) {
+		UrlParameters noteParameter = note != null ? new SingleUrlParameters("note", note) : null;
+		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
+
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/pass/" + checkId, "", noteParams);
+    
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
@@ -205,7 +219,14 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentCheckWarn(String checkId, String note) {
-		UrlParameters noteParams = note != null ? new SingleUrlParameters("note", note) : null;
+		return agentCheckWarn(checkId, note, null);
+	}
+
+	@Override
+	public Response<Void> agentCheckWarn(String checkId, String note, String token) {
+		UrlParameters noteParameter = note != null ? new SingleUrlParameters("note", note) : null;
+		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
+
 		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/warn/" + checkId, "", noteParams);
 
 		if (rawResponse.getStatusCode() == 200) {
@@ -222,7 +243,14 @@ public final class AgentConsulClient implements AgentClient {
 
 	@Override
 	public Response<Void> agentCheckFail(String checkId, String note) {
-		UrlParameters noteParams = note != null ? new SingleUrlParameters("note", note) : null;
+		return agentCheckFail(checkId, note, null);
+	}
+
+	@Override
+	public Response<Void> agentCheckFail(String checkId, String note, String token) {
+		UrlParameters noteParameter = note != null ? new SingleUrlParameters("note", note) : null;
+		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
+
 		RawResponse rawResponse = rawClient.makePutRequest("/v1/agent/check/fail/" + checkId, "", noteParams);
 
 		if (rawResponse.getStatusCode() == 200) {

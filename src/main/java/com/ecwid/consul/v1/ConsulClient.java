@@ -249,6 +249,11 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<Void> agentCheckDeregister(String checkId, String token) {
+		return agentClient.agentCheckDeregister(checkId, token);
+	}
+
+	@Override
 	public Response<Void> agentCheckPass(String checkId) {
 		return agentClient.agentCheckPass(checkId);
 	}
@@ -256,6 +261,11 @@ public class ConsulClient implements
 	@Override
 	public Response<Void> agentCheckPass(String checkId, String note) {
 		return agentClient.agentCheckPass(checkId, note);
+	}
+
+	@Override
+	public Response<Void> agentCheckPass(String checkId, String note, String token) {
+		return agentClient.agentCheckPass(checkId, note, token);
 	}
 
 	@Override
@@ -269,6 +279,11 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<Void> agentCheckWarn(String checkId, String note, String token) {
+		return agentClient.agentCheckWarn(checkId, note, token);
+	}
+
+	@Override
 	public Response<Void> agentCheckFail(String checkId) {
 		return agentClient.agentCheckFail(checkId);
 	}
@@ -276,6 +291,11 @@ public class ConsulClient implements
 	@Override
 	public Response<Void> agentCheckFail(String checkId, String note) {
 		return agentClient.agentCheckFail(checkId, note);
+	}
+
+	@Override
+	public Response<Void> agentCheckFail(String checkId, String note, String token) {
+		return agentClient.agentCheckFail(checkId, note, token);
 	}
 
 	@Override
