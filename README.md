@@ -8,7 +8,7 @@ Java client for Consul HTTP API (http://consul.io)
 Supports all API endpoints (http://www.consul.io/docs/agent/http.html), all consistency modes and parameters (tags, datacenters etc.)
 
 ## Latest releases
-[1.3.0](https://github.com/Ecwid/consul-api/milestone/10?closed=1) - 19 Nov 2017 (first release with consul 1.0 support)
+[1.3.0](https://github.com/Ecwid/consul-api/milestone/10?closed=1) - 19 Nov 2017 (first release with consul 1.0.0 support)
 
 [1.2.5](https://github.com/Ecwid/consul-api/milestone/9?closed=1) - 19 Nov 2017
 
@@ -81,14 +81,14 @@ Response<List<HealthService>> healthyServices = client.getHealthServices("myapp"
 ## How to add consul-api into your project
 ### Gradle
 ```
-compile "com.ecwid.consul:consul-api:1.2.5"
+compile "com.ecwid.consul:consul-api:1.3.0"
 ```
 ### Maven
 ```
 <dependency>
   <groupId>com.ecwid.consul</groupId>
   <artifactId>consul-api</artifactId>
-  <version>1.2.5</version>
+  <version>1.3.0</version>
 </dependency>
 ```
 
