@@ -81,4 +81,28 @@ public class QueryParamsTest {
 		assertThat(urlParameters, hasItem("index=" + EXPECTED_INDEX));
 		assertThat(urlParameters, hasItem("near=" + EXPECTED_NEAR));
 	}
+
+	@Test
+	public void queryParamsToUrlParameters_ShouldContainSetQueryParams_WithCorrectValuesAppliedForBlockingPrefix() {
+		// Given
+		final String EXPECTED_DATACENTER = "testDC";
+		final ConsistencyMode EXPECTED_MODE = ConsistencyMode.CONSISTENT;
+		final boolean EXPECTED_RECURSE = true;
+		final long EXPECTED_INDEX = 2000L;
+
+		// When
+		List<String> urlParameters = Builder.builder()
+				.setDatacenter(EXPECTED_DATACENTER)
+				.setConsistencyMode(EXPECTED_MODE)
+				.setRecurse(EXPECTED_RECURSE)
+				.setIndex(EXPECTED_INDEX)
+				.build()
+				.toUrlParameters();
+
+		// Then
+		assertThat(urlParameters, hasItem("dc=" + EXPECTED_DATACENTER));
+		assertThat(urlParameters, hasItem(EXPECTED_MODE.name().toLowerCase()));
+		assertThat(urlParameters, hasItem("recurse=" + EXPECTED_RECURSE));
+		assertThat(urlParameters, hasItem("index=" + EXPECTED_INDEX));
+	}
 }
