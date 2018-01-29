@@ -20,6 +20,7 @@ public final class QueryParams implements UrlParameters {
 		private long waitTime;
 		private long index;
 		private String near;
+		private boolean recurse;
 
 		private Builder() {
 			this.datacenter = null;
@@ -54,8 +55,13 @@ public final class QueryParams implements UrlParameters {
 			return this;
 		}
 
+		public Builder setRecurse(boolean recurse) {
+			this.recurse = recurse;
+			return this;
+		}
+
 		public QueryParams build() {
-			return new QueryParams(datacenter, consistencyMode, waitTime, index, near);
+			return new QueryParams(datacenter, consistencyMode, waitTime, index, near, recurse);
 		}
 	}
 
@@ -66,13 +72,18 @@ public final class QueryParams implements UrlParameters {
 	private final long waitTime;
 	private final long index;
 	private final String near;
+	private final boolean recurse;
 
-	private QueryParams(String datacenter, ConsistencyMode consistencyMode, long waitTime, long index, String near) {
+	private QueryParams(String datacenter, ConsistencyMode consistencyMode, long waitTime, long index, String near, boolean recurse) {
 		this.datacenter = datacenter;
 		this.consistencyMode = consistencyMode;
 		this.waitTime = waitTime;
 		this.index = index;
 		this.near = near;
+		this.recurse = recurse;
+	}
+	private QueryParams(String datacenter, ConsistencyMode consistencyMode, long waitTime, long index, String near) {
+		this(datacenter, consistencyMode, waitTime, index, near, false);
 	}
 
 	private QueryParams(String datacenter, ConsistencyMode consistencyMode, long waitTime, long index) {
@@ -119,6 +130,10 @@ public final class QueryParams implements UrlParameters {
 		return near;
 	}
 
+	public boolean getRecurse() {
+		return recurse;
+	}
+
 	@Override
 	public List<String> toUrlParameters() {
 		List<String> params = new ArrayList<String>();
@@ -142,6 +157,10 @@ public final class QueryParams implements UrlParameters {
 
 		if (near != null) {
 			params.add("near=" + Utils.encodeValue(near));
+		}
+
+		if (recurse) {
+			params.add("recurse=" + Utils.encodeValue(String.valueOf(recurse)));
 		}
 
 		return params;
