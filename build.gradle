@@ -40,11 +40,12 @@ artifacts {
 	archives javadocJar
 }
 
+group = "com.ecwid.consul"
+archivesBaseName = "consul-api"
+version = "1.3.0"
+
 def doUploadArchives = project.hasProperty('sonatypeUsername') && project.hasProperty('sonatypePassword')
 if (doUploadArchives) {
-	group = "com.ecwid.consul"
-	archivesBaseName = "consul-api"
-	version = "1.3.0"
 
 	signing {
 		sign configurations.archives
@@ -99,5 +100,29 @@ if (doUploadArchives) {
 // Wrapper
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '2.14.1'
+	gradleVersion = '4.5.1'
+}
+
+// --------------------------------------------------------------
+// Local Maven Publishing
+apply plugin: 'maven-publish'
+
+task sourceJar(type: Jar) {
+	from sourceSets.main.allSource
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			groupId groupId
+			artifactId archivesBaseName
+			version "$version"
+
+			from components.java
+
+			artifact sourceJar {
+				classifier "sources"
+			}
+		}
+	}
 }
