@@ -5,8 +5,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
+import java.util.Base64;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -18,7 +18,7 @@ public class Base64TypeAdapter extends TypeAdapter<byte[]> {
 		if (value == null) {
 			out.nullValue();
 		} else {
-			out.value(DatatypeConverter.printBase64Binary(value));
+      out.value(Base64.getEncoder().encodeToString(value));
 		}
 	}
 
@@ -26,10 +26,10 @@ public class Base64TypeAdapter extends TypeAdapter<byte[]> {
 	public byte[] read(JsonReader in) throws IOException {
 		if (in.peek() == JsonToken.NULL) {
 			in.nextNull();
-			return null;
+			return new byte[0];
 		} else {
 			String data = in.nextString();
-			return DatatypeConverter.parseBase64Binary(data);
+			return Base64.getDecoder().decode(data);
 		}
 	}
 }

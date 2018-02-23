@@ -2,8 +2,8 @@ package com.ecwid.consul.v1.kv.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.Charset;
+import java.util.Base64;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -96,7 +96,7 @@ public class GetValue {
 		if (charset == null) {
 			charset = UTF_8;
 		}
-		return new String(DatatypeConverter.parseBase64Binary(value), charset);
+		return new String(Base64.getDecoder().decode(value), charset);
 	}
 
 	public String getDecodedValue() {
