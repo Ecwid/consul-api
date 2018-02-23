@@ -36,6 +36,7 @@ import com.ecwid.consul.v1.session.model.NewSession;
 import com.ecwid.consul.v1.session.model.Session;
 import com.ecwid.consul.v1.status.StatusClient;
 import com.ecwid.consul.v1.status.StatusConsulClient;
+import org.apache.http.client.HttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -339,6 +340,11 @@ public class ConsulClient implements
 	@Override
 	public Response<Void> catalogRegister(CatalogRegistration catalogRegistration) {
 		return catalogClient.catalogRegister(catalogRegistration);
+	}
+
+	@Override
+	public Response<Void> catalogRegister(CatalogRegistration catalogRegistration, String token) {
+		return catalogClient.catalogRegister(catalogRegistration, token);
 	}
 
 	@Override

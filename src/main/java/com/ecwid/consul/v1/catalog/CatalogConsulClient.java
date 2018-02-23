@@ -55,9 +55,15 @@ public final class CatalogConsulClient implements CatalogClient {
 
 	@Override
 	public Response<Void> catalogRegister(CatalogRegistration catalogRegistration) {
-		String json = GsonFactory.getGson().toJson(catalogRegistration);
+		return catalogRegister(catalogRegistration, null);
+	}
 
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/catalog/register", json);
+	@Override
+	public Response<Void> catalogRegister(CatalogRegistration catalogRegistration, String token) {
+		String json = GsonFactory.getGson().toJson(catalogRegistration);
+		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
+
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/catalog/register", json, tokenParam);
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {
