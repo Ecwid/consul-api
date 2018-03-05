@@ -48,9 +48,15 @@ public class NewCheck {
 
 	@SerializedName("TLSSkipVerify")
 	private Boolean tlsSkipVerify;
-	
+
 	@SerializedName("Status")
 	private String status;
+
+	@SerializedName("GRPC")
+	private String grpc;
+
+	@SerializedName("GRPCUseTLS")
+	private Boolean grpcUseTLS;
 
 	public String getId() {
 		return id;
@@ -163,13 +169,29 @@ public class NewCheck {
 	public void setTlsSkipVerify(Boolean tlsSkipVerify) {
 		this.tlsSkipVerify = tlsSkipVerify;
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getGrpc() {
+		return grpc;
+	}
+
+	public void setGrpc(String grpc) {
+		this.grpc = grpc;
+	}
+
+	public Boolean getGrpcUseTLS() {
+		return grpcUseTLS;
+	}
+
+	public void setGrpcUseTLS(Boolean grpcUseTLS) {
+		this.grpcUseTLS = grpcUseTLS;
 	}
 
 	@Override
@@ -188,8 +210,10 @@ public class NewCheck {
 				", timeout='" + timeout + '\'' +
 				", ttl='" + ttl + '\'' +
 				", deregisterCriticalServiceAfter='" + deregisterCriticalServiceAfter + '\'' +
-				", tlsSkipVerify='" + tlsSkipVerify + '\'' +
+				", tlsSkipVerify=" + tlsSkipVerify +
 				", status='" + status + '\'' +
+				", grpc='" + grpc + '\'' +
+				", grpcUseTLS=" + grpcUseTLS +
 				'}';
 	}
 }
