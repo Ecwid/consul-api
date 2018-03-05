@@ -31,7 +31,7 @@ public class AclConsulClientTest {
                 ", \"datacenter\": \"dc-test\" }";
 
         consul = ConsulStarterBuilder.consulStarter()
-                .withConsulVersion("0.9.2")
+                .withConsulVersion("1.0.6")
                 .withHttpPort(port)
                 .withCustomConfig(customConfiguration)
                 .build()
