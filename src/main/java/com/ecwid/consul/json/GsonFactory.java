@@ -8,17 +8,10 @@ import com.google.gson.GsonBuilder;
  */
 public class GsonFactory {
 
-	private static final GsonBuilder GSON_BUILDER = new GsonBuilder();
-
-	private static final ThreadLocal<Gson> GSON = new ThreadLocal<Gson>() {
-		@Override
-		protected Gson initialValue() {
-			return GSON_BUILDER.create();
-		}
-	};
+	private static final Gson GSON = new Gson();
 
 	public static Gson getGson() {
-		return GSON.get();
+		return GSON;
 	}
 
 }
