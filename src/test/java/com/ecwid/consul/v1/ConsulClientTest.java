@@ -7,21 +7,22 @@ import com.pszymczyk.consul.ConsulProcess;
 import com.pszymczyk.consul.ConsulStarterBuilder;
 import com.pszymczyk.consul.infrastructure.Ports;
 import org.hamcrest.collection.IsMapContaining;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Map;
 
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 
 public class ConsulClientTest {
 
     private ConsulProcess consul;
     private int randomHttpsPort = Ports.nextAvailable();
 
-    @Before
+    @BeforeEach
     public void setup() {
         String path = "src/test/resources/ssl";
         String certRootPath = new File(path).getAbsolutePath();
@@ -39,13 +40,13 @@ public class ConsulClientTest {
                 "}\n";
 
         consul = ConsulStarterBuilder.consulStarter()
-                .withConsulVersion("1.0.0")
+                .withConsulVersion("1.0.6")
                 .withCustomConfig(customConfiguration)
                 .build()
                 .start();
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         consul.close();
     }
