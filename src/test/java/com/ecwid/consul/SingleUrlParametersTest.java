@@ -1,23 +1,24 @@
 package com.ecwid.consul;
 
-import org.junit.Assert;
-import org.junit.Test;
 
-import java.util.Arrays;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class SingleUrlParametersTest {
 
 	@Test
 	public void testToUrlParameters() throws Exception {
 		UrlParameters parameters = new SingleUrlParameters("key");
-		Assert.assertEquals(Arrays.asList("key"), parameters.toUrlParameters());
+		assertEquals(Collections.singletonList("key"), parameters.toUrlParameters());
 
 		parameters = new SingleUrlParameters("key", "value");
-		Assert.assertEquals(Arrays.asList("key=value"), parameters.toUrlParameters());
+		assertEquals(Collections.singletonList("key=value"), parameters.toUrlParameters());
 
 		parameters = new SingleUrlParameters("key", "value value");
-		Assert.assertEquals(Arrays.asList("key=value+value"), parameters.toUrlParameters());
+		assertEquals(Collections.singletonList("key=value+value"), parameters.toUrlParameters());
 	}
 }

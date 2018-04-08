@@ -1,9 +1,9 @@
 package com.ecwid.consul;
 
-import org.junit.Assert;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UtilsTest {
 
@@ -12,7 +12,7 @@ public class UtilsTest {
 		String uri = "http://example.com/path with spaces";
 		String expected = "http://example.com/path%20with%20spaces";
 
-		Assert.assertEquals(expected, Utils.encodeUrl(uri));
+		assertEquals(expected, Utils.encodeUrl(uri));
 	}
 
 	@Test
@@ -48,11 +48,11 @@ public class UtilsTest {
 		for (long l = start; l < end; l++) {
 			String str = Utils.toUnsignedString(l);
 			long l2 = Utils.parseUnsignedLong(str);
-			Assert.assertEquals(l, l2);
+			assertEquals(l, l2);
 
 			if (l >= 0) {
-				Assert.assertEquals(Long.toString(l), str);
-				Assert.assertEquals(l, l2);
+				assertEquals(Long.toString(l), str);
+				assertEquals(l, l2);
 			}
 		}
 	}

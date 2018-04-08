@@ -10,19 +10,33 @@ repositories {
 }
 
 dependencies {
-	compile "com.google.code.gson:gson:2.8.2"
-	compile "org.apache.httpcomponents:httpcore:4.4.9"
-	compile "org.apache.httpcomponents:httpclient:4.5.5"
+	implementation "com.google.code.gson:gson:2.8.2"
+	implementation "org.apache.httpcomponents:httpcore:4.4.9"
+	implementation "org.apache.httpcomponents:httpclient:4.5.5"
 
-	testCompile "junit:junit:4.12"
-	testCompile "org.mockito:mockito-core:2.15.0"
-	testCompile "org.hamcrest:hamcrest-library:1.3"
-	testCompile "org.slf4j:slf4j-simple:1.7.25"
-	testCompile "com.pszymczyk.consul:embedded-consul:1.0.2"
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+
+	testImplementation "org.mockito:mockito-core:2.15.0"
+	testImplementation "org.hamcrest:hamcrest-library:1.3"
+	testImplementation "org.slf4j:slf4j-simple:1.7.25"
+	testImplementation "com.pszymczyk.consul:embedded-consul:1.0.2"
 }
 
 if (JavaVersion.current().isJava9Compatible()) {
 	tasks.withType(JavaCompile).all { options.compilerArgs.addAll(['--release', '8']) }
+}
+
+test {
+	enableAssertions = true
+	useJUnitPlatform()
+
+	testLogging {
+		exceptionFormat 'full'
+		events "PASSED", "STARTED", "FAILED", "SKIPPED"
+		// Set to true if you want to see output from tests
+		showStandardStreams false
+	}
 }
 
 // --------------------------------------------------------------
@@ -103,6 +117,6 @@ if (doUploadArchives) {
 // Wrapper
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '4.5.1'
+	gradleVersion = '4.6'
 	distributionType = org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
 }

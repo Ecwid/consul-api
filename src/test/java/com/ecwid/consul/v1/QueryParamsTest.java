@@ -1,13 +1,15 @@
 package com.ecwid.consul.v1;
 
 import com.ecwid.consul.Utils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static com.ecwid.consul.v1.QueryParams.Builder;
 import static org.hamcrest.CoreMatchers.hasItem;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class QueryParamsTest {
 	@Test

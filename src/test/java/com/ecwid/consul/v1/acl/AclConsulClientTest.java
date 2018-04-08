@@ -7,9 +7,9 @@ import com.ecwid.consul.v1.acl.model.NewAcl;
 import com.pszymczyk.consul.ConsulProcess;
 import com.pszymczyk.consul.ConsulStarterBuilder;
 import com.pszymczyk.consul.infrastructure.Ports;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -23,7 +23,7 @@ public class AclConsulClientTest {
 
     private AclClient aclClient = new AclConsulClient("localhost", port);
 
-    @Before
+    @BeforeEach
     public void setup() {
         String customConfiguration =
                 "{ \"acl_master_token\": \"" + ACL_MASTER_TOKEN + "\"" +
@@ -38,7 +38,7 @@ public class AclConsulClientTest {
                 .start();
     }
 
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         consul.close();
     }
