@@ -2,6 +2,8 @@ package com.ecwid.consul.v1.agent.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
@@ -19,8 +21,15 @@ public class NewCheck {
 	@SerializedName("Notes")
 	private String notes;
 
+	/**
+	 * @deprecated Please use Args parameter instead
+	 */
 	@SerializedName("Script")
+	@Deprecated
 	private String script;
+
+	@SerializedName("Args")
+	private List<String> args;
 
 	@SerializedName("HTTP")
 	private String http;
@@ -93,12 +102,28 @@ public class NewCheck {
 		this.notes = notes;
 	}
 
+	/**
+	 * @deprecated Please use Args parameter instead
+	 */
+	@Deprecated
 	public String getScript() {
 		return script;
 	}
 
+	/**
+	 * @deprecated Please use Args parameter instead
+	 */
+	@Deprecated
 	public void setScript(String script) {
 		this.script = script;
+	}
+
+	public List<String> getArgs() {
+		return args;
+	}
+
+	public void setArgs(List<String> args) {
+		this.args = args;
 	}
 
 	public String getHttp() {
@@ -213,6 +238,7 @@ public class NewCheck {
 				", serviceId='" + serviceId + '\'' +
 				", notes='" + notes + '\'' +
 				", script='" + script + '\'' +
+				", args=" + args +
 				", http='" + http + '\'' +
 				", method='" + method + '\'' +
 				", tcp='" + tcp + '\'' +
