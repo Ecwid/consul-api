@@ -3,6 +3,7 @@ package com.ecwid.consul.v1.agent.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -36,6 +37,9 @@ public class NewCheck {
 
 	@SerializedName("Method")
 	private String method;
+
+	@SerializedName("Header")
+	private Map<String, List<String>> header;
 
 	@SerializedName("TCP")
 	private String tcp;
@@ -142,6 +146,14 @@ public class NewCheck {
 		this.method = method;
 	}
 
+	public Map<String, List<String>> getHeader() {
+		return header;
+	}
+
+	public void setHeader(Map<String, List<String>> header) {
+		this.header = header;
+	}
+
 	public String getTcp() {
 		return tcp;
 	}
@@ -241,6 +253,7 @@ public class NewCheck {
 				", args=" + args +
 				", http='" + http + '\'' +
 				", method='" + method + '\'' +
+				", header=" + header +
 				", tcp='" + tcp + '\'' +
 				", dockerContainerID='" + dockerContainerID + '\'' +
 				", shell='" + shell + '\'' +
