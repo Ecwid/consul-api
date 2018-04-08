@@ -25,6 +25,9 @@ public class NewCheck {
 	@SerializedName("HTTP")
 	private String http;
 
+	@SerializedName("Method")
+	private String method;
+
 	@SerializedName("TCP")
 	private String tcp;
 
@@ -104,6 +107,14 @@ public class NewCheck {
 
 	public void setHttp(String http) {
 		this.http = http;
+	}
+
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
 	}
 
 	public String getTcp() {
@@ -203,6 +214,7 @@ public class NewCheck {
 				", notes='" + notes + '\'' +
 				", script='" + script + '\'' +
 				", http='" + http + '\'' +
+				", method='" + method + '\'' +
 				", tcp='" + tcp + '\'' +
 				", dockerContainerID='" + dockerContainerID + '\'' +
 				", shell='" + shell + '\'' +
