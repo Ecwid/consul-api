@@ -26,7 +26,7 @@ public class CatalogService {
 	private Map<String, String> taggedAddresses;
 
 	@SerializedName("NodeMeta")
-	private Map<String, String> meta;
+	private Map<String, String> nodeMeta;
 
 	@SerializedName("ServiceID")
 	private String serviceId;
@@ -39,6 +39,9 @@ public class CatalogService {
 
 	@SerializedName("ServiceAddress")
 	private String serviceAddress;
+
+	@SerializedName("ServiceMeta")
+	private Map<String, String> serviceMeta;
 
 	@SerializedName("ServicePort")
 	private Integer servicePort;
@@ -92,12 +95,12 @@ public class CatalogService {
 		this.taggedAddresses = taggedAddresses;
 	}
 
-	public Map<String, String> getMeta() {
-		return meta;
+	public Map<String, String> getNodeMeta() {
+		return nodeMeta;
 	}
 
-	public void setMeta(Map<String, String> meta) {
-		this.meta = meta;
+	public void setNodeMeta(Map<String, String> nodeMeta) {
+		this.nodeMeta = nodeMeta;
 	}
 
 	public String getServiceId() {
@@ -130,6 +133,14 @@ public class CatalogService {
 
 	public void setServiceAddress(String serviceAddress) {
 		this.serviceAddress = serviceAddress;
+	}
+
+	public Map<String, String> getServiceMeta() {
+		return serviceMeta;
+	}
+
+	public void setServiceMeta(Map<String, String> serviceMeta) {
+		this.serviceMeta = serviceMeta;
 	}
 
 	public Integer getServicePort() {
@@ -172,11 +183,12 @@ public class CatalogService {
 				", address='" + address + '\'' +
 				", datacenter='" + datacenter + '\'' +
 				", taggedAddresses=" + taggedAddresses +
-				", meta=" + meta +
+				", nodeMeta=" + nodeMeta +
 				", serviceId='" + serviceId + '\'' +
 				", serviceName='" + serviceName + '\'' +
 				", serviceTags=" + serviceTags +
 				", serviceAddress='" + serviceAddress + '\'' +
+				", serviceMeta=" + serviceMeta +
 				", servicePort=" + servicePort +
 				", serviceEnableTagOverride=" + serviceEnableTagOverride +
 				", createIndex=" + createIndex +

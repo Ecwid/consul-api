@@ -22,8 +22,20 @@ public class Service {
 	@SerializedName("Address")
 	private String address;
 
+	@SerializedName("Meta")
+	private Map<String, String> meta;
+
 	@SerializedName("Port")
 	private Integer port;
+
+	@SerializedName("EnableTagOverride")
+	private Boolean enableTagOverride;
+
+	@SerializedName("CreateIndex")
+	private Long createIndex;
+
+	@SerializedName("ModifyIndex")
+	private Long modifyIndex;
 
 	public String getId() {
 		return id;
@@ -57,12 +69,44 @@ public class Service {
 		this.address = address;
 	}
 
+	public Map<String, String> getMeta() {
+		return meta;
+	}
+
+	public void setMeta(Map<String, String> meta) {
+		this.meta = meta;
+	}
+
 	public Integer getPort() {
 		return port;
 	}
 
 	public void setPort(Integer port) {
 		this.port = port;
+	}
+
+	public Boolean getEnableTagOverride() {
+		return enableTagOverride;
+	}
+
+	public void setEnableTagOverride(Boolean enableTagOverride) {
+		this.enableTagOverride = enableTagOverride;
+	}
+
+	public Long getCreateIndex() {
+		return createIndex;
+	}
+
+	public void setCreateIndex(Long createIndex) {
+		this.createIndex = createIndex;
+	}
+
+	public Long getModifyIndex() {
+		return modifyIndex;
+	}
+
+	public void setModifyIndex(Long modifyIndex) {
+		this.modifyIndex = modifyIndex;
 	}
 
 	@Override
@@ -72,7 +116,11 @@ public class Service {
 				", service='" + service + '\'' +
 				", tags=" + tags +
 				", address='" + address + '\'' +
+				", meta=" + meta +
 				", port=" + port +
+				", enableTagOverride=" + enableTagOverride +
+				", createIndex=" + createIndex +
+				", modifyIndex=" + modifyIndex +
 				'}';
 	}
 }

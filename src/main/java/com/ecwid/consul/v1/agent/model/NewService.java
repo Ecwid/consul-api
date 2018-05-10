@@ -3,6 +3,7 @@ package com.ecwid.consul.v1.agent.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -139,6 +140,9 @@ public class NewService {
 	@SerializedName("Address")
 	private String address;
 
+	@SerializedName("Meta")
+	private Map<String, String> meta;
+
 	@SerializedName("Port")
 	private Integer port;
 
@@ -183,6 +187,14 @@ public class NewService {
 		this.address = address;
 	}
 
+	public Map<String, String> getMeta() {
+		return meta;
+	}
+
+	public void setMeta(Map<String, String> meta) {
+		this.meta = meta;
+	}
+
 	public Integer getPort() {
 		return port;
 	}
@@ -222,6 +234,7 @@ public class NewService {
 				", name='" + name + '\'' +
 				", tags=" + tags +
 				", address='" + address + '\'' +
+				", meta=" + meta +
 				", port=" + port +
 				", enableTagOverride=" + enableTagOverride +
 				", check=" + check +
