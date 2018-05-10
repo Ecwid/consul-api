@@ -7,4 +7,7 @@
 build/
 out/
 
+# Special exception for my test main class used during development
+src/main/java/com/ecwid/consul/LocalTest.java
+
 .DS_Store
