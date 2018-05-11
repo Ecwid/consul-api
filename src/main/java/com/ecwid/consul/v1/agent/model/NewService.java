@@ -25,6 +25,12 @@ public class NewService {
 		@SerializedName("HTTP")
 		private String http;
 
+		@SerializedName("Method")
+		private String method;
+
+		@SerializedName("Header")
+		private Map<String, List<String>> header;
+
 		@SerializedName("TCP")
 		private String tcp;
 
@@ -70,6 +76,22 @@ public class NewService {
 
 		public void setHttp(String http) {
 			this.http = http;
+		}
+
+		public String getMethod() {
+			return method;
+		}
+
+		public void setMethod(String method) {
+			this.method = method;
+		}
+
+		public Map<String, List<String>> getHeader() {
+			return header;
+		}
+
+		public void setHeader(Map<String, List<String>> header) {
+			this.header = header;
 		}
 
 		public String getTcp() {
@@ -119,6 +141,8 @@ public class NewService {
 					", interval='" + interval + '\'' +
 					", ttl='" + ttl + '\'' +
 					", http='" + http + '\'' +
+					", method='" + method + '\'' +
+					", header=" + header +
 					", tcp='" + tcp + '\'' +
 					", timeout='" + timeout + '\'' +
 					", deregisterCriticalServiceAfter='" + deregisterCriticalServiceAfter + '\'' +
