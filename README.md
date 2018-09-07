@@ -8,6 +8,8 @@ Java client for Consul HTTP API (http://consul.io)
 Supports all API endpoints (http://www.consul.io/docs/agent/http.html), all consistency modes and parameters (tags, datacenters etc.)
 
 ## Latest releases
+[1.4.1](https://github.com/Ecwid/consul-api/milestone/13?closed=1) - 07 Sep 2018
+
 [1.4.0](https://github.com/Ecwid/consul-api/milestone/12?closed=1) - 11 May 2018
 
 [1.3.1](https://github.com/Ecwid/consul-api/milestone/11?closed=1) - 06 Mar 2018 (please note that this release has dropped JDK 6/7 support)
