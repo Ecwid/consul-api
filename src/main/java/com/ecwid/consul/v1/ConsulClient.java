@@ -691,8 +691,19 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<String> sessionCreate(NewSession newSession, QueryParams queryParams, String token) {
+		return sessionClient.sessionCreate(newSession, queryParams, token);
+	}
+
+
+	@Override
 	public Response<Void> sessionDestroy(String session, QueryParams queryParams) {
 		return sessionClient.sessionDestroy(session, queryParams);
+	}
+
+	@Override
+	public Response<Void> sessionDestroy(String session, QueryParams queryParams, String token) {
+		return sessionClient.sessionDestroy(session, queryParams, token);
 	}
 
 	@Override
@@ -701,8 +712,18 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<Session> getSessionInfo(String session, QueryParams queryParams, String token) {
+		return sessionClient.getSessionInfo(session, queryParams, token);
+	}
+
+	@Override
 	public Response<List<Session>> getSessionNode(String node, QueryParams queryParams) {
 		return sessionClient.getSessionNode(node, queryParams);
+	}
+
+	@Override
+	public Response<List<Session>> getSessionNode(String node, QueryParams queryParams, String token) {
+		return sessionClient.getSessionNode(node, queryParams, token);
 	}
 
 	@Override
@@ -711,8 +732,18 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<List<Session>> getSessionList(QueryParams queryParams, String token) {
+		return sessionClient.getSessionList(queryParams, token);
+	}
+
+	@Override
 	public Response<Session> renewSession(String session, QueryParams queryParams) {
 		return sessionClient.renewSession(session, queryParams);
+	}
+
+	@Override
+	public Response<Session> renewSession(String session, QueryParams queryParams, String token) {
+		return sessionClient.renewSession(session, queryParams, token);
 	}
 
 	// -------------------------------------------------------------------------------------------

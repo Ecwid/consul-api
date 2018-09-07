@@ -14,13 +14,25 @@ public interface SessionClient {
 
 	public Response<String> sessionCreate(NewSession newSession, QueryParams queryParams);
 
+	public Response<String> sessionCreate(NewSession newSession, QueryParams queryParams, String token);
+
 	public Response<Void> sessionDestroy(String session, QueryParams queryParams);
+
+	public Response<Void> sessionDestroy(String session, QueryParams queryParams, String token);
 
 	Response<Session> getSessionInfo(String session, QueryParams queryParams);
 
+	Response<Session> getSessionInfo(String session, QueryParams queryParams, String token);
+
 	Response<List<Session>> getSessionNode(String node, QueryParams queryParams);
+
+	Response<List<Session>> getSessionNode(String node, QueryParams queryParams, String token);
 
 	Response<List<Session>> getSessionList(QueryParams queryParams);
 
+	Response<List<Session>> getSessionList(QueryParams queryParams, String token);
+
 	Response<Session> renewSession(String session, QueryParams queryParams);
+
+	Response<Session> renewSession(String session, QueryParams queryParams, String token);
 }
