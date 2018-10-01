@@ -73,9 +73,15 @@ public final class CatalogConsulClient implements CatalogClient {
 
 	@Override
 	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration) {
-		String json = GsonFactory.getGson().toJson(catalogDeregistration);
+		return catalogDeregister(catalogDeregistration, null);
+	}
 
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/catalog/deregister", json);
+	@Override
+	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration, String token) {
+		String json = GsonFactory.getGson().toJson(catalogDeregistration);
+		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
+
+		RawResponse rawResponse = rawClient.makePutRequest("/v1/catalog/deregister", json, tokenParam);
 		if (rawResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, rawResponse);
 		} else {

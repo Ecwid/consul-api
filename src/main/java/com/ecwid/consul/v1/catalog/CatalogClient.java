@@ -21,6 +21,8 @@ public interface CatalogClient {
 
 	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration);
 
+	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration, String token);
+
 	public Response<List<String>> getCatalogDatacenters();
 
 	public Response<List<Node>> getCatalogNodes(QueryParams queryParams);
