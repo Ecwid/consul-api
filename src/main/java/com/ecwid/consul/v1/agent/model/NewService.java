@@ -61,19 +61,19 @@ public class NewService {
 		}
 		
 		public String getDockerContainerID() {
-		    return dockerContainerID;
+		    	return dockerContainerID;
 		}
 
 		public void setDockerContainerID(String dockerContainerID) {
-		    this.dockerContainerID = dockerContainerID;
+		   	this.dockerContainerID = dockerContainerID;
 		}
 
 		public String getShell() {
-		    return shell;
+		    	return shell;
 		}
 
 		public void setShell(String shell) {
-		    this.shell = shell;
+		    	this.shell = shell;
 		}
 
 		public String getInterval() {
