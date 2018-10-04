@@ -61,20 +61,20 @@ public class NewService {
 		}
 		
 		public String getDockerContainerID() {
-            return dockerContainerID;
-        }
+		    return dockerContainerID;
+		}
 
-        public void setDockerContainerID(String dockerContainerID) {
-            this.dockerContainerID = dockerContainerID;
-        }
+		public void setDockerContainerID(String dockerContainerID) {
+		    this.dockerContainerID = dockerContainerID;
+		}
 
-        public String getShell() {
-            return shell;
-        }
+		public String getShell() {
+		    return shell;
+		}
 
-        public void setShell(String shell) {
-            this.shell = shell;
-        }
+		public void setShell(String shell) {
+		    this.shell = shell;
+		}
 
 		public String getInterval() {
 			return interval;
@@ -168,7 +168,7 @@ public class NewService {
 					", tcp='" + tcp + '\'' +
 					", timeout='" + timeout + '\'' +
 					", dockerContainerID='" + dockerContainerID + '\'' +
-                    ", shell='" + shell + '\'' +
+                    			", shell='" + shell + '\'' +
 					", deregisterCriticalServiceAfter='" + deregisterCriticalServiceAfter + '\'' +
 					", tlsSkipVerify=" + tlsSkipVerify +
 					", status='" + status + '\'' +
