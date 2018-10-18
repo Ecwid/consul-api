@@ -129,6 +129,9 @@ public class HealthService {
         @SerializedName("Address")
         private String address;
 
+        @SerializedName("Meta")
+        private Map<String, String> meta;
+
         @SerializedName("Port")
         private Integer port;
 
@@ -171,6 +174,14 @@ public class HealthService {
 
         public void setAddress(String address) {
             this.address = address;
+        }
+
+        public Map<String, String> getMeta() {
+            return meta;
+        }
+
+        public void setMeta(Map<String, String> meta) {
+            this.meta = meta;
         }
 
         public Integer getPort() {
