@@ -27,6 +27,8 @@ public interface CatalogClient {
 
 	public Response<List<Node>> getCatalogNodes(QueryParams queryParams);
 
+	public Response<List<Node>> getCatalogNodes(Map<String, String> nodeMeta, QueryParams queryParams);
+
 	public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams);
 
 	public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams, String token);

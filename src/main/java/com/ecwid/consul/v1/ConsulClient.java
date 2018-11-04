@@ -368,6 +368,11 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<List<Node>> getCatalogNodes(Map<String, String> nodeMeta, QueryParams queryParams) {
+		return catalogClient.getCatalogNodes(nodeMeta, queryParams);
+	}
+
+	@Override
 	public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams) {
 		return catalogClient.getCatalogServices(queryParams);
 	}
