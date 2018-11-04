@@ -223,6 +223,7 @@ public class HealthService {
                     ", service='" + service + '\'' +
                     ", tags=" + tags +
                     ", address='" + address + '\'' +
+                    ", meta=" + meta +
                     ", port=" + port +
                     ", enableTagOverride=" + enableTagOverride +
                     ", createIndex=" + createIndex +
