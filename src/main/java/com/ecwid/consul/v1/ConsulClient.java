@@ -11,6 +11,7 @@ import com.ecwid.consul.v1.agent.AgentConsulClient;
 import com.ecwid.consul.v1.agent.model.*;
 import com.ecwid.consul.v1.catalog.CatalogClient;
 import com.ecwid.consul.v1.catalog.CatalogConsulClient;
+import com.ecwid.consul.v1.catalog.CatalogNodesRequest;
 import com.ecwid.consul.v1.catalog.model.*;
 import com.ecwid.consul.v1.coordinate.CoordinateClient;
 import com.ecwid.consul.v1.coordinate.CoordinateConsulClient;
@@ -36,7 +37,6 @@ import com.ecwid.consul.v1.session.model.NewSession;
 import com.ecwid.consul.v1.session.model.Session;
 import com.ecwid.consul.v1.status.StatusClient;
 import com.ecwid.consul.v1.status.StatusConsulClient;
-import org.apache.http.client.HttpClient;
 
 import java.util.List;
 import java.util.Map;
@@ -368,8 +368,8 @@ public class ConsulClient implements
 	}
 
 	@Override
-	public Response<List<Node>> getCatalogNodes(Map<String, String> nodeMeta, QueryParams queryParams) {
-		return catalogClient.getCatalogNodes(nodeMeta, queryParams);
+	public Response<List<Node>> getCatalogNodes(CatalogNodesRequest catalogNodesRequest) {
+		return catalogClient.getCatalogNodes(catalogNodesRequest);
 	}
 
 	@Override

@@ -5,6 +5,9 @@ import com.ecwid.consul.Utils;
 import com.ecwid.consul.transport.*;
 import org.apache.http.client.HttpClient;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
@@ -122,6 +125,10 @@ public class ConsulRawClient {
 	}
 
 	public RawResponse makeGetRequest(String endpoint, UrlParameters... urlParams) {
+		return makeGetRequest(endpoint, Arrays.asList(urlParams));
+	}
+
+	public RawResponse makeGetRequest(String endpoint, List<UrlParameters> urlParams) {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 

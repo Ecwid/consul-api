@@ -19,19 +19,29 @@ public interface CatalogClient {
 
 	public Response<Void> catalogRegister(CatalogRegistration catalogRegistration, String token);
 
+	// -------------------------------------------------------------------------------
+
 	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration);
 
 	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration, String token);
 
+	// -------------------------------------------------------------------------------
+
 	public Response<List<String>> getCatalogDatacenters();
+
+	// -------------------------------------------------------------------------------
 
 	public Response<List<Node>> getCatalogNodes(QueryParams queryParams);
 
-	public Response<List<Node>> getCatalogNodes(Map<String, String> nodeMeta, QueryParams queryParams);
+	public Response<List<Node>> getCatalogNodes(CatalogNodesRequest catalogNodesRequest);
+
+	// -------------------------------------------------------------------------------
 
 	public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams);
 
 	public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams, String token);
+
+	// -------------------------------------------------------------------------------
 
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, QueryParams queryParams);
 
@@ -40,6 +50,8 @@ public interface CatalogClient {
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, QueryParams queryParams, String token);
 
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, String tag, QueryParams queryParams, String token);
+
+	// -------------------------------------------------------------------------------
 
 	public Response<CatalogNode> getCatalogNode(String nodeName, QueryParams queryParams);
 }

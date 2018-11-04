@@ -3,6 +3,7 @@ package com.ecwid.consul;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,6 +31,10 @@ public class Utils {
 	}
 
 	public static String generateUrl(String baseUrl, UrlParameters... params) {
+		return generateUrl(baseUrl, Arrays.asList(params));
+	}
+
+	public static String generateUrl(String baseUrl, List<UrlParameters> params) {
 		if (params == null) {
 			return baseUrl;
 		}

@@ -1,19 +1,22 @@
 package com.ecwid.consul.v1.catalog;
 
-import java.util.List;
-import java.util.Map;
-
 import com.ecwid.consul.SingleUrlParameters;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.transport.TLSConfig;
-import com.ecwid.consul.v1.*;
+import com.ecwid.consul.v1.ConsulRawClient;
+import com.ecwid.consul.v1.OperationException;
+import com.ecwid.consul.v1.QueryParams;
+import com.ecwid.consul.v1.Response;
 import com.ecwid.consul.v1.catalog.model.CatalogDeregistration;
 import com.ecwid.consul.v1.catalog.model.CatalogNode;
 import com.ecwid.consul.v1.catalog.model.CatalogRegistration;
 import com.ecwid.consul.v1.catalog.model.Node;
 import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -101,13 +104,16 @@ public final class CatalogConsulClient implements CatalogClient {
 
 	@Override
 	public Response<List<Node>> getCatalogNodes(QueryParams queryParams) {
-		return getCatalogNodes(null, queryParams);
+		CatalogNodesRequest request = new CatalogNodesRequest.Builder()
+				.setQueryParams(queryParams)
+				.build();
+
+		return getCatalogNodes(request);
 	}
 
 	@Override
-	public Response<List<Node>> getCatalogNodes(Map<String, String> nodeMeta, QueryParams queryParams) {
-		UrlParameters nodeMetaParam = new NodeMetaParameters(nodeMeta);
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/nodes", queryParams, nodeMetaParam);
+	public Response<List<Node>> getCatalogNodes(CatalogNodesRequest catalogNodesRequest) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/nodes", catalogNodesRequest.asUrlParameters());
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Node> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Node>>() {
