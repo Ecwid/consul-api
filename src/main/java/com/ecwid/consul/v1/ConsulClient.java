@@ -353,6 +353,11 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<Void> catalogDeregister(CatalogDeregistration catalogDeregistration, String token) {
+		return catalogClient.catalogDeregister(catalogDeregistration, token);
+	}
+
+	@Override
 	public Response<List<String>> getCatalogDatacenters() {
 		return catalogClient.getCatalogDatacenters();
 	}
