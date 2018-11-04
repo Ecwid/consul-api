@@ -26,19 +26,35 @@ public interface HealthClient {
 
 	// -------------------------------------------------------------------------------
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams);
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams);
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams, String token);
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams, String token);
+
+	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest);
 
 	// -------------------------------------------------------------------------------
 
 	public Response<List<Check>> getHealthChecksState(QueryParams queryParams);
-
-	// -------------------------------------------------------------------------------
 
 	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, QueryParams queryParams);
 }

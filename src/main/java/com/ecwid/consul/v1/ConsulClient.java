@@ -21,6 +21,7 @@ import com.ecwid.consul.v1.event.model.EventParams;
 import com.ecwid.consul.v1.health.HealthChecksForServiceRequest;
 import com.ecwid.consul.v1.health.HealthClient;
 import com.ecwid.consul.v1.health.HealthConsulClient;
+import com.ecwid.consul.v1.health.HealthServicesRequest;
 import com.ecwid.consul.v1.health.model.HealthService;
 import com.ecwid.consul.v1.kv.KeyValueClient;
 import com.ecwid.consul.v1.kv.KeyValueConsulClient;
@@ -497,24 +498,45 @@ public class ConsulClient implements
 		return healthClient.getHealthChecksForService(serviceName, healthChecksForServiceRequest);
 	}
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
 	@Override
 	public Response<List<HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams) {
 		return healthClient.getHealthServices(serviceName, onlyPassing, queryParams);
 	}
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
 	@Override
 	public Response<List<HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams) {
 		return healthClient.getHealthServices(serviceName, tag, onlyPassing, queryParams);
 	}
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
 	@Override
 	public Response<List<HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams, String token) {
 		return healthClient.getHealthServices(serviceName, onlyPassing, queryParams, token);
 	}
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
 	@Override
 	public Response<List<HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams, String token) {
 		return healthClient.getHealthServices(serviceName, tag, onlyPassing, queryParams, token);
+	}
+
+	@Override
+	public Response<List<HealthService>> getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest) {
+		return healthClient.getHealthServices(serviceName, healthServicesRequest);
 	}
 
 	@Override

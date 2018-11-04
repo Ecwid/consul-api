@@ -12,6 +12,7 @@ import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.v1.QueryParams;
 import com.ecwid.consul.v1.Response;
 import com.ecwid.consul.v1.health.model.Check;
+import com.ecwid.consul.v1.health.model.HealthService;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -101,11 +102,19 @@ public final class HealthConsulClient implements HealthClient {
 
 	@Override
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams, String token) {
-		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		UrlParameters tagParams = tag != null ? new SingleUrlParameters("tag", tag) : null;
-		UrlParameters passingParams = onlyPassing ? new SingleUrlParameters("passing") : null;
+		HealthServicesRequest request = HealthServicesRequest.newBuilder()
+				.setTag(tag)
+				.setPassing(onlyPassing)
+				.setQueryParams(queryParams)
+				.setToken(token)
+				.build();
 
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/service/" + serviceName, tagParams, passingParams, queryParams, tokenParam);
+		return getHealthServices(serviceName, request);
+	}
+
+	@Override
+	public Response<List<HealthService>> getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/service/" + serviceName, healthServicesRequest.asUrlParameters());
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<com.ecwid.consul.v1.health.model.HealthService> value = GsonFactory.getGson().fromJson(rawResponse.getContent(),
