@@ -1,9 +1,5 @@
 package com.ecwid.consul.v1.event;
 
-import java.util.List;
-
-import com.ecwid.consul.SingleUrlParameters;
-import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.transport.TLSConfig;
@@ -14,6 +10,8 @@ import com.ecwid.consul.v1.Response;
 import com.ecwid.consul.v1.event.model.Event;
 import com.ecwid.consul.v1.event.model.EventParams;
 import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -65,8 +63,17 @@ public final class EventConsulClient implements EventClient {
 
 	@Override
 	public Response<List<Event>> eventList(String event, QueryParams queryParams) {
-		UrlParameters eventParams = event != null ? new SingleUrlParameters("name", event) : null;
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/event/list", eventParams, queryParams);
+		EventListRequest request = EventListRequest.newBuilder()
+				.setName(event)
+				.setQueryParams(queryParams)
+				.build();
+
+		return eventList(request);
+	}
+
+	@Override
+	public Response<List<Event>> eventList(EventListRequest eventListRequest) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/event/list", eventListRequest.asUrlParameters());
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Event> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Event>>() {

@@ -146,6 +146,5 @@ public final class HealthServicesRequest implements ConsulRequest {
 		}
 
 		return params;
-
 	}
 }

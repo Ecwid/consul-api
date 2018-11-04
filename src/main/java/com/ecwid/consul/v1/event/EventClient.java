@@ -14,8 +14,20 @@ public interface EventClient {
 
 	public Response<Event> eventFire(String event, String payload, EventParams eventParams, QueryParams queryParams);
 
+	// -------------------------------------------------------------------------------
+
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #eventList(EventListRequest eventListRequest)}
+	 */
+	@Deprecated
 	public Response<List<Event>> eventList(QueryParams queryParams);
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #eventList(EventListRequest eventListRequest)}
+	 */
+	@Deprecated
 	public Response<List<Event>> eventList(String event, QueryParams queryParams);
+
+	public Response<List<Event>> eventList(EventListRequest eventListRequest);
 
 }
