@@ -41,6 +41,8 @@ public interface CatalogClient {
 
 	public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams, String token);
 
+	public Response<Map<String, List<String>>> getCatalogServices(CatalogServicesRequest catalogServicesRequest);
+
 	// -------------------------------------------------------------------------------
 
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, QueryParams queryParams);

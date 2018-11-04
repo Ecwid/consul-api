@@ -11,26 +11,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public final class CatalogNodesRequest implements ConsulRequest {
+public final class CatalogServicesRequest implements ConsulRequest {
 
 	private final String datacenter;
-	private final String near;
 	private final Map<String, String> nodeMeta;
 	private final QueryParams queryParams;
+	private final String token;
 
-	private CatalogNodesRequest(String datacenter, String near, Map<String, String> nodeMeta, QueryParams queryParams) {
+	public CatalogServicesRequest(String datacenter, Map<String, String> nodeMeta, QueryParams queryParams, String token) {
 		this.datacenter = datacenter;
-		this.near = near;
 		this.nodeMeta = nodeMeta;
 		this.queryParams = queryParams;
+		this.token = token;
 	}
 
 	public String getDatacenter() {
 		return datacenter;
-	}
-
-	public String getNear() {
-		return near;
 	}
 
 	public Map<String, String> getNodeMeta() {
@@ -41,22 +37,21 @@ public final class CatalogNodesRequest implements ConsulRequest {
 		return queryParams;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
 	public static class Builder {
 		private String datacenter;
-		private String near;
 		private Map<String, String> nodeMeta;
 		private QueryParams queryParams;
+		private String token;
 
 		private Builder() {
 		}
 
 		public Builder setDatacenter(String datacenter) {
 			this.datacenter = datacenter;
-			return this;
-		}
-
-		public Builder setNear(String near) {
-			this.near = near;
 			return this;
 		}
 
@@ -75,13 +70,18 @@ public final class CatalogNodesRequest implements ConsulRequest {
 			return this;
 		}
 
-		public CatalogNodesRequest build() {
-			return new CatalogNodesRequest(datacenter, near, nodeMeta, queryParams);
+		public Builder setToken(String token) {
+			this.token = token;
+			return this;
+		}
+
+		public CatalogServicesRequest build() {
+			return new CatalogServicesRequest(datacenter, nodeMeta, queryParams, token);
 		}
 	}
 
 	public static Builder newBuilder() {
-		return new Builder();
+		return new CatalogServicesRequest.Builder();
 	}
 
 	@Override
@@ -92,16 +92,16 @@ public final class CatalogNodesRequest implements ConsulRequest {
 			params.add(new SingleUrlParameters("dc", datacenter));
 		}
 
-		if (near != null) {
-			params.add(new SingleUrlParameters("near", near));
-		}
-
 		if (nodeMeta != null) {
 			params.add(new NodeMetaParameters(nodeMeta));
 		}
 
 		if (queryParams != null) {
 			params.add(queryParams);
+		}
+
+		if (token != null) {
+			params.add(new SingleUrlParameters("token", token));
 		}
 
 		return params;

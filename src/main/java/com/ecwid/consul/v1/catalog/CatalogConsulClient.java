@@ -104,7 +104,7 @@ public final class CatalogConsulClient implements CatalogClient {
 
 	@Override
 	public Response<List<Node>> getCatalogNodes(QueryParams queryParams) {
-		CatalogNodesRequest request = new CatalogNodesRequest.Builder()
+		CatalogNodesRequest request = CatalogNodesRequest.newBuilder()
 				.setQueryParams(queryParams)
 				.build();
 
@@ -131,8 +131,17 @@ public final class CatalogConsulClient implements CatalogClient {
 
 	@Override
 	public Response<Map<String, List<String>>> getCatalogServices(QueryParams queryParams, String token) {
-		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/services", queryParams, tokenParam);
+		CatalogServicesRequest request = CatalogServicesRequest.newBuilder()
+				.setQueryParams(queryParams)
+				.setToken(token)
+				.build();
+
+		return getCatalogServices(request);
+	}
+
+	@Override
+	public Response<Map<String, List<String>>> getCatalogServices(CatalogServicesRequest catalogServicesRequest) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/services", catalogServicesRequest.asUrlParameters());
 
 		if (rawResponse.getStatusCode() == 200) {
 			Map<String, List<String>> value = GsonFactory.getGson().fromJson(rawResponse.getContent(),
