@@ -18,6 +18,7 @@ import com.ecwid.consul.v1.event.EventClient;
 import com.ecwid.consul.v1.event.EventConsulClient;
 import com.ecwid.consul.v1.event.model.Event;
 import com.ecwid.consul.v1.event.model.EventParams;
+import com.ecwid.consul.v1.health.HealthChecksForServiceRequest;
 import com.ecwid.consul.v1.health.HealthClient;
 import com.ecwid.consul.v1.health.HealthConsulClient;
 import com.ecwid.consul.v1.health.model.HealthService;
@@ -482,9 +483,18 @@ public class ConsulClient implements
 		return healthClient.getHealthChecksForNode(nodeName, queryParams);
 	}
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthChecksForService(String serviceName, HealthChecksForServiceRequest healthChecksForServiceRequest)}
+	 */
+	@Deprecated
 	@Override
 	public Response<List<com.ecwid.consul.v1.health.model.Check>> getHealthChecksForService(String serviceName, QueryParams queryParams) {
 		return healthClient.getHealthChecksForService(serviceName, queryParams);
+	}
+
+	@Override
+	public Response<List<com.ecwid.consul.v1.health.model.Check>> getHealthChecksForService(String serviceName, HealthChecksForServiceRequest healthChecksForServiceRequest) {
+		return healthClient.getHealthChecksForService(serviceName, healthChecksForServiceRequest);
 	}
 
 	@Override

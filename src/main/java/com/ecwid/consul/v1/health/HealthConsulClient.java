@@ -64,7 +64,16 @@ public final class HealthConsulClient implements HealthClient {
 
 	@Override
 	public Response<List<Check>> getHealthChecksForService(String serviceName, QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/checks/" + serviceName, queryParams);
+		HealthChecksForServiceRequest request = HealthChecksForServiceRequest.newBuilder()
+				.setQueryParams(queryParams)
+				.build();
+
+		return getHealthChecksForService(serviceName, request);
+	}
+
+	@Override
+	public Response<List<Check>> getHealthChecksForService(String serviceName, HealthChecksForServiceRequest healthChecksForServiceRequest) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/checks/" + serviceName, healthChecksForServiceRequest.asUrlParameters());
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<Check> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Check>>() {
