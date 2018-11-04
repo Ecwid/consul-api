@@ -15,6 +15,12 @@ public class NewService {
 
 		@SerializedName("Script")
 		private String script;
+		
+		@SerializedName("DockerContainerID")
+		private String dockerContainerID;
+		
+		@SerializedName("Shell")
+		private String shell;
 
 		@SerializedName("Interval")
 		private String interval;
@@ -52,6 +58,22 @@ public class NewService {
 
 		public void setScript(String script) {
 			this.script = script;
+		}
+		
+		public String getDockerContainerID() {
+		    	return dockerContainerID;
+		}
+
+		public void setDockerContainerID(String dockerContainerID) {
+		   	this.dockerContainerID = dockerContainerID;
+		}
+
+		public String getShell() {
+		    	return shell;
+		}
+
+		public void setShell(String shell) {
+		    	this.shell = shell;
 		}
 
 		public String getInterval() {
@@ -145,6 +167,8 @@ public class NewService {
 					", header=" + header +
 					", tcp='" + tcp + '\'' +
 					", timeout='" + timeout + '\'' +
+					", dockerContainerID='" + dockerContainerID + '\'' +
+                    			", shell='" + shell + '\'' +
 					", deregisterCriticalServiceAfter='" + deregisterCriticalServiceAfter + '\'' +
 					", tlsSkipVerify=" + tlsSkipVerify +
 					", status='" + status + '\'' +
