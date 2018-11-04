@@ -53,6 +53,8 @@ public interface CatalogClient {
 
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, String tag, QueryParams queryParams, String token);
 
+	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, CatalogServiceRequest catalogServiceRequest);
+
 	// -------------------------------------------------------------------------------
 
 	public Response<CatalogNode> getCatalogNode(String nodeName, QueryParams queryParams);

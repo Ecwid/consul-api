@@ -9,10 +9,7 @@ import com.ecwid.consul.v1.acl.model.UpdateAcl;
 import com.ecwid.consul.v1.agent.AgentClient;
 import com.ecwid.consul.v1.agent.AgentConsulClient;
 import com.ecwid.consul.v1.agent.model.*;
-import com.ecwid.consul.v1.catalog.CatalogClient;
-import com.ecwid.consul.v1.catalog.CatalogConsulClient;
-import com.ecwid.consul.v1.catalog.CatalogNodesRequest;
-import com.ecwid.consul.v1.catalog.CatalogServicesRequest;
+import com.ecwid.consul.v1.catalog.*;
 import com.ecwid.consul.v1.catalog.model.*;
 import com.ecwid.consul.v1.coordinate.CoordinateClient;
 import com.ecwid.consul.v1.coordinate.CoordinateConsulClient;
@@ -406,6 +403,11 @@ public class ConsulClient implements
 	@Override
 	public Response<List<CatalogService>> getCatalogService(String serviceName, String tag, QueryParams queryParams, String token) {
 		return catalogClient.getCatalogService(serviceName, tag, queryParams, token);
+	}
+
+	@Override
+	public Response<List<CatalogService>> getCatalogService(String serviceName, CatalogServiceRequest catalogServiceRequest) {
+		return catalogClient.getCatalogService(serviceName, catalogServiceRequest);
 	}
 
 	@Override

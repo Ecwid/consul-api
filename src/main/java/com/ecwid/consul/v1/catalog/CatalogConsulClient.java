@@ -9,10 +9,7 @@ import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.v1.QueryParams;
 import com.ecwid.consul.v1.Response;
-import com.ecwid.consul.v1.catalog.model.CatalogDeregistration;
-import com.ecwid.consul.v1.catalog.model.CatalogNode;
-import com.ecwid.consul.v1.catalog.model.CatalogRegistration;
-import com.ecwid.consul.v1.catalog.model.Node;
+import com.ecwid.consul.v1.catalog.model.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
@@ -172,9 +169,18 @@ public final class CatalogConsulClient implements CatalogClient {
 	@Override
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, String tag,
 																							  QueryParams queryParams, String token) {
-		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		UrlParameters tagParam = tag != null ? new SingleUrlParameters("tag", tag) : null;
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/service/" + serviceName, tagParam, queryParams, tokenParam);
+		CatalogServiceRequest request = CatalogServiceRequest.newBuilder()
+				.setTag(tag)
+				.setQueryParams(queryParams)
+				.setToken(token)
+				.build();
+
+		return getCatalogService(serviceName, request);
+	}
+
+	@Override
+	public Response<List<CatalogService>> getCatalogService(String serviceName, CatalogServiceRequest catalogServiceRequest) {
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/catalog/service/" + serviceName, catalogServiceRequest.asUrlParameters());
 
 		if (rawResponse.getStatusCode() == 200) {
 			List<com.ecwid.consul.v1.catalog.model.CatalogService> value = GsonFactory.getGson().fromJson(rawResponse.getContent(),
