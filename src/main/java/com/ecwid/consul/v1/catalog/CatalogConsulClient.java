@@ -152,12 +152,12 @@ public final class CatalogConsulClient implements CatalogClient {
 
 	@Override
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, QueryParams queryParams) {
-		return getCatalogService(serviceName, null, queryParams, null);
+		return getCatalogService(serviceName, (String) null, queryParams, null);
 	}
 
 	@Override
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, QueryParams queryParams, String token) {
-		return getCatalogService(serviceName, null, queryParams, token);
+		return getCatalogService(serviceName, (String) null, queryParams, token);
 	}
 
 	@Override
@@ -169,8 +169,14 @@ public final class CatalogConsulClient implements CatalogClient {
 	@Override
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, String tag,
 																							  QueryParams queryParams, String token) {
+		return getCatalogService(serviceName, new String[]{tag}, queryParams, null);
+	}
+
+	@Override
+	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, String[] tag,
+	                                                                                          QueryParams queryParams, String token) {
 		CatalogServiceRequest request = CatalogServiceRequest.newBuilder()
-				.setTag(tag)
+				.setTags(tag)
 				.setQueryParams(queryParams)
 				.setToken(token)
 				.build();

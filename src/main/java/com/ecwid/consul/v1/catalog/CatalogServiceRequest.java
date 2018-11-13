@@ -2,6 +2,7 @@ package com.ecwid.consul.v1.catalog;
 
 import com.ecwid.consul.ConsulRequest;
 import com.ecwid.consul.SingleUrlParameters;
+import com.ecwid.consul.v1.TagsParameters;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.v1.NodeMetaParameters;
 import com.ecwid.consul.v1.QueryParams;
@@ -14,15 +15,15 @@ import java.util.Map;
 public final class CatalogServiceRequest implements ConsulRequest {
 
 	private final String datacenter;
-	private final String tag;
+	private final String[] tags;
 	private final String near;
 	private final Map<String, String> nodeMeta;
 	private final QueryParams queryParams;
 	private final String token;
 
-	private CatalogServiceRequest(String datacenter, String tag, String near, Map<String, String> nodeMeta, QueryParams queryParams, String token) {
+	private CatalogServiceRequest(String datacenter, String[] tags, String near, Map<String, String> nodeMeta, QueryParams queryParams, String token) {
 		this.datacenter = datacenter;
-		this.tag = tag;
+		this.tags = tags;
 		this.near = near;
 		this.nodeMeta = nodeMeta;
 		this.queryParams = queryParams;
@@ -34,7 +35,11 @@ public final class CatalogServiceRequest implements ConsulRequest {
 	}
 
 	public String getTag() {
-		return tag;
+		return tags != null && tags.length > 0 ? tags[0] : null;
+	}
+
+	public String[] getTags() {
+		return tags;
 	}
 
 	public String getNear() {
@@ -55,7 +60,7 @@ public final class CatalogServiceRequest implements ConsulRequest {
 
 	public static class Builder {
 		private String datacenter;
-		private String tag;
+		private String[] tags;
 		private String near;
 		private Map<String, String> nodeMeta;
 		private QueryParams queryParams;
@@ -70,7 +75,12 @@ public final class CatalogServiceRequest implements ConsulRequest {
 		}
 
 		public Builder setTag(String tag) {
-			this.tag = tag;
+			this.tags = new String[]{tag};
+			return this;
+		}
+
+		public Builder setTags(String[] tags) {
+			this.tags = tags;
 			return this;
 		}
 
@@ -100,7 +110,7 @@ public final class CatalogServiceRequest implements ConsulRequest {
 		}
 
 		public CatalogServiceRequest build() {
-			return new CatalogServiceRequest(datacenter, tag, near, nodeMeta, queryParams, token);
+			return new CatalogServiceRequest(datacenter, tags, near, nodeMeta, queryParams, token);
 		}
 	}
 
@@ -116,8 +126,8 @@ public final class CatalogServiceRequest implements ConsulRequest {
 			params.add(new SingleUrlParameters("dc", datacenter));
 		}
 
-		if (tag != null) {
-			params.add(new SingleUrlParameters("tag", tag));
+		if (tags != null) {
+			params.add(new TagsParameters(tags));
 		}
 
 		if (near != null) {
