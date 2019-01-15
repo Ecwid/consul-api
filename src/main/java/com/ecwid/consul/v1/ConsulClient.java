@@ -436,6 +436,15 @@ public class ConsulClient implements
 		return catalogClient.getCatalogService(serviceName, tag, queryParams, token);
 	}
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getCatalogService(String serviceName, CatalogServiceRequest catalogServiceRequest)}
+	 */
+	@Deprecated
+	@Override
+	public Response<List<CatalogService>> getCatalogService(String serviceName, String[] tags, QueryParams queryParams, String token) {
+		return catalogClient.getCatalogService(serviceName, tags, queryParams, token);
+	}
+
 	@Override
 	public Response<List<CatalogService>> getCatalogService(String serviceName, CatalogServiceRequest catalogServiceRequest) {
 		return catalogClient.getCatalogService(serviceName, catalogServiceRequest);
@@ -546,6 +555,15 @@ public class ConsulClient implements
 	@Override
 	public Response<List<HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams, String token) {
 		return healthClient.getHealthServices(serviceName, tag, onlyPassing, queryParams, token);
+	}
+
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
+	@Override
+	public Response<List<HealthService>> getHealthServices(String serviceName, String[] tags, boolean onlyPassing, QueryParams queryParams, String token) {
+		return healthClient.getHealthServices(serviceName, tags, onlyPassing, queryParams, token);
 	}
 
 	@Override

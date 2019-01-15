@@ -87,12 +87,12 @@ public final class HealthConsulClient implements HealthClient {
 
 	@Override
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams) {
-		return getHealthServices(serviceName, null, onlyPassing, queryParams, null);
+		return getHealthServices(serviceName, (String) null, onlyPassing, queryParams, null);
 	}
 
 	@Override
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams, String token) {
-		return getHealthServices(serviceName, null, onlyPassing, queryParams, token);
+		return getHealthServices(serviceName, (String) null, onlyPassing, queryParams, token);
 	}
 
 	@Override
@@ -102,8 +102,13 @@ public final class HealthConsulClient implements HealthClient {
 
 	@Override
 	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams, String token) {
+		return getHealthServices(serviceName, new String[]{tag}, onlyPassing, queryParams, token);
+	}
+
+	@Override
+	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String[] tags, boolean onlyPassing, QueryParams queryParams, String token) {
 		HealthServicesRequest request = HealthServicesRequest.newBuilder()
-				.setTag(tag)
+				.setTags(tags)
 				.setPassing(onlyPassing)
 				.setQueryParams(queryParams)
 				.setToken(token)

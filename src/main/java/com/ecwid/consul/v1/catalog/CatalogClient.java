@@ -81,6 +81,12 @@ public interface CatalogClient {
 	@Deprecated
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, String tag, QueryParams queryParams, String token);
 
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getCatalogService(String serviceName, CatalogServiceRequest catalogServiceRequest)}
+	 */
+	@Deprecated
+	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, String[] tags, QueryParams queryParams, String token);
+
 	public Response<List<com.ecwid.consul.v1.catalog.model.CatalogService>> getCatalogService(String serviceName, CatalogServiceRequest catalogServiceRequest);
 
 	// -------------------------------------------------------------------------------

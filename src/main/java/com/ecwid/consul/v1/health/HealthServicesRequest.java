@@ -2,6 +2,7 @@ package com.ecwid.consul.v1.health;
 
 import com.ecwid.consul.ConsulRequest;
 import com.ecwid.consul.SingleUrlParameters;
+import com.ecwid.consul.v1.TagsParameters;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.v1.NodeMetaParameters;
 import com.ecwid.consul.v1.QueryParams;
@@ -15,16 +16,16 @@ public final class HealthServicesRequest implements ConsulRequest {
 
 	private final String datacenter;
 	private final String near;
-	private final String tag;
+	private final String[] tags;
 	private final Map<String, String> nodeMeta;
 	private final boolean passing;
 	private final QueryParams queryParams;
 	private final String token;
 
-	private HealthServicesRequest(String datacenter, String near, String tag, Map<String, String> nodeMeta, boolean passing, QueryParams queryParams, String token) {
+	private HealthServicesRequest(String datacenter, String near, String[] tags, Map<String, String> nodeMeta, boolean passing, QueryParams queryParams, String token) {
 		this.datacenter = datacenter;
 		this.near = near;
-		this.tag = tag;
+		this.tags = tags;
 		this.nodeMeta = nodeMeta;
 		this.passing = passing;
 		this.queryParams = queryParams;
@@ -40,7 +41,11 @@ public final class HealthServicesRequest implements ConsulRequest {
 	}
 
 	public String getTag() {
-		return tag;
+		return tags != null && tags.length > 0 ? tags[0] : null;
+	}
+
+	public String[] getTags() {
+		return tags;
 	}
 
 	public Map<String, String> getNodeMeta() {
@@ -62,7 +67,7 @@ public final class HealthServicesRequest implements ConsulRequest {
 	public static class Builder {
 		private String datacenter;
 		private String near;
-		private String tag;
+		private String[] tags;
 		private Map<String, String> nodeMeta;
 		private boolean passing;
 		private QueryParams queryParams;
@@ -82,7 +87,12 @@ public final class HealthServicesRequest implements ConsulRequest {
 		}
 
 		public Builder setTag(String tag) {
-			this.tag = tag;
+			this.tags = new String[]{tag};
+			return this;
+		}
+
+		public Builder setTags(String[] tags) {
+			this.tags = tags;
 			return this;
 		}
 
@@ -107,7 +117,7 @@ public final class HealthServicesRequest implements ConsulRequest {
 		}
 
 		public HealthServicesRequest build() {
-			return new HealthServicesRequest(datacenter, near, tag, nodeMeta, passing, queryParams, token);
+			return new HealthServicesRequest(datacenter, near, tags, nodeMeta, passing, queryParams, token);
 		}
 	}
 
@@ -127,8 +137,8 @@ public final class HealthServicesRequest implements ConsulRequest {
 			params.add(new SingleUrlParameters("near", near));
 		}
 
-		if (tag != null) {
-			params.add(new SingleUrlParameters("tag", tag));
+		if (tags != null) {
+			params.add(new TagsParameters(tags));
 		}
 
 		if (nodeMeta != null) {
