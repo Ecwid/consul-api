@@ -71,10 +71,19 @@ newService.setCheck(serviceCheck);
 client.agentServiceRegister(newService);
 
 // query for healthy services based on name (returns myapp_01 and myapp_02 if healthy)
-Response<List<HealthService>> healthyServices = client.getHealthServices("myapp", true, QueryParams.DEFAULT);
+HealthServicesRequest request = HealthServicesRequest.newBuilder()
+					.setPassing(true)
+					.setQueryParams(QueryParams.DEFAULT)
+					.build();
+Response<List<HealthService>> healthyServices = client.getHealthServices("myapp", request);
 
 // query for healthy services based on name and tag (returns myapp_01 if healthy)
-Response<List<HealthService>> healthyServices = client.getHealthServices("myapp", "EU-West", true, QueryParams.DEFAULT);
+HealthServicesRequest request = HealthServicesRequest.newBuilder()
+					.setTag("EU-West")
+					.setPassing(true)
+					.setQueryParams(QueryParams.DEFAULT)
+					.build();
+Response<List<HealthService>> healthyServices = client.getHealthServices("myapp", request);
 ```
 
 ## How to add consul-api into your project
