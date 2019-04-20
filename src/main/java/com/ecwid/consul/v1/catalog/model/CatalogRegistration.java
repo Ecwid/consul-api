@@ -206,6 +206,9 @@ public class CatalogRegistration {
 	@SerializedName("SkipNodeUpdate")
 	private boolean skipNodeUpdate;
 
+	@SerializedName("TaggedAddresses")
+	private Map<String, String> taggedAddresses;
+
 	public String getDatacenter() {
 		return datacenter;
 	}
@@ -266,9 +269,16 @@ public class CatalogRegistration {
 		return skipNodeUpdate;
 	}
 
-	public CatalogRegistration setSkipNodeUpdate(boolean skipNodeUpdate) {
+	public void setSkipNodeUpdate(boolean skipNodeUpdate) {
 		this.skipNodeUpdate = skipNodeUpdate;
-		return this;
+	}
+
+	public Map<String, String> getTaggedAddresses() {
+		return taggedAddresses;
+	}
+
+	public void setTaggedAddresses(Map<String, String> taggedAddresses) {
+		this.taggedAddresses = taggedAddresses;
 	}
 
 	@Override
@@ -282,6 +292,7 @@ public class CatalogRegistration {
 				", writeRequest=" + writeRequest +
 				", nodeMeta=" + nodeMeta +
 				", skipNodeUpdate=" + skipNodeUpdate +
+				", taggedAddresses=" + taggedAddresses +
 				'}';
 	}
 }
