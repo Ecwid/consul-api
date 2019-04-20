@@ -203,6 +203,9 @@ public class CatalogRegistration {
 	@SerializedName("NodeMeta")
 	private Map<String, String> nodeMeta;
 
+	@SerializedName("SkipNodeUpdate")
+	private boolean skipNodeUpdate;
+
 	public String getDatacenter() {
 		return datacenter;
 	}
@@ -259,6 +262,15 @@ public class CatalogRegistration {
 		this.nodeMeta = nodeMeta;
 	}
 
+	public boolean isSkipNodeUpdate() {
+		return skipNodeUpdate;
+	}
+
+	public CatalogRegistration setSkipNodeUpdate(boolean skipNodeUpdate) {
+		this.skipNodeUpdate = skipNodeUpdate;
+		return this;
+	}
+
 	@Override
 	public String toString() {
 		return "CatalogRegistration{" +
@@ -269,6 +281,7 @@ public class CatalogRegistration {
 				", check=" + check +
 				", writeRequest=" + writeRequest +
 				", nodeMeta=" + nodeMeta +
+				", skipNodeUpdate=" + skipNodeUpdate +
 				'}';
 	}
 }
