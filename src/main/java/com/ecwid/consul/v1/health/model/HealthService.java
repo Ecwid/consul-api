@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -113,6 +114,26 @@ public class HealthService {
                     ", createIndex=" + createIndex +
                     ", modifyIndex=" + modifyIndex +
                     '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Node node1 = (Node) o;
+            return Objects.equals(id, node1.id) &&
+                    Objects.equals(node, node1.node) &&
+                    Objects.equals(address, node1.address) &&
+                    Objects.equals(datacenter, node1.datacenter) &&
+                    Objects.equals(taggedAddresses, node1.taggedAddresses) &&
+                    Objects.equals(meta, node1.meta) &&
+                    Objects.equals(createIndex, node1.createIndex) &&
+                    Objects.equals(modifyIndex, node1.modifyIndex);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, node, address, datacenter, taggedAddresses, meta, createIndex, modifyIndex);
         }
     }
 
@@ -230,6 +251,27 @@ public class HealthService {
                     ", modifyIndex=" + modifyIndex +
                     '}';
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Service service1 = (Service) o;
+            return Objects.equals(id, service1.id) &&
+                    Objects.equals(service, service1.service) &&
+                    Objects.equals(tags, service1.tags) &&
+                    Objects.equals(address, service1.address) &&
+                    Objects.equals(meta, service1.meta) &&
+                    Objects.equals(port, service1.port) &&
+                    Objects.equals(enableTagOverride, service1.enableTagOverride) &&
+                    Objects.equals(createIndex, service1.createIndex) &&
+                    Objects.equals(modifyIndex, service1.modifyIndex);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, service, tags, address, meta, port, enableTagOverride, createIndex, modifyIndex);
+        }
     }
 
     @SerializedName("Node")
@@ -272,5 +314,20 @@ public class HealthService {
                 ", service=" + service +
                 ", checks=" + checks +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HealthService that = (HealthService) o;
+        return Objects.equals(node, that.node) &&
+                Objects.equals(service, that.service) &&
+                Objects.equals(checks, that.checks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(node, service, checks);
     }
 }
