@@ -13,9 +13,9 @@ import java.util.List;
  */
 public class ConsulRawClient {
 
-	private static final String DEFAULT_HOST = "localhost";
-	private static final int DEFAULT_PORT = 8500;
-	private static final String DEFAULT_PATH = "";
+	public static final String DEFAULT_HOST = "localhost";
+	public static final int DEFAULT_PORT = 8500;
+	public static final String DEFAULT_PATH = "";
 
 	// one real HTTP client for all instances
 	private static final HttpTransport DEFAULT_HTTP_TRANSPORT = new DefaultHttpTransport();
