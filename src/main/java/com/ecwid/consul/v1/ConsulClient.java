@@ -1,5 +1,8 @@
 package com.ecwid.consul.v1;
 
+import java.util.List;
+import java.util.Map;
+
 import com.ecwid.consul.transport.TLSConfig;
 import com.ecwid.consul.v1.acl.AclClient;
 import com.ecwid.consul.v1.acl.AclConsulClient;
@@ -8,9 +11,22 @@ import com.ecwid.consul.v1.acl.model.NewAcl;
 import com.ecwid.consul.v1.acl.model.UpdateAcl;
 import com.ecwid.consul.v1.agent.AgentClient;
 import com.ecwid.consul.v1.agent.AgentConsulClient;
-import com.ecwid.consul.v1.agent.model.*;
-import com.ecwid.consul.v1.catalog.*;
-import com.ecwid.consul.v1.catalog.model.*;
+import com.ecwid.consul.v1.agent.model.Check;
+import com.ecwid.consul.v1.agent.model.Member;
+import com.ecwid.consul.v1.agent.model.NewCheck;
+import com.ecwid.consul.v1.agent.model.NewService;
+import com.ecwid.consul.v1.agent.model.Self;
+import com.ecwid.consul.v1.agent.model.Service;
+import com.ecwid.consul.v1.catalog.CatalogClient;
+import com.ecwid.consul.v1.catalog.CatalogConsulClient;
+import com.ecwid.consul.v1.catalog.CatalogNodesRequest;
+import com.ecwid.consul.v1.catalog.CatalogServiceRequest;
+import com.ecwid.consul.v1.catalog.CatalogServicesRequest;
+import com.ecwid.consul.v1.catalog.model.CatalogDeregistration;
+import com.ecwid.consul.v1.catalog.model.CatalogNode;
+import com.ecwid.consul.v1.catalog.model.CatalogRegistration;
+import com.ecwid.consul.v1.catalog.model.CatalogService;
+import com.ecwid.consul.v1.catalog.model.Node;
 import com.ecwid.consul.v1.coordinate.CoordinateClient;
 import com.ecwid.consul.v1.coordinate.CoordinateConsulClient;
 import com.ecwid.consul.v1.coordinate.model.Datacenter;
@@ -38,9 +54,6 @@ import com.ecwid.consul.v1.session.model.NewSession;
 import com.ecwid.consul.v1.session.model.Session;
 import com.ecwid.consul.v1.status.StatusClient;
 import com.ecwid.consul.v1.status.StatusConsulClient;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Full consul-api client with all supported methods.
@@ -577,8 +590,20 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<List<com.ecwid.consul.v1.health.model.Check>> getHealthChecksState(
+			HealthServicesRequest healthServicesRequest) {
+		return healthClient.getHealthChecksState(healthServicesRequest);
+	}
+
+	@Override
 	public Response<List<com.ecwid.consul.v1.health.model.Check>> getHealthChecksState(com.ecwid.consul.v1.health.model.Check.CheckStatus checkStatus, QueryParams queryParams) {
 		return healthClient.getHealthChecksState(checkStatus, queryParams);
+	}
+
+	@Override
+	public Response<List<com.ecwid.consul.v1.health.model.Check>> getHealthChecksState(
+			com.ecwid.consul.v1.health.model.Check.CheckStatus checkStatus, HealthServicesRequest healthServicesRequest) {
+		return healthClient.getHealthChecksState(checkStatus, healthServicesRequest);
 	}
 
 	// -------------------------------------------------------------------------------------------

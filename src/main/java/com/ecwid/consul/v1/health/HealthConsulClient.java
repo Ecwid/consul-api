@@ -2,8 +2,6 @@ package com.ecwid.consul.v1.health;
 
 import java.util.List;
 
-import com.ecwid.consul.SingleUrlParameters;
-import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
 import com.ecwid.consul.transport.RawResponse;
 import com.ecwid.consul.transport.TLSConfig;
@@ -137,10 +135,29 @@ public final class HealthConsulClient implements HealthClient {
 	}
 
 	@Override
+	public Response<List<Check>> getHealthChecksState(HealthServicesRequest healthServicesRequest) {
+		return getHealthChecksState(null, healthServicesRequest);
+	}
+
+	@Override
 	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, QueryParams queryParams) {
 		String status = checkStatus == null ? "any" : checkStatus.name().toLowerCase();
 		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/state/" + status, queryParams);
 
+		if (rawResponse.getStatusCode() == 200) {
+			List<Check> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Check>>() {
+			}.getType());
+			return new Response<List<Check>>(value, rawResponse);
+		} else {
+			throw new OperationException(rawResponse);
+		}
+	}
+
+	@Override
+	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus,
+			HealthServicesRequest healthServicesRequest) {
+		String status = checkStatus == null ? "any" : checkStatus.name().toLowerCase();
+		RawResponse rawResponse = rawClient.makeGetRequest("/v1/health/state/" + status, healthServicesRequest.asUrlParameters());
 		if (rawResponse.getStatusCode() == 200) {
 			List<Check> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Check>>() {
 			}.getType());

@@ -1,11 +1,10 @@
 package com.ecwid.consul.v1.health;
 
+import java.util.List;
+
 import com.ecwid.consul.v1.QueryParams;
 import com.ecwid.consul.v1.Response;
-import com.ecwid.consul.v1.catalog.CatalogNodesRequest;
 import com.ecwid.consul.v1.health.model.Check;
-
-import java.util.List;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -60,7 +59,13 @@ public interface HealthClient {
 
 	// -------------------------------------------------------------------------------
 
+	@Deprecated
 	public Response<List<Check>> getHealthChecksState(QueryParams queryParams);
 
+	public Response<List<Check>> getHealthChecksState(HealthServicesRequest healthServicesRequest);
+
+	@Deprecated
 	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, QueryParams queryParams);
+
+	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus,HealthServicesRequest healthServicesRequest);
 }
