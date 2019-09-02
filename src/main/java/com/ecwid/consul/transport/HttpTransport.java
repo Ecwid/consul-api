@@ -7,12 +7,10 @@ import java.util.Map;
  */
 public interface HttpTransport {
 
-	public HttpResponse makeGetRequest(String url, Map<String, String> headers);
+	public HttpResponse makeGetRequest(HttpRequest request);
 
-	public HttpResponse makePutRequest(String url, String content, Map<String, String> headers);
+	public HttpResponse makePutRequest(HttpRequest request);
 
-	public HttpResponse makePutRequest(String url, byte[] content, Map<String, String> headers);
-
-	public HttpResponse makeDeleteRequest(String url, Map<String, String> headers);
+	public HttpResponse makeDeleteRequest(HttpRequest request);
 
 }
