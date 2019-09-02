@@ -1,7 +1,7 @@
 package com.ecwid.consul.v1;
 
 import com.ecwid.consul.ConsulException;
-import com.ecwid.consul.transport.RawResponse;
+import com.ecwid.consul.transport.HttpResponse;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -19,8 +19,8 @@ public final class OperationException extends ConsulException {
 		this.statusContent = statusContent;
 	}
 
-	public OperationException(RawResponse rawResponse) {
-		this(rawResponse.getStatusCode(), rawResponse.getStatusMessage(), rawResponse.getContent());
+	public OperationException(HttpResponse httpResponse) {
+		this(httpResponse.getStatusCode(), httpResponse.getStatusMessage(), httpResponse.getContent());
 	}
 
 	public int getStatusCode() {

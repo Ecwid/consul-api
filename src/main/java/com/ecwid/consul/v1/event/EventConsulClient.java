@@ -1,7 +1,7 @@
 package com.ecwid.consul.v1.event;
 
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.RawResponse;
+import com.ecwid.consul.transport.HttpResponse;
 import com.ecwid.consul.transport.TLSConfig;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.OperationException;
@@ -46,13 +46,13 @@ public final class EventConsulClient implements EventClient {
 
 	@Override
 	public Response<Event> eventFire(String event, String payload, EventParams eventParams, QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makePutRequest("/v1/event/fire/" + event, payload, eventParams, queryParams);
+		HttpResponse httpResponse = rawClient.makePutRequest("/v1/event/fire/" + event, payload, eventParams, queryParams);
 
-		if (rawResponse.getStatusCode() == 200) {
-			Event value = GsonFactory.getGson().fromJson(rawResponse.getContent(), Event.class);
-			return new Response<Event>(value, rawResponse);
+		if (httpResponse.getStatusCode() == 200) {
+			Event value = GsonFactory.getGson().fromJson(httpResponse.getContent(), Event.class);
+			return new Response<Event>(value, httpResponse);
 		} else {
-			throw new OperationException(rawResponse);
+			throw new OperationException(httpResponse);
 		}
 	}
 
@@ -73,14 +73,14 @@ public final class EventConsulClient implements EventClient {
 
 	@Override
 	public Response<List<Event>> eventList(EventListRequest eventListRequest) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/event/list", eventListRequest.asUrlParameters());
+		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/event/list", eventListRequest.asUrlParameters());
 
-		if (rawResponse.getStatusCode() == 200) {
-			List<Event> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Event>>() {
+		if (httpResponse.getStatusCode() == 200) {
+			List<Event> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<Event>>() {
 			}.getType());
-			return new Response<List<Event>>(value, rawResponse);
+			return new Response<List<Event>>(value, httpResponse);
 		} else {
-			throw new OperationException(rawResponse);
+			throw new OperationException(httpResponse);
 		}
 	}
 }

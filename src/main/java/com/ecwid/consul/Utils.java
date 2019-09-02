@@ -2,10 +2,7 @@ package com.ecwid.consul;
 
 import java.io.UnsupportedEncodingException;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -57,6 +54,12 @@ public class Utils {
 			}
 		}
 		return result.toString();
+	}
+
+	public static Map<String, String> createTokenMap(String token) {
+		Map<String, String> headers = new HashMap<>();
+		headers.put("X-Consul-Token", token);
+		return headers;
 	}
 
 	public static String toUnsignedString(long l) {

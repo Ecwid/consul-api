@@ -1,7 +1,7 @@
 package com.ecwid.consul.v1.query;
 
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.RawResponse;
+import com.ecwid.consul.transport.HttpResponse;
 import com.ecwid.consul.transport.TLSConfig;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.OperationException;
@@ -37,13 +37,13 @@ public final class QueryConsulClient implements QueryClient {
 
 	@Override
 	public Response<QueryExecution> executePreparedQuery(String uuid, QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/query/" + uuid + "/execute", queryParams);
+		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/query/" + uuid + "/execute", queryParams);
 
-		if (rawResponse.getStatusCode() == 200) {
-			QueryExecution queryExecution = GsonFactory.getGson().fromJson(rawResponse.getContent(), QueryExecution.class);
-			return new Response<QueryExecution>(queryExecution, rawResponse);
+		if (httpResponse.getStatusCode() == 200) {
+			QueryExecution queryExecution = GsonFactory.getGson().fromJson(httpResponse.getContent(), QueryExecution.class);
+			return new Response<QueryExecution>(queryExecution, httpResponse);
 		} else {
-			throw new OperationException(rawResponse);
+			throw new OperationException(httpResponse);
 		}
 	}
 }

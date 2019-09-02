@@ -3,7 +3,7 @@ package com.ecwid.consul.transport;
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
  */
-public final class RawResponse {
+public final class HttpResponse {
 
 	private final int statusCode;
 	private final String statusMessage;
@@ -14,7 +14,7 @@ public final class RawResponse {
 	private final Boolean consulKnownLeader;
 	private final Long consulLastContact;
 
-	public RawResponse(int statusCode, String statusMessage, String content, Long consulIndex, Boolean consulKnownLeader, Long consulLastContact) {
+	public HttpResponse(int statusCode, String statusMessage, String content, Long consulIndex, Boolean consulKnownLeader, Long consulLastContact) {
 		this.statusCode = statusCode;
 		this.statusMessage = statusMessage;
 		this.content = content;

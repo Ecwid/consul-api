@@ -1,7 +1,7 @@
 package com.ecwid.consul.v1.coordinate;
 
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.RawResponse;
+import com.ecwid.consul.transport.HttpResponse;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.OperationException;
 import com.ecwid.consul.v1.QueryParams;
@@ -25,27 +25,27 @@ public class CoordinateConsulClient implements CoordinateClient {
 
 	@Override
 	public Response<List<Datacenter>> getDatacenters() {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/coordinate/datacenters");
+		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/coordinate/datacenters");
 
-		if (rawResponse.getStatusCode() == 200) {
-			List<Datacenter> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Datacenter>>() {
+		if (httpResponse.getStatusCode() == 200) {
+			List<Datacenter> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<Datacenter>>() {
 			}.getType());
-			return new Response<List<Datacenter>>(value, rawResponse);
+			return new Response<List<Datacenter>>(value, httpResponse);
 		} else {
-			throw new OperationException(rawResponse);
+			throw new OperationException(httpResponse);
 		}
 	}
 
 	@Override
 	public Response<List<Node>> getNodes(QueryParams queryParams) {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/coordinate/nodes", queryParams);
+		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/coordinate/nodes", queryParams);
 
-		if (rawResponse.getStatusCode() == 200) {
-			List<Node> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<Node>>() {
+		if (httpResponse.getStatusCode() == 200) {
+			List<Node> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<Node>>() {
 			}.getType());
-			return new Response<List<Node>>(value, rawResponse);
+			return new Response<List<Node>>(value, httpResponse);
 		} else {
-			throw new OperationException(rawResponse);
+			throw new OperationException(httpResponse);
 		}
 	}
 }

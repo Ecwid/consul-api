@@ -124,32 +124,32 @@ public class ConsulRawClient {
 		this.agentAddress = Utils.assembleAgentAddress(agentHost, agentPort, path);
 	}
 
-	public RawResponse makeGetRequest(String endpoint, UrlParameters... urlParams) {
+	public HttpResponse makeGetRequest(String endpoint, UrlParameters... urlParams) {
 		return makeGetRequest(endpoint, Arrays.asList(urlParams));
 	}
 
-	public RawResponse makeGetRequest(String endpoint, List<UrlParameters> urlParams) {
+	public HttpResponse makeGetRequest(String endpoint, List<UrlParameters> urlParams) {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
 		return httpTransport.makeGetRequest(url, null);
 	}
 
-	public RawResponse makePutRequest(String endpoint, String content, UrlParameters... urlParams) {
+	public HttpResponse makePutRequest(String endpoint, String content, UrlParameters... urlParams) {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
 		return httpTransport.makePutRequest(url, content, null);
 	}
 
-	public RawResponse makePutRequest(String endpoint, byte[] content, UrlParameters... urlParams) {
+	public HttpResponse makePutRequest(String endpoint, byte[] content, UrlParameters... urlParams) {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
 		return httpTransport.makePutRequest(url, content, null);
 	}
 
-	public RawResponse makeDeleteRequest(String endpoint, UrlParameters... urlParams) {
+	public HttpResponse makeDeleteRequest(String endpoint, UrlParameters... urlParams) {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 

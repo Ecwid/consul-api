@@ -1,6 +1,6 @@
 package com.ecwid.consul.v1;
 
-import com.ecwid.consul.transport.RawResponse;
+import com.ecwid.consul.transport.HttpResponse;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -20,8 +20,8 @@ public final class Response<T> {
 		this.consulLastContact = consulLastContact;
 	}
 
-	public Response(T value, RawResponse rawResponse) {
-		this(value, rawResponse.getConsulIndex(), rawResponse.isConsulKnownLeader(), rawResponse.getConsulLastContact());
+	public Response(T value, HttpResponse httpResponse) {
+		this(value, httpResponse.getConsulIndex(), httpResponse.isConsulKnownLeader(), httpResponse.getConsulLastContact());
 	}
 
 	public T getValue() {

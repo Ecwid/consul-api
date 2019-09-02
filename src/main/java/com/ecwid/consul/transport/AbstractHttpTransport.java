@@ -2,7 +2,6 @@ package com.ecwid.consul.transport;
 
 import com.ecwid.consul.Utils;
 import org.apache.http.Header;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.*;
@@ -27,7 +26,7 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	@Override
-	public RawResponse makeGetRequest(String url, Map<String, String> headers) {
+	public HttpResponse makeGetRequest(String url, Map<String, String> headers) {
 		HttpGet httpGet = new HttpGet(url);
 
 		addHeadersToRequest(httpGet, headers);
@@ -36,7 +35,7 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 	}
 
 	@Override
-	public RawResponse makePutRequest(String url, String content, Map<String, String> headers) {
+	public HttpResponse makePutRequest(String url, String content, Map<String, String> headers) {
 		HttpPut httpPut = new HttpPut(url);
 		httpPut.setEntity(new StringEntity(content, UTF_8));
 
@@ -46,7 +45,7 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 	}
 
 	@Override
-	public RawResponse makePutRequest(String url, byte[] content, Map<String, String> headers) {
+	public HttpResponse makePutRequest(String url, byte[] content, Map<String, String> headers) {
 		HttpPut httpPut = new HttpPut(url);
 		httpPut.setEntity(new ByteArrayEntity(content));
 		addHeadersToRequest(httpPut, headers);
@@ -54,7 +53,7 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 	}
 
 	@Override
-	public RawResponse makeDeleteRequest(String url, Map<String, String> headers) {
+	public HttpResponse makeDeleteRequest(String url, Map<String, String> headers) {
 		HttpDelete httpDelete = new HttpDelete(url);
 		addHeadersToRequest(httpDelete, headers);
 		return executeRequest(httpDelete);
@@ -62,11 +61,11 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 
 	protected abstract HttpClient getHttpClient();
 
-	private RawResponse executeRequest(HttpUriRequest httpRequest) {
+	private HttpResponse executeRequest(HttpUriRequest httpRequest) {
 		try {
-			return getHttpClient().execute(httpRequest, new ResponseHandler<RawResponse>() {
+			return getHttpClient().execute(httpRequest, new ResponseHandler<HttpResponse>() {
 				@Override
-				public RawResponse handleResponse(HttpResponse response) throws IOException {
+				public HttpResponse handleResponse(org.apache.http.HttpResponse response) throws IOException {
 					int statusCode = response.getStatusLine().getStatusCode();
 					String statusMessage = response.getStatusLine().getReasonPhrase();
 
@@ -76,7 +75,7 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 					Boolean consulKnownLeader = parseBoolean(response.getFirstHeader("X-Consul-Knownleader"));
 					Long consulLastContact = parseUnsignedLong(response.getFirstHeader("X-Consul-Lastcontact"));
 
-					return new RawResponse(statusCode, statusMessage, content, consulIndex, consulKnownLeader, consulLastContact);
+					return new HttpResponse(statusCode, statusMessage, content, consulIndex, consulKnownLeader, consulLastContact);
 				}
 			});
 		} catch (IOException e) {

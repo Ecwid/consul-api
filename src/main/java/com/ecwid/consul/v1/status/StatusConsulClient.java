@@ -1,7 +1,7 @@
 package com.ecwid.consul.v1.status;
 
 import com.ecwid.consul.json.GsonFactory;
-import com.ecwid.consul.transport.RawResponse;
+import com.ecwid.consul.transport.HttpResponse;
 import com.ecwid.consul.transport.TLSConfig;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.OperationException;
@@ -47,26 +47,26 @@ public final class StatusConsulClient implements StatusClient {
 
 	@Override
 	public Response<String> getStatusLeader() {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/status/leader");
+		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/status/leader");
 
-		if (rawResponse.getStatusCode() == 200) {
-			String value = GsonFactory.getGson().fromJson(rawResponse.getContent(), String.class);
-			return new Response<String>(value, rawResponse);
+		if (httpResponse.getStatusCode() == 200) {
+			String value = GsonFactory.getGson().fromJson(httpResponse.getContent(), String.class);
+			return new Response<String>(value, httpResponse);
 		} else {
-			throw new OperationException(rawResponse);
+			throw new OperationException(httpResponse);
 		}
 	}
 
 	@Override
 	public Response<List<String>> getStatusPeers() {
-		RawResponse rawResponse = rawClient.makeGetRequest("/v1/status/peers");
+		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/status/peers");
 
-		if (rawResponse.getStatusCode() == 200) {
-			List<String> value = GsonFactory.getGson().fromJson(rawResponse.getContent(), new TypeToken<List<String>>() {
+		if (httpResponse.getStatusCode() == 200) {
+			List<String> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<String>>() {
 			}.getType());
-			return new Response<List<String>>(value, rawResponse);
+			return new Response<List<String>>(value, httpResponse);
 		} else {
-			throw new OperationException(rawResponse);
+			throw new OperationException(httpResponse);
 		}
 	}
 
