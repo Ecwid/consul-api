@@ -132,28 +132,28 @@ public class ConsulRawClient {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
-		return httpTransport.makeGetRequest(url);
+		return httpTransport.makeGetRequest(url, null);
 	}
 
 	public RawResponse makePutRequest(String endpoint, String content, UrlParameters... urlParams) {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
-		return httpTransport.makePutRequest(url, content);
+		return httpTransport.makePutRequest(url, content, null);
 	}
 
 	public RawResponse makePutRequest(String endpoint, byte[] content, UrlParameters... urlParams) {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
-		return httpTransport.makePutRequest(url, content);
+		return httpTransport.makePutRequest(url, content, null);
 	}
 
 	public RawResponse makeDeleteRequest(String endpoint, UrlParameters... urlParams) {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
-		return httpTransport.makeDeleteRequest(url);
+		return httpTransport.makeDeleteRequest(url, null);
 	}
 
 	private String prepareUrl(String url) {

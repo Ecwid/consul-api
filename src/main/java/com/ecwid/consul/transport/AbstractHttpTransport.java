@@ -5,16 +5,14 @@ import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Map;
 
 public abstract class AbstractHttpTransport implements HttpTransport {
 
@@ -29,28 +27,36 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	@Override
-	public RawResponse makeGetRequest(String url) {
+	public RawResponse makeGetRequest(String url, Map<String, String> headers) {
 		HttpGet httpGet = new HttpGet(url);
+
+		addHeadersToRequest(httpGet, headers);
+
 		return executeRequest(httpGet);
 	}
 
 	@Override
-	public RawResponse makePutRequest(String url, String content) {
+	public RawResponse makePutRequest(String url, String content, Map<String, String> headers) {
 		HttpPut httpPut = new HttpPut(url);
 		httpPut.setEntity(new StringEntity(content, UTF_8));
+
+		addHeadersToRequest(httpPut, headers);
+
 		return executeRequest(httpPut);
 	}
 
 	@Override
-	public RawResponse makePutRequest(String url, byte[] content) {
+	public RawResponse makePutRequest(String url, byte[] content, Map<String, String> headers) {
 		HttpPut httpPut = new HttpPut(url);
 		httpPut.setEntity(new ByteArrayEntity(content));
+		addHeadersToRequest(httpPut, headers);
 		return executeRequest(httpPut);
 	}
 
 	@Override
-	public RawResponse makeDeleteRequest(String url) {
+	public RawResponse makeDeleteRequest(String url, Map<String, String> headers) {
 		HttpDelete httpDelete = new HttpDelete(url);
+		addHeadersToRequest(httpDelete, headers);
 		return executeRequest(httpDelete);
 	}
 
@@ -109,6 +115,19 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 		}
 
 		return null;
+	}
+
+	private void addHeadersToRequest(HttpRequestBase request, Map<String, String> headers) {
+		if (headers == null) {
+			return;
+		}
+
+		for (Map.Entry<String, String> headerValue : headers.entrySet()) {
+			String name = headerValue.getKey();
+			String value = headerValue.getValue();
+
+			request.addHeader(name, value);
+		}
 	}
 
 }
