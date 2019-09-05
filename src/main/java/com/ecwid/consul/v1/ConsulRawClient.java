@@ -132,7 +132,10 @@ public class ConsulRawClient {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
-		HttpRequest request = new HttpRequest(url);
+		HttpRequest request = HttpRequest.Builder
+			.newBuilder()
+			.setUrl(url)
+			.build();
 
 		return httpTransport.makeGetRequest(request);
 	}
@@ -141,7 +144,11 @@ public class ConsulRawClient {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
-		HttpRequest request = new HttpRequest(url, null, content);
+		HttpRequest request = HttpRequest.Builder
+			.newBuilder()
+			.setUrl(url)
+			.setContent(content)
+			.build();
 
 		return httpTransport.makePutRequest(request);
 	}
@@ -150,7 +157,11 @@ public class ConsulRawClient {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
-		HttpRequest request = new HttpRequest(url, null, binaryContent);
+		HttpRequest request = HttpRequest.Builder
+			.newBuilder()
+			.setUrl(url)
+			.setBinaryContent(binaryContent)
+			.build();
 
 		return httpTransport.makePutRequest(request);
 	}
@@ -159,7 +170,10 @@ public class ConsulRawClient {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);
 
-		HttpRequest request = new HttpRequest(url);
+		HttpRequest request = HttpRequest.Builder
+			.newBuilder()
+			.setUrl(url)
+			.build();
 
 		return httpTransport.makeDeleteRequest(request);
 	}
