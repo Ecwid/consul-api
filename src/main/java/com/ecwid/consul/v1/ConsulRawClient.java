@@ -181,6 +181,7 @@ public class ConsulRawClient {
 	private String prepareUrl(String url) {
 		if (url.contains(" ")) {
 			// temp hack for old clients who did manual encoding and just use %20
+			// TODO: Remove it in 2.0
 			return Utils.encodeUrl(url);
 		} else {
 			return url;
