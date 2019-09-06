@@ -1,5 +1,6 @@
 package com.ecwid.consul.v1;
 
+import com.ecwid.consul.ConsulTestConstants;
 import com.ecwid.consul.transport.TLSConfig;
 import com.ecwid.consul.v1.agent.model.NewService;
 import com.ecwid.consul.v1.agent.model.Service;
@@ -40,7 +41,7 @@ public class ConsulClientTest {
                 "}\n";
 
         consul = ConsulStarterBuilder.consulStarter()
-                .withConsulVersion("1.0.6")
+                .withConsulVersion(ConsulTestConstants.CONSUL_VERSION)
                 .withCustomConfig(customConfiguration)
                 .build()
                 .start();

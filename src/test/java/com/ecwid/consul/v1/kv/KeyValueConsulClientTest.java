@@ -1,5 +1,6 @@
 package com.ecwid.consul.v1.kv;
 
+import com.ecwid.consul.ConsulTestConstants;
 import com.pszymczyk.consul.ConsulProcess;
 import com.pszymczyk.consul.ConsulStarterBuilder;
 import com.pszymczyk.consul.infrastructure.Ports;
@@ -23,7 +24,7 @@ class KeyValueConsulClientTest {
 	@BeforeEach
 	void setUp() {
 		consul = ConsulStarterBuilder.consulStarter()
-			.withConsulVersion("1.6.0")
+			.withConsulVersion(ConsulTestConstants.CONSUL_VERSION)
 			.withHttpPort(port)
 			.build()
 			.start();

@@ -1,5 +1,6 @@
 package com.ecwid.consul.v1.acl;
 
+import com.ecwid.consul.ConsulTestConstants;
 import com.ecwid.consul.v1.Response;
 import com.ecwid.consul.v1.acl.model.Acl;
 import com.ecwid.consul.v1.acl.model.AclType;
@@ -31,7 +32,7 @@ public class AclConsulClientTest {
                 ", \"datacenter\": \"dc-test\" }";
 
         consul = ConsulStarterBuilder.consulStarter()
-                .withConsulVersion("1.0.6")
+                .withConsulVersion(ConsulTestConstants.CONSUL_VERSION)
                 .withHttpPort(port)
                 .withCustomConfig(customConfiguration)
                 .build()
