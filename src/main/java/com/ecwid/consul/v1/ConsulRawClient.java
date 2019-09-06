@@ -139,6 +139,18 @@ public class ConsulRawClient {
 		return httpTransport.makeGetRequest(request);
 	}
 
+	public HttpResponse makeGetRequest(Request request) {
+		String url = prepareUrl(agentAddress + request.getEndpoint());
+		url = Utils.generateUrl(url, request.getUrlParameters());
+
+		HttpRequest httpRequest = HttpRequest.Builder.newBuilder()
+			.setUrl(url)
+			.addHeaders(Utils.createTokenMap(request.getToken()))
+			.build();
+
+		return httpTransport.makeGetRequest(httpRequest);
+	}
+
 	public HttpResponse makePutRequest(String endpoint, String content, UrlParameters... urlParams) {
 		String url = prepareUrl(agentAddress + endpoint);
 		url = Utils.generateUrl(url, urlParams);

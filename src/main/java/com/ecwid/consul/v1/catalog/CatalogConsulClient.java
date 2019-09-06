@@ -5,10 +5,7 @@ import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
 import com.ecwid.consul.transport.HttpResponse;
 import com.ecwid.consul.transport.TLSConfig;
-import com.ecwid.consul.v1.ConsulRawClient;
-import com.ecwid.consul.v1.OperationException;
-import com.ecwid.consul.v1.QueryParams;
-import com.ecwid.consul.v1.Response;
+import com.ecwid.consul.v1.*;
 import com.ecwid.consul.v1.catalog.model.*;
 import com.google.gson.reflect.TypeToken;
 
@@ -110,12 +107,17 @@ public final class CatalogConsulClient implements CatalogClient {
 
 	@Override
 	public Response<List<Node>> getCatalogNodes(CatalogNodesRequest catalogNodesRequest) {
-		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/catalog/nodes", catalogNodesRequest.asUrlParameters());
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/catalog/nodes")
+			.addUrlParameters(catalogNodesRequest.asUrlParameters())
+			.build();
+
+		HttpResponse httpResponse = rawClient.makeGetRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			List<Node> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<Node>>() {
 			}.getType());
-			return new Response<List<Node>>(value, httpResponse);
+			return new Response<>(value, httpResponse);
 		} else {
 			throw new OperationException(httpResponse);
 		}
