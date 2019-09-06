@@ -8,10 +8,7 @@ import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
 import com.ecwid.consul.transport.HttpResponse;
 import com.ecwid.consul.transport.TLSConfig;
-import com.ecwid.consul.v1.ConsulRawClient;
-import com.ecwid.consul.v1.OperationException;
-import com.ecwid.consul.v1.QueryParams;
-import com.ecwid.consul.v1.Response;
+import com.ecwid.consul.v1.*;
 import com.ecwid.consul.v1.kv.model.GetBinaryValue;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import com.ecwid.consul.v1.kv.model.PutParams;
@@ -318,11 +315,16 @@ public final class KeyValueConsulClient implements KeyValueClient {
 
 	@Override
 	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams) {
-		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		HttpResponse httpResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam, queryParams);
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/kv/" + key)
+			.setToken(token)
+			.addUrlParameter(queryParams)
+			.build();
+
+		HttpResponse httpResponse = rawClient.makeDeleteRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
-			return new Response<Void>(null, httpResponse);
+			return new Response<>(null, httpResponse);
 		} else {
 			throw new OperationException(httpResponse);
 		}
@@ -346,11 +348,18 @@ public final class KeyValueConsulClient implements KeyValueClient {
 	@Override
 	public Response<Void> deleteKVValues(String key, String token, QueryParams queryParams) {
 		UrlParameters recurseParam = new SingleUrlParameters("recurse");
-		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		HttpResponse httpResponse = rawClient.makeDeleteRequest("/v1/kv/" + key, tokenParam, recurseParam, queryParams);
+
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/kv/" + key)
+			.setToken(token)
+			.addUrlParameter(recurseParam)
+			.addUrlParameter(queryParams)
+			.build();
+
+		HttpResponse httpResponse = rawClient.makeDeleteRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
-			return new Response<Void>(null, httpResponse);
+			return new Response<>(null, httpResponse);
 		} else {
 			throw new OperationException(httpResponse);
 		}

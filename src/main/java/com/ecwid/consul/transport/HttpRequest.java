@@ -1,5 +1,6 @@
 package com.ecwid.consul.transport;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public final class HttpRequest {
@@ -41,7 +42,7 @@ public final class HttpRequest {
 	// Builder
 	public static final class Builder {
 		private String url;
-		private Map<String, String> headers;
+		private Map<String, String> headers = new HashMap<>();
 		private String content;
 		private byte[] binaryContent;
 
@@ -54,8 +55,13 @@ public final class HttpRequest {
 			return this;
 		}
 
-		public Builder setHeaders(Map<String, String> headers) {
-			this.headers = headers;
+		public Builder addHeaders(Map<String, String> headers) {
+			this.headers.putAll(headers);
+			return this;
+		}
+
+		public Builder addHeader(String name, String value) {
+			this.headers.put(name, value);
 			return this;
 		}
 
