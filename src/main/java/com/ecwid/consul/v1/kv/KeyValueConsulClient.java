@@ -287,8 +287,15 @@ public final class KeyValueConsulClient implements KeyValueClient {
 
 	@Override
 	public Response<Boolean> setKVBinaryValue(String key, byte[] value, String token, PutParams putParams, QueryParams queryParams) {
-		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		HttpResponse httpResponse = rawClient.makePutRequest("/v1/kv/" + key, value, putParams, tokenParam, queryParams);
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/kv/" + key)
+			.setToken(token)
+			.addUrlParameter(queryParams)
+			.addUrlParameter(putParams)
+			.setBinaryContent(value)
+			.build();
+
+		HttpResponse httpResponse = rawClient.makePutRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			boolean result = GsonFactory.getGson().fromJson(httpResponse.getContent(), boolean.class);

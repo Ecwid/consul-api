@@ -151,16 +151,18 @@ public class ConsulRawClient {
 		return httpTransport.makePutRequest(request);
 	}
 
-	public HttpResponse makePutRequest(String endpoint, byte[] binaryContent, UrlParameters... urlParams) {
-		String url = prepareUrl(agentAddress + endpoint);
-		url = Utils.generateUrl(url, urlParams);
+	public HttpResponse makePutRequest(Request request) {
+		//,  String endpoint, byte[] binaryContent, UrlParameters... urlParams
+		String url = prepareUrl(agentAddress + request.getEndpoint());
+		url = Utils.generateUrl(url, request.getUrlParameters());
 
-		HttpRequest request = HttpRequest.Builder.newBuilder()
+		HttpRequest httpRequest = HttpRequest.Builder.newBuilder()
 			.setUrl(url)
-			.setBinaryContent(binaryContent)
+			.setBinaryContent(request.getBinaryContent())
+			.addHeaders(Utils.createTokenMap(request.getToken()))
 			.build();
 
-		return httpTransport.makePutRequest(request);
+		return httpTransport.makePutRequest(httpRequest);
 	}
 
 	public HttpResponse makeDeleteRequest(Request request) {

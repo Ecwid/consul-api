@@ -3,12 +3,17 @@ package com.ecwid.consul.v1.kv;
 import com.pszymczyk.consul.ConsulProcess;
 import com.pszymczyk.consul.ConsulStarterBuilder;
 import com.pszymczyk.consul.infrastructure.Ports;
+import org.apache.commons.lang.math.RandomUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Random;
+
 class KeyValueConsulClientTest {
+
+	private static final Random rnd = new Random();
 
 	private ConsulProcess consul;
 	private int port = Ports.nextAvailable();
@@ -27,6 +32,20 @@ class KeyValueConsulClientTest {
 	@AfterEach
 	void tearDown() {
 		consul.close();
+	}
+
+	@Test
+	void testSetKVBinaryValue() throws Exception {
+		final String testKey = "test_key";
+		final byte[] testValue = new byte[100];
+		rnd.nextBytes(testValue);
+
+		// Make sure there is no such key before test running
+		Assertions.assertNull(consulClient.getKVValue(testKey).getValue());
+		// Set the key
+		consulClient.setKVBinaryValue(testKey, testValue);
+		// Make sure test key exists
+		Assertions.assertArrayEquals(consulClient.getKVBinaryValue(testKey).getValue().getValue(), testValue);
 	}
 
 	@Test
