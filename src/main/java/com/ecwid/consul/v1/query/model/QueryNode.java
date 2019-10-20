@@ -136,6 +136,9 @@ public class QueryNode {
 		@SerializedName("ModifyIndex")
 		private Long modifyIndex;
 
+		@SerializedName("Meta")
+		private Map<String, String> meta;
+
 		public String getId() {
 			return id;
 		}
@@ -184,6 +187,14 @@ public class QueryNode {
 			this.enableTagOverride = enableTagOverride;
 		}
 
+		public Map<String, String> getMeta() {
+			return meta;
+		}
+
+		public void setMeta(Map<String, String> meta) {
+			this.meta = meta;
+		}
+
 		public Long getCreateIndex() {
 			return createIndex;
 		}
@@ -209,6 +220,7 @@ public class QueryNode {
 				", address='" + address + '\'' +
 				", port=" + port +
 				", enableTagOverride=" + enableTagOverride +
+				", meta=" + meta +
 				", createIndex=" + createIndex +
 				", modifyIndex=" + modifyIndex +
 				'}';
