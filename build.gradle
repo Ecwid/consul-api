@@ -112,11 +112,3 @@ if (doUploadArchives) {
 		}
 	}
 }
-
-// --------------------------------------------------------------
-// Wrapper
-
-task wrapper(type: Wrapper) {
-	gradleVersion = '4.10'
-	distributionType = org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
-}
