@@ -1,6 +1,5 @@
 package com.ecwid.consul;
 
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,29 +37,9 @@ public class UtilsTest {
 	}
 
 	@Test
-	public void testUnsignedLongParsing() throws Exception {
-		checkUnsignedLongRange(-100, 100);
-		checkUnsignedLongRange(Long.MIN_VALUE, Long.MIN_VALUE + 100);
-		checkUnsignedLongRange(Long.MAX_VALUE - 100, Long.MAX_VALUE);
+	public void testToSecondsString() throws Exception {
+		assertEquals("1000s", Utils.toSecondsString(1000L));
 	}
-
-	private void checkUnsignedLongRange(long start, long end) throws Exception {
-		for (long l = start; l < end; l++) {
-			String str = Utils.toUnsignedString(l);
-			long l2 = Utils.parseUnsignedLong(str);
-			assertEquals(l, l2);
-
-			if (l >= 0) {
-				assertEquals(Long.toString(l), str);
-				assertEquals(l, l2);
-			}
-		}
-	}
-
-    @Test
-    public void testToSecondsString() throws Exception {
-        assertEquals("1000s", Utils.toSecondsString(1000L));
-    }
 
 	@Test
 	public void testAssembleAgentAddressWithPath() {
@@ -74,8 +53,8 @@ public class UtilsTest {
 
 		// Then
 		assertEquals(
-				String.format("%s:%d/%s", expectedHost, expectedPort, expectedPath),
-				actualAddress
+			String.format("%s:%d/%s", expectedHost, expectedPort, expectedPath),
+			actualAddress
 		);
 	}
 
@@ -91,8 +70,8 @@ public class UtilsTest {
 
 		// Then
 		assertEquals(
-				String.format("%s:%d", expectedHost, expectedPort),
-				actualAddress
+			String.format("%s:%d", expectedHost, expectedPort),
+			actualAddress
 		);
 	}
 
@@ -107,8 +86,8 @@ public class UtilsTest {
 
 		// Then
 		assertEquals(
-				String.format("%s:%d", expectedHost, expectedPort),
-				actualAddress
+			String.format("%s:%d", expectedHost, expectedPort),
+			actualAddress
 		);
 	}
 }

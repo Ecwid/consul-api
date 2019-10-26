@@ -1,7 +1,9 @@
 package com.ecwid.consul;
 
 import java.io.UnsupportedEncodingException;
-import java.net.*;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -60,42 +62,6 @@ public class Utils {
 		Map<String, String> headers = new HashMap<>();
 		headers.put("X-Consul-Token", token);
 		return headers;
-	}
-
-	public static String toUnsignedString(long l) {
-		if (l >= 0) {
-			return Long.toString(l);
-		} else {
-			long quot = (l >>> 1) / 5;
-			long rem = l - quot * 10;
-			return Long.toString(quot) + rem;
-		}
-	}
-
-	public static long parseUnsignedLong(String s) {
-		if (s.charAt(0) == '-') {
-			throw new NumberFormatException("An unsigned long was expected. Cannot parse negative number " + s);
-		}
-		int length = s.length();
-		// Long.MAX_VALUE is 19 digits in length so anything
-		// shorter than that is trivial to parse.
-		if (length < 19) {
-			return Long.parseLong(s);
-		}
-		long front = Long.parseLong(s.substring(0, length - 1));
-		int onesDigit = Character.digit(s.charAt(length - 1), 10);
-		if (onesDigit < 0) {
-			throw new NumberFormatException("Invalid last digit for " + onesDigit);
-		}
-		long result = front * 10 + onesDigit;
-		if (compareLong(result + Long.MIN_VALUE, front + Long.MIN_VALUE) < 0) {
-			throw new NumberFormatException("The number " + s + " is greater than 2^64");
-		}
-		return result;
-	}
-
-	private static int compareLong(long x, long y) {
-		return (x < y) ? -1 : ((x == y) ? 0 : 1);
 	}
 
 	public static String toSecondsString(long waitTime) {

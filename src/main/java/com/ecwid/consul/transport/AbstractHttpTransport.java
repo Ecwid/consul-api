@@ -87,7 +87,7 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 		}
 
 		try {
-			return Utils.parseUnsignedLong(value);
+			return Long.parseUnsignedLong(value);
 		} catch (Exception e) {
 			return null;
 		}

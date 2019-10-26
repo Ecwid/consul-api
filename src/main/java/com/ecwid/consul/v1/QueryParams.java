@@ -137,7 +137,7 @@ public final class QueryParams implements UrlParameters {
 		}
 
 		if (index != -1) {
-			params.add("index=" + Utils.toUnsignedString(index));
+			params.add("index=" + Long.toUnsignedString(index));
 		}
 
 		if (near != null) {
