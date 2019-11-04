@@ -1,7 +1,7 @@
 package com.ecwid.consul.transport;
 
-import com.ecwid.consul.Utils;
 import org.apache.http.Header;
+import org.apache.http.HeaderIterator;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.ByteArrayEntity;
@@ -10,9 +10,15 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+import java.util.stream.StreamSupport;
 
 public abstract class AbstractHttpTransport implements HttpTransport {
+
+	private static final Logger log = Logger.getLogger(AbstractHttpTransport.class.getName());
 
 	static final int DEFAULT_MAX_CONNECTIONS = 1000;
 	static final int DEFAULT_MAX_PER_ROUTE_CONNECTIONS = 500;
@@ -58,6 +64,8 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 	protected abstract HttpClient getHttpClient();
 
 	private HttpResponse executeRequest(HttpUriRequest httpRequest) {
+		logRequest(httpRequest);
+
 		try {
 			return getHttpClient().execute(httpRequest, response -> {
 				int statusCode = response.getStatusLine().getStatusCode();
@@ -120,6 +128,38 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 
 			request.addHeader(name, value);
 		}
+	}
+
+	private void logRequest(HttpUriRequest httpRequest) {
+		StringBuilder sb = new StringBuilder();
+
+		// method
+		sb.append(httpRequest.getMethod());
+		sb.append(" ");
+
+		// url
+		sb.append(httpRequest.getURI());
+		sb.append(" ");
+
+		// headers, if any
+		HeaderIterator iterator = httpRequest.headerIterator();
+		if (iterator.hasNext()) {
+			sb.append("Headers:[");
+
+			Header header = iterator.nextHeader();
+			sb.append(header.getName()).append("=").append(header.getValue());
+
+			while (iterator.hasNext()) {
+				header = iterator.nextHeader();
+				sb.append(header.getName()).append("=").append(header.getValue());
+				sb.append(";");
+			}
+
+			sb.append("] ");
+		}
+
+		//
+		log.finest(sb.toString());
 	}
 
 }
