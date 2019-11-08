@@ -2,6 +2,7 @@ package com.ecwid.consul.v1.agent.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,11 @@ public class NewService {
 
 	public static class Check {
 
+		/**
+		 * Should only be used for Consul after 1.0
+		 * For newer versions, {@link #args} should be used instead of script
+		 */
+		@Deprecated
 		@SerializedName("Script")
 		private String script;
 		
@@ -21,6 +27,12 @@ public class NewService {
 		
 		@SerializedName("Shell")
 		private String shell;
+
+		/**
+		 * Should be used for consul before 1.0
+		 */
+		@SerializedName("Args")
+		private String[] args;
 
 		@SerializedName("Interval")
 		private String interval;
@@ -52,10 +64,20 @@ public class NewService {
 		@SerializedName("Status")
 		private String status;
 
+		/**
+		 * Should only be used for Consul before 1.0
+		 * For newer versions, {@link #getArgs()} should be used instead of script
+		 */
+		@Deprecated
 		public String getScript() {
 			return script;
 		}
 
+		/**
+		 * Should only be used for Consul after 1.0
+		 * For newer versions, {@link #setArgs(String)} should be used instead of script
+		 */
+		@Deprecated
 		public void setScript(String script) {
 			this.script = script;
 		}
@@ -74,6 +96,14 @@ public class NewService {
 
 		public void setShell(String shell) {
 		    	this.shell = shell;
+		}
+
+		public String[] getArgs() {
+			return args;
+		}
+
+		public void setArgs(String script) {
+			this.args = script.split(" ");
 		}
 
 		public String getInterval() {
@@ -160,6 +190,7 @@ public class NewService {
 		public String toString() {
 			return "Check{" +
 					"script='" + script + '\'' +
+					", args='" + Arrays.deepToString(args) + '\'' +
 					", interval='" + interval + '\'' +
 					", ttl='" + ttl + '\'' +
 					", http='" + http + '\'' +
