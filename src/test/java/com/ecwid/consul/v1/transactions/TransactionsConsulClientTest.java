@@ -3,7 +3,6 @@ package com.ecwid.consul.v1.transactions;
 import com.ecwid.consul.ConsulTestConstants;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.Response;
-import com.ecwid.consul.v1.kv.KeyValueConsulClient;
 import com.ecwid.consul.v1.session.SessionClient;
 import com.ecwid.consul.v1.session.SessionConsulClient;
 import com.ecwid.consul.v1.session.model.NewSession;
@@ -12,11 +11,9 @@ import com.pszymczyk.consul.ConsulProcess;
 import com.pszymczyk.consul.ConsulStarterBuilder;
 import com.pszymczyk.consul.infrastructure.Ports;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
