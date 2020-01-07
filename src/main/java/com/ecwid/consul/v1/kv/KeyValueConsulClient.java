@@ -1,18 +1,23 @@
 package com.ecwid.consul.v1.kv;
 
-import java.util.List;
-
 import com.ecwid.consul.ConsulException;
 import com.ecwid.consul.SingleUrlParameters;
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.json.GsonFactory;
 import com.ecwid.consul.transport.HttpResponse;
 import com.ecwid.consul.transport.TLSConfig;
-import com.ecwid.consul.v1.*;
+import com.ecwid.consul.v1.ConsulRawClient;
+import com.ecwid.consul.v1.OperationException;
+import com.ecwid.consul.v1.QueryParams;
+import com.ecwid.consul.v1.Request;
+import com.ecwid.consul.v1.Response;
+import com.ecwid.consul.v1.kv.model.DeleteParams;
 import com.ecwid.consul.v1.kv.model.GetBinaryValue;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import com.ecwid.consul.v1.kv.model.PutParams;
 import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -312,20 +317,36 @@ public final class KeyValueConsulClient implements KeyValueClient {
 
 	@Override
 	public Response<Void> deleteKVValue(String key, String token) {
-		return deleteKVValue(key, token, QueryParams.DEFAULT);
+		return deleteKVValue(key, token, null, QueryParams.DEFAULT);
 	}
 
 	@Override
 	public Response<Void> deleteKVValue(String key, QueryParams queryParams) {
-		return deleteKVValue(key, null, queryParams);
+		return deleteKVValue(key, null, null, queryParams);
+	}
+
+	@Override
+	public Response<Void> deleteKVValue(String key, DeleteParams deleteParams) {
+		return deleteKVValue(key, null, deleteParams, QueryParams.DEFAULT);
 	}
 
 	@Override
 	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams) {
+		return deleteKVValue(key, null, null, queryParams);
+	}
+
+	@Override
+	public Response<Void> deleteKVValue(String key, String token, DeleteParams deleteParams) {
+		return deleteKVValue(key, token, deleteParams, QueryParams.DEFAULT);
+	}
+
+	@Override
+	public Response<Void> deleteKVValue(String key, String token, DeleteParams deleteParams, QueryParams queryParams) {
 		Request request = Request.Builder.newBuilder()
 			.setEndpoint("/v1/kv/" + key)
 			.setToken(token)
 			.addUrlParameter(queryParams)
+			.addUrlParameter(deleteParams)
 			.build();
 
 		HttpResponse httpResponse = rawClient.makeDeleteRequest(request);
