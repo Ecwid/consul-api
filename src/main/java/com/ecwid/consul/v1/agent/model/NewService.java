@@ -52,6 +52,12 @@ public class NewService {
 		@SerializedName("Status")
 		private String status;
 
+		@SerializedName("GRPC")
+		private String grpc;
+
+		@SerializedName("GRPCUseTLS")
+		private Boolean grpcUseTLS;
+
 		public String getScript() {
 			return script;
 		}
@@ -156,23 +162,33 @@ public class NewService {
 			this.status = status;
 		}
 
+		public String getGrpc() { return grpc; }
+
+		public void setGrpc(String grpc) { this.grpc = grpc; }
+
+		public Boolean getGrpcUseTLS() { return grpcUseTLS; }
+
+		public void setGrpcUseTLS(Boolean grpcUseTLS) { this.grpcUseTLS = grpcUseTLS; }
+
 		@Override
 		public String toString() {
 			return "Check{" +
-					"script='" + script + '\'' +
-					", interval='" + interval + '\'' +
-					", ttl='" + ttl + '\'' +
-					", http='" + http + '\'' +
-					", method='" + method + '\'' +
-					", header=" + header +
-					", tcp='" + tcp + '\'' +
-					", timeout='" + timeout + '\'' +
-					", dockerContainerID='" + dockerContainerID + '\'' +
-                    			", shell='" + shell + '\'' +
-					", deregisterCriticalServiceAfter='" + deregisterCriticalServiceAfter + '\'' +
-					", tlsSkipVerify=" + tlsSkipVerify +
-					", status='" + status + '\'' +
-					'}';
+				"script='" + script + '\'' +
+				", dockerContainerID='" + dockerContainerID + '\'' +
+				", shell='" + shell + '\'' +
+				", interval='" + interval + '\'' +
+				", ttl='" + ttl + '\'' +
+				", http='" + http + '\'' +
+				", method='" + method + '\'' +
+				", header=" + header +
+				", tcp='" + tcp + '\'' +
+				", timeout='" + timeout + '\'' +
+				", deregisterCriticalServiceAfter='" + deregisterCriticalServiceAfter + '\'' +
+				", tlsSkipVerify=" + tlsSkipVerify +
+				", status='" + status + '\'' +
+				", grpc='" + grpc + '\'' +
+				", grpcUseTLS=" + grpcUseTLS +
+				'}';
 		}
 	}
 
