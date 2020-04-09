@@ -73,14 +73,14 @@ Response<List<HealthService>> healthyServices = client.getHealthServices("myapp"
 ## How to add consul-api into your project
 ### Gradle
 ```
-compile "com.ecwid.consul:consul-api:1.4.4"
+compile "com.ecwid.consul:consul-api:1.4.5"
 ```
 ### Maven
 ```
 <dependency>
   <groupId>com.ecwid.consul</groupId>
   <artifactId>consul-api</artifactId>
-  <version>1.4.4</version>
+  <version>1.4.5</version>
 </dependency>
 ```
 
