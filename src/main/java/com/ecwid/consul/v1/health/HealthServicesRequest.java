@@ -8,9 +8,11 @@ import com.ecwid.consul.v1.NodeMetaParameters;
 import com.ecwid.consul.v1.QueryParams;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public final class HealthServicesRequest implements ConsulRequest {
 
@@ -156,5 +158,30 @@ public final class HealthServicesRequest implements ConsulRequest {
 		}
 
 		return params;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof HealthServicesRequest)) {
+			return false;
+		}
+		HealthServicesRequest that = (HealthServicesRequest) o;
+		return passing == that.passing &&
+			Objects.equals(datacenter, that.datacenter) &&
+			Objects.equals(near, that.near) &&
+			Arrays.equals(tags, that.tags) &&
+			Objects.equals(nodeMeta, that.nodeMeta) &&
+			Objects.equals(queryParams, that.queryParams) &&
+			Objects.equals(token, that.token);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = Objects.hash(datacenter, near, nodeMeta, passing, queryParams, token);
+		result = 31 * result + Arrays.hashCode(tags);
+		return result;
 	}
 }

@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -68,5 +69,25 @@ public class PutParams implements UrlParameters {
 		}
 
 		return params;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof PutParams)) {
+			return false;
+		}
+		PutParams putParams = (PutParams) o;
+		return flags == putParams.flags &&
+			Objects.equals(cas, putParams.cas) &&
+			Objects.equals(acquireSession, putParams.acquireSession) &&
+			Objects.equals(releaseSession, putParams.releaseSession);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(flags, cas, acquireSession, releaseSession);
 	}
 }

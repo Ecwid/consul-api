@@ -5,8 +5,9 @@ import com.ecwid.consul.UrlParameters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-public class NodeMetaParameters implements UrlParameters {
+public final class NodeMetaParameters implements UrlParameters {
 
     private final Map<String, String> nodeMeta;
 
@@ -29,4 +30,21 @@ public class NodeMetaParameters implements UrlParameters {
 
         return params;
     }
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof NodeMetaParameters)) {
+			return false;
+		}
+		NodeMetaParameters that = (NodeMetaParameters) o;
+		return Objects.equals(nodeMeta, that.nodeMeta);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nodeMeta);
+	}
 }

@@ -7,6 +7,7 @@ import com.ecwid.consul.v1.QueryParams;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class EventListRequest implements ConsulRequest {
 
@@ -126,5 +127,27 @@ public final class EventListRequest implements ConsulRequest {
 		}
 
 		return params;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof EventListRequest)) {
+			return false;
+		}
+		EventListRequest that = (EventListRequest) o;
+		return Objects.equals(name, that.name) &&
+			Objects.equals(node, that.node) &&
+			Objects.equals(service, that.service) &&
+			Objects.equals(tag, that.tag) &&
+			Objects.equals(queryParams, that.queryParams) &&
+			Objects.equals(token, that.token);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, node, service, tag, queryParams, token);
 	}
 }

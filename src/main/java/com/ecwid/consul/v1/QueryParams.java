@@ -5,6 +5,7 @@ import com.ecwid.consul.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -145,5 +146,26 @@ public final class QueryParams implements UrlParameters {
 		}
 
 		return params;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof QueryParams)) {
+			return false;
+		}
+		QueryParams that = (QueryParams) o;
+		return waitTime == that.waitTime &&
+			index == that.index &&
+			Objects.equals(datacenter, that.datacenter) &&
+			consistencyMode == that.consistencyMode &&
+			Objects.equals(near, that.near);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(datacenter, consistencyMode, waitTime, index, near);
 	}
 }
