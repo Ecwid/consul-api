@@ -1,6 +1,8 @@
 package com.ecwid.consul;
 
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -20,5 +22,13 @@ public class SingleUrlParametersTest {
 
 		parameters = new SingleUrlParameters("key", "value value");
 		assertEquals(Collections.singletonList("key=value+value"), parameters.toUrlParameters());
+	}
+
+	@Nested
+	class EqualsAndHashCode {
+		@Test
+		void shouldVerify() {
+			EqualsVerifier.forClass(SingleUrlParameters.class).verify();
+		}
 	}
 }

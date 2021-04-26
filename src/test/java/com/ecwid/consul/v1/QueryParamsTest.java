@@ -1,6 +1,9 @@
 package com.ecwid.consul.v1;
 
 import com.ecwid.consul.Utils;
+import com.ecwid.consul.v1.catalog.CatalogServiceRequest;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -82,5 +85,13 @@ public class QueryParamsTest {
 		assertThat(urlParameters, hasItem("wait=" + Utils.toSecondsString(EXPECTED_WAIT)));
 		assertThat(urlParameters, hasItem("index=" + EXPECTED_INDEX));
 		assertThat(urlParameters, hasItem("near=" + EXPECTED_NEAR));
+	}
+
+	@Nested
+	class EqualsAndHashCode {
+		@Test
+		void shouldVerify() {
+			EqualsVerifier.forClass(QueryParams.class).verify();
+		}
 	}
 }

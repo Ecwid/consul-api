@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public final class HealthChecksForServiceRequest implements ConsulRequest {
 
@@ -100,5 +101,25 @@ public final class HealthChecksForServiceRequest implements ConsulRequest {
 		}
 
 		return params;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof HealthChecksForServiceRequest)) {
+			return false;
+		}
+		HealthChecksForServiceRequest that = (HealthChecksForServiceRequest) o;
+		return Objects.equals(datacenter, that.datacenter) &&
+			Objects.equals(near, that.near) &&
+			Objects.equals(nodeMeta, that.nodeMeta) &&
+			Objects.equals(queryParams, that.queryParams);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(datacenter, near, nodeMeta, queryParams);
 	}
 }

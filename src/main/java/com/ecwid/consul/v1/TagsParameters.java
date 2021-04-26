@@ -3,9 +3,10 @@ package com.ecwid.consul.v1;
 import com.ecwid.consul.UrlParameters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class TagsParameters implements UrlParameters {
+public final class TagsParameters implements UrlParameters {
 
 	private final String[] tags;
 
@@ -26,5 +27,22 @@ public class TagsParameters implements UrlParameters {
 		}
 
 		return params;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof TagsParameters)) {
+			return false;
+		}
+		TagsParameters that = (TagsParameters) o;
+		return Arrays.equals(tags, that.tags);
+	}
+
+	@Override
+	public int hashCode() {
+		return Arrays.hashCode(tags);
 	}
 }

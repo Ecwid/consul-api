@@ -2,6 +2,7 @@ package com.ecwid.consul;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -28,5 +29,23 @@ public final class SingleUrlParameters implements UrlParameters {
 		} else {
 			return Collections.singletonList(key);
 		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof SingleUrlParameters)) {
+			return false;
+		}
+		SingleUrlParameters that = (SingleUrlParameters) o;
+		return Objects.equals(key, that.key) &&
+			Objects.equals(value, that.value);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(key, value);
 	}
 }

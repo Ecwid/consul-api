@@ -2,6 +2,7 @@ package com.ecwid.consul.v1.event.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.ecwid.consul.UrlParameters;
 import com.ecwid.consul.Utils;
@@ -69,5 +70,25 @@ public class EventParams implements UrlParameters {
 		}
 
 		return result;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof EventParams)) {
+			return false;
+		}
+		EventParams that = (EventParams) o;
+		return Objects.equals(name, that.name) &&
+			Objects.equals(service, that.service) &&
+			Objects.equals(tag, that.tag) &&
+			Objects.equals(node, that.node);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, service, tag, node);
 	}
 }

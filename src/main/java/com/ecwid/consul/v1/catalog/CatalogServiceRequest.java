@@ -8,9 +8,11 @@ import com.ecwid.consul.v1.NodeMetaParameters;
 import com.ecwid.consul.v1.QueryParams;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public final class CatalogServiceRequest implements ConsulRequest {
 
@@ -147,5 +149,29 @@ public final class CatalogServiceRequest implements ConsulRequest {
 		}
 
 		return params;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof CatalogServiceRequest)) {
+			return false;
+		}
+		CatalogServiceRequest that = (CatalogServiceRequest) o;
+		return Objects.equals(datacenter, that.datacenter) &&
+			Arrays.equals(tags, that.tags) &&
+			Objects.equals(near, that.near) &&
+			Objects.equals(nodeMeta, that.nodeMeta) &&
+			Objects.equals(queryParams, that.queryParams) &&
+			Objects.equals(token, that.token);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = Objects.hash(datacenter, near, nodeMeta, queryParams, token);
+		result = 31 * result + Arrays.hashCode(tags);
+		return result;
 	}
 }

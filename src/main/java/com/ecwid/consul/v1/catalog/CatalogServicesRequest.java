@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public final class CatalogServicesRequest implements ConsulRequest {
 
@@ -105,5 +106,25 @@ public final class CatalogServicesRequest implements ConsulRequest {
 		}
 
 		return params;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof CatalogServicesRequest)) {
+			return false;
+		}
+		CatalogServicesRequest that = (CatalogServicesRequest) o;
+		return Objects.equals(datacenter, that.datacenter) &&
+			Objects.equals(nodeMeta, that.nodeMeta) &&
+			Objects.equals(queryParams, that.queryParams) &&
+			Objects.equals(token, that.token);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(datacenter, nodeMeta, queryParams, token);
 	}
 }
