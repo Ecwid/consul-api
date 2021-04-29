@@ -2,6 +2,7 @@ package com.ecwid.consul.v1.kv;
 
 import com.ecwid.consul.v1.QueryParams;
 import com.ecwid.consul.v1.Response;
+import com.ecwid.consul.v1.kv.model.DeleteParams;
 import com.ecwid.consul.v1.kv.model.GetBinaryValue;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import com.ecwid.consul.v1.kv.model.PutParams;
@@ -90,7 +91,13 @@ public interface KeyValueClient {
 
 	public Response<Void> deleteKVValue(String key, QueryParams queryParams);
 
+	public Response<Void> deleteKVValue(String key, DeleteParams deleteParams);
+
 	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams);
+
+	public Response<Void> deleteKVValue(String key, String token, DeleteParams deleteParams);
+
+	public Response<Void> deleteKVValue(String key, String token, DeleteParams deleteParams, QueryParams queryParams);
 
 
 	public Response<Void> deleteKVValues(String key);

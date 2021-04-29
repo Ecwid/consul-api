@@ -26,6 +26,7 @@ import com.ecwid.consul.v1.health.HealthServicesRequest;
 import com.ecwid.consul.v1.health.model.HealthService;
 import com.ecwid.consul.v1.kv.KeyValueClient;
 import com.ecwid.consul.v1.kv.KeyValueConsulClient;
+import com.ecwid.consul.v1.kv.model.DeleteParams;
 import com.ecwid.consul.v1.kv.model.GetBinaryValue;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import com.ecwid.consul.v1.kv.model.PutParams;
@@ -760,8 +761,23 @@ public class ConsulClient implements
 	}
 
 	@Override
+	public Response<Void> deleteKVValue(String key, DeleteParams deleteParams) {
+		return keyValueClient.deleteKVValue(key, deleteParams);
+	}
+
+	@Override
 	public Response<Void> deleteKVValue(String key, String token, QueryParams queryParams) {
 		return keyValueClient.deleteKVValue(key, token, queryParams);
+	}
+
+	@Override
+	public Response<Void> deleteKVValue(String key, String token, DeleteParams deleteParams) {
+		return keyValueClient.deleteKVValue(key, token, deleteParams);
+	}
+
+	@Override
+	public Response<Void> deleteKVValue(String key, String token, DeleteParams deleteParams, QueryParams queryParams) {
+		return keyValueClient.deleteKVValue(key, token, deleteParams, queryParams);
 	}
 
 	@Override
