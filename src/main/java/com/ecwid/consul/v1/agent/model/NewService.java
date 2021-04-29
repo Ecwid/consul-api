@@ -192,6 +192,38 @@ public class NewService {
 		}
 	}
 
+	public static class Weights {
+		@SerializedName("Passing")
+		private Integer passing;
+
+		@SerializedName("Warning")
+		private Integer warning;
+
+		public Integer getPassing() {
+			return passing;
+		}
+
+		public void setPassing(Integer passing) {
+			this.passing = passing;
+		}
+
+		public Integer getWarning() {
+			return warning;
+		}
+
+		public void setWarning(Integer warning) {
+			this.warning = warning;
+		}
+
+		@Override
+		public String toString() {
+			return "Weights{" +
+				"passing=" + passing + 
+				", warning=" + warning +
+				'}';
+		}
+	}
+
 	@SerializedName("ID")
 	private String id;
 
@@ -218,6 +250,9 @@ public class NewService {
 
 	@SerializedName("Checks")
 	private List<Check> checks;
+
+	@SerializedName("Weights")
+	private Weights weights;
 
 	public String getId() {
 		return id;
@@ -291,6 +326,14 @@ public class NewService {
 		this.checks = checks;
 	}
 
+	public Weights getWeights() {
+		return weights;
+	}
+
+	public void setWeights(Weights weights) {
+		this.weights = weights;
+	}
+
 	@Override
 	public String toString() {
 		return "NewService{" +
@@ -303,6 +346,7 @@ public class NewService {
 				", enableTagOverride=" + enableTagOverride +
 				", check=" + check +
 				", checks=" + checks +
+				", weights=" + weights +
 				'}';
 	}
 }
