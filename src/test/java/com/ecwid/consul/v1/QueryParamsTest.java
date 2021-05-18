@@ -1,7 +1,6 @@
 package com.ecwid.consul.v1;
 
 import com.ecwid.consul.Utils;
-import com.ecwid.consul.v1.catalog.CatalogServiceRequest;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
