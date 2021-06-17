@@ -13,6 +13,9 @@ public class NewService {
 
 	public static class Check {
 
+		@SerializedName("Name")
+		private String name;
+
 		@SerializedName("Script")
 		private String script;
 		
@@ -57,6 +60,14 @@ public class NewService {
 
 		@SerializedName("GRPCUseTLS")
 		private Boolean grpcUseTLS;
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
 
 		public String getScript() {
 			return script;
@@ -173,7 +184,8 @@ public class NewService {
 		@Override
 		public String toString() {
 			return "Check{" +
-				"script='" + script + '\'' +
+				"name='" + name + '\'' +
+				", script='" + script + '\'' +
 				", dockerContainerID='" + dockerContainerID + '\'' +
 				", shell='" + shell + '\'' +
 				", interval='" + interval + '\'' +
