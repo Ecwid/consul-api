@@ -1,20 +1,21 @@
 package com.ecwid.consul.transport;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.logging.Logger;
 import org.apache.http.Header;
 import org.apache.http.HeaderIterator;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
-import java.util.stream.StreamSupport;
 
 public abstract class AbstractHttpTransport implements HttpTransport {
 
@@ -54,6 +55,19 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 		HttpDelete httpDelete = new HttpDelete(request.getUrl());
 		addHeadersToRequest(httpDelete, request.getHeaders());
 		return executeRequest(httpDelete);
+	}
+
+	@Override
+	public HttpResponse makePostRequest(HttpRequest request) {
+		HttpPost httpPost = new HttpPost(request.getUrl());
+		addHeadersToRequest(httpPost, request.getHeaders());
+		if (request.getContent() != null) {
+			httpPost.setEntity(new StringEntity(request.getContent(), StandardCharsets.UTF_8));
+		} else {
+			httpPost.setEntity(new ByteArrayEntity(request.getBinaryContent()));
+		}
+
+		return executeRequest(httpPost);
 	}
 
 	/**
