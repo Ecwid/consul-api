@@ -96,6 +96,10 @@ public final class HealthServicesRequest implements ConsulRequest {
 		return token;
 	}
 
+	public boolean isCached() {
+		return cached;
+	}
+
 	public static class Builder {
 		private String datacenter;
 		private String near;
