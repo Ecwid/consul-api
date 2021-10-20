@@ -32,60 +32,60 @@ public class FilterTest {
 	@Test
 	public void of() {
 		Filter actual = Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo"), "bar");
-		assertEquals("foo = \"bar\"", actual.toString());
+		assertFilter("foo = \"bar\"", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo")));
 
 		actual = Filter.of(Filter.MatchingOperator.NOT_EQUAL, Selector.of("foo"), "bar");
-		assertEquals("foo != \"bar\"", actual.toString());
+		assertFilter("foo != \"bar\"", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.NOT_EQUAL, Selector.of("foo")));
 
 		actual = Filter.of(Filter.MatchingOperator.IS_EMPTY, Selector.of("foo"), null);
-		assertEquals("foo is empty", actual.toString());
+		assertFilter("foo is empty", actual);
 		actual = Filter.of(Filter.MatchingOperator.IS_EMPTY, Selector.of("foo"));
-		assertEquals("foo is empty", actual.toString());
+		assertFilter("foo is empty", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.IS_EMPTY, Selector.of("foo"), "bar"));
 
 		actual = Filter.of(Filter.MatchingOperator.IS_NOT_EMPTY, Selector.of("foo"), null);
-		assertEquals("foo is not empty", actual.toString());
+		assertFilter("foo is not empty", actual);
 		actual = Filter.of(Filter.MatchingOperator.IS_NOT_EMPTY, Selector.of("foo"));
-		assertEquals("foo is not empty", actual.toString());
+		assertFilter("foo is not empty", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.IS_NOT_EMPTY, Selector.of("foo"), "bar"));
 
 		actual = Filter.of(Filter.MatchingOperator.IN, Selector.of("foo"), "bar");
-		assertEquals("\"bar\" in foo", actual.toString());
+		assertFilter("\"bar\" in foo", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.IN, Selector.of("foo")));
 
 		actual = Filter.of(Filter.MatchingOperator.NOT_IN, Selector.of("foo"), "bar");
-		assertEquals("\"bar\" not in foo", actual.toString());
+		assertFilter("\"bar\" not in foo", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.NOT_IN, Selector.of("foo")));
 
 		actual = Filter.of(Filter.MatchingOperator.CONTAINS, Selector.of("foo"), "bar");
-		assertEquals("foo contains \"bar\"", actual.toString());
+		assertFilter("foo contains \"bar\"", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.CONTAINS, Selector.of("foo")));
 
 		actual = Filter.of(Filter.MatchingOperator.NOT_CONTAINS, Selector.of("foo"), "bar");
-		assertEquals("foo not contains \"bar\"", actual.toString());
+		assertFilter("foo not contains \"bar\"", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.NOT_CONTAINS, Selector.of("foo")));
 
 		actual = Filter.of(Filter.MatchingOperator.MATCHES, Selector.of("foo"), "bar");
-		assertEquals("foo matches \"bar\"", actual.toString());
+		assertFilter("foo matches \"bar\"", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.MATCHES, Selector.of("foo")));
 
 		actual = Filter.of(Filter.MatchingOperator.NOT_MATCHES, Selector.of("foo"), "bar");
-		assertEquals("foo not matches \"bar\"", actual.toString());
+		assertFilter("foo not matches \"bar\"", actual);
 		assertThrows(IllegalArgumentException.class, ()-> Filter.of(Filter.MatchingOperator.NOT_MATCHES, Selector.of("foo")));
 	}
 
 	@Test
 	public void in() {
 		final Filter actual = Filter.in("bar", Selector.of("foo"));
-		assertEquals("\"bar\" in foo", actual.toString());
+		assertFilter("\"bar\" in foo", actual);
 	}
 
 	@Test
 	public void notIn() {
 		final Filter actual = Filter.notIn("bar", Selector.of("foo"));
-		assertEquals("\"bar\" not in foo", actual.toString());
+		assertFilter("\"bar\" not in foo", actual);
 	}
 
 	@Test
@@ -96,15 +96,15 @@ public class FilterTest {
 				Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo2"), "bar2")
 		);
 
-		assertEquals("foo = \"bar\" and foo1 = \"bar1\" and foo2 = \"bar2\"", actual.toString());
+		assertFilter("foo = \"bar\" and foo1 = \"bar1\" and foo2 = \"bar2\"", actual);
 
 		final Filter actual2 = f
 				.or(Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo1"), "bar1"))
 				.and(Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo3"), "bar3"));
-		assertEquals("(foo = \"bar\" or foo1 = \"bar1\") and foo3 = \"bar3\"", actual2.toString());
+		assertFilter("(foo = \"bar\" or foo1 = \"bar1\") and foo3 = \"bar3\"", actual2);
 
 		final Filter actual3 = f.and();
-		assertEquals("foo = \"bar\"", actual3.toString());
+		assertFilter("foo = \"bar\"", actual3);
 	}
 
 	@Test
@@ -114,7 +114,7 @@ public class FilterTest {
 				Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo1"), "bar1")
 			}
 		));
-		assertEquals("foo = \"bar\" and foo1 = \"bar1\"", actual.toString());
+		assertFilter("foo = \"bar\" and foo1 = \"bar1\"", actual);
 	}
 
 	@Test
@@ -125,15 +125,15 @@ public class FilterTest {
 				Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo2"), "bar2")
 		);
 
-		assertEquals("foo = \"bar\" or foo1 = \"bar1\" or foo2 = \"bar2\"", actual.toString());
+		assertFilter("foo = \"bar\" or foo1 = \"bar1\" or foo2 = \"bar2\"", actual);
 
 		final Filter actual2 = f
 				.and(Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo1"), "bar1"))
 				.or(Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo3"), "bar3"));
-		assertEquals("(foo = \"bar\" and foo1 = \"bar1\") or foo3 = \"bar3\"", actual2.toString());
+		assertFilter("(foo = \"bar\" and foo1 = \"bar1\") or foo3 = \"bar3\"", actual2);
 
 		final Filter actual3 = f.or();
-		assertEquals("foo = \"bar\"", actual3.toString());
+		assertFilter("foo = \"bar\"", actual3);
 	}
 
 	@Test
@@ -143,25 +143,31 @@ public class FilterTest {
 						Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo1"), "bar1")
 				}
 		));
-		assertEquals("foo = \"bar\" or foo1 = \"bar1\"", actual.toString());
+		assertFilter("foo = \"bar\" or foo1 = \"bar1\"", actual);
 	}
 
 	@Test
 	public void not() {
 		final Filter f = Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo"), "bar");
-		assertEquals("foo = \"bar\"", f.toString());
-		assertEquals("not foo = \"bar\"", f.not().toString());
-		assertEquals("foo = \"bar\"", f.not().not().toString());
+		assertFilter("foo = \"bar\"", f);
+		assertFilter("not foo = \"bar\"", f.not());
+		assertFilter("foo = \"bar\"", f.not().not());
 
 		final Filter f2 = f.and(Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo1"), "bar2"));
-		assertEquals("foo = \"bar\" and foo1 = \"bar2\"", f2.toString());
-		assertEquals("not (foo = \"bar\" and foo1 = \"bar2\")", f2.not().toString());
+		assertFilter("foo = \"bar\" and foo1 = \"bar2\"", f2);
+		assertFilter("not (foo = \"bar\" and foo1 = \"bar2\")", f2.not());
 	}
 
 	@Test
 	public void toUrlParameters() {
 		final Filter subject = Filter.of(Filter.MatchingOperator.EQUAL, Selector.of("foo"), "bar");
 		final List<String> actual = subject.toUrlParameters();
-		assertEquals(Collections.singletonList("filter=foo = \"bar\""), actual);
+		assertEquals(Collections.singletonList("filter=foo%20=%20%22bar%22"), actual);
+	}
+
+	private void assertFilter(final String expected, final Filter subject) {
+		assertEquals(expected, subject.toString());
+		final String encoded = expected.replaceAll(" ", "%20").replaceAll("\"", "%22");
+		assertEquals(encoded, subject.toEncodedString());
 	}
 }
