@@ -188,21 +188,20 @@ public class Filter implements UrlParameters {
 
 	public String toEncodedString() {
 		final String prefix = positive ? "" : ("not" + SPACE);
-		if (leaf != null) {
-			if (leaf.value != null) {
-				if ((leaf.matchingOperator == MatchingOperator.IN) || (leaf.matchingOperator == MatchingOperator.NOT_IN)) {
-					return prefix + DOUBLEQUOTE + leaf.value + DOUBLEQUOTE + SPACE + leaf.matchingOperator.encoded + SPACE + leaf.selector;
-				}
-				return prefix + leaf.selector + SPACE + leaf.matchingOperator.encoded + SPACE + DOUBLEQUOTE + leaf.value + DOUBLEQUOTE;
+		if (leaf == null) {
+			final String result = children.stream().map(Filter::toEncodedString).collect(Collectors.joining(SPACE + boolOp + SPACE));
+			if ((parent == null) && positive) {
+				return result;
 			}
+			return prefix + "(" + result + ")";
+		}
+		if (leaf.value == null) {
 			return prefix + leaf.selector + SPACE + leaf.matchingOperator.encoded;
 		}
-
-		final String result = children.stream().map(Filter::toEncodedString).collect(Collectors.joining(SPACE + boolOp + SPACE));
-		if ((parent == null) && positive) {
-			return result;
+		if ((leaf.matchingOperator == MatchingOperator.IN) || (leaf.matchingOperator == MatchingOperator.NOT_IN)) {
+			return prefix + DOUBLEQUOTE + leaf.value + DOUBLEQUOTE + SPACE + leaf.matchingOperator.encoded + SPACE + leaf.selector;
 		}
-		return prefix + "(" + result + ")";
+		return prefix + leaf.selector + SPACE + leaf.matchingOperator.encoded + SPACE + DOUBLEQUOTE + leaf.value + DOUBLEQUOTE;
 	}
 
 	private enum BoolOp {
