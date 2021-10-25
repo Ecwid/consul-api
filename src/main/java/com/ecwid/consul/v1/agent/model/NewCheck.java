@@ -74,6 +74,12 @@ public class NewCheck {
 	@SerializedName("GRPCUseTLS")
 	private Boolean grpcUseTLS;
 
+	@SerializedName("AliasNode")
+	private String aliasNode;
+
+	@SerializedName("AliasService")
+	private String aliasService;
+
 	public String getId() {
 		return id;
 	}
@@ -242,6 +248,22 @@ public class NewCheck {
 		this.grpcUseTLS = grpcUseTLS;
 	}
 
+	public String getAliasNode() {
+		return aliasNode;
+	}
+
+	public void setAliasNode(String aliasNode) {
+		this.aliasNode = aliasNode;
+	}
+
+	public String getAliasService() {
+		return aliasService;
+	}
+
+	public void setAliasService(String aliasService) {
+		this.aliasService = aliasService;
+	}
+
 	@Override
 	public String toString() {
 		return "NewCheck{" +
@@ -265,6 +287,8 @@ public class NewCheck {
 				", status='" + status + '\'' +
 				", grpc='" + grpc + '\'' +
 				", grpcUseTLS=" + grpcUseTLS +
+				", aliasNode='" + aliasNode + '\'' +
+				", aliasService='" + aliasService + '\'' +
 				'}';
 	}
 }
