@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-	implementation "com.google.code.gson:gson:2.8.2"
+	implementation "com.google.code.gson:gson:2.8.9"
 	implementation "org.apache.httpcomponents:httpcore:4.4.9"
 	implementation "org.apache.httpcomponents:httpclient:4.5.5"
 
