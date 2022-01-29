@@ -1,8 +1,16 @@
 package com.ecwid.consul.v1.agent;
 
 import com.ecwid.consul.v1.Response;
-import com.ecwid.consul.v1.agent.model.*;
-
+import com.ecwid.consul.v1.agent.model.AuthorizeRequest;
+import com.ecwid.consul.v1.agent.model.AuthorizeResponse;
+import com.ecwid.consul.v1.agent.model.CaRoots;
+import com.ecwid.consul.v1.agent.model.Check;
+import com.ecwid.consul.v1.agent.model.LeafCertificate;
+import com.ecwid.consul.v1.agent.model.Member;
+import com.ecwid.consul.v1.agent.model.NewCheck;
+import com.ecwid.consul.v1.agent.model.NewService;
+import com.ecwid.consul.v1.agent.model.Self;
+import com.ecwid.consul.v1.agent.model.Service;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +26,7 @@ public interface AgentClient {
 	public Response<List<Member>> getAgentMembers();
 
 	public Response<Self> getAgentSelf();
-	
+
 	public Response<Self> getAgentSelf(String token);
 
 	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled);
@@ -68,4 +76,13 @@ public interface AgentClient {
 	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled, String reason);
 
 	public Response<Void> agentReload();
+
+	public Response<AuthorizeResponse> agentAuthorize(AuthorizeRequest authorizeRequest);
+
+	public Response<CaRoots> agentCaRoots();
+
+	public Response<LeafCertificate> agentLeafCertificate(String service, String namespace);
+
+	public Response<LeafCertificate> agentLeafCertificate(String service);
+
 }

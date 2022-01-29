@@ -189,6 +189,20 @@ public class ConsulRawClient {
 		return httpTransport.makeDeleteRequest(httpRequest);
 	}
 
+	public HttpResponse makePostRequest(Request request) {
+		String url = prepareUrl(agentAddress + request.getEndpoint());
+		url = Utils.generateUrl(url, request.getUrlParameters());
+
+		HttpRequest httpRequest = HttpRequest.Builder.newBuilder()
+				.setUrl(url)
+				.addHeaders(Utils.createTokenMap(request.getToken()))
+				.setContent(request.getContent())
+				.setBinaryContent(request.getBinaryContent())
+				.build();
+
+		return httpTransport.makePostRequest(httpRequest);
+	}
+
 	private String prepareUrl(String url) {
 		if (url.contains(" ")) {
 			// temp hack for old clients who did manual encoding and just use %20

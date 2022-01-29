@@ -11,6 +11,16 @@ import com.ecwid.consul.v1.agent.AgentConsulClient;
 import com.ecwid.consul.v1.agent.model.*;
 import com.ecwid.consul.v1.catalog.*;
 import com.ecwid.consul.v1.catalog.model.*;
+import com.ecwid.consul.v1.connect.ConnectClient;
+import com.ecwid.consul.v1.connect.ConnectConsulClient;
+import com.ecwid.consul.v1.connect.intentions.IntentionDeleteRequest;
+import com.ecwid.consul.v1.connect.intentions.IntentionListRequest;
+import com.ecwid.consul.v1.connect.intentions.IntentionUpsertRequest;
+import com.ecwid.consul.v1.connect.intentions.IntentionsClient;
+import com.ecwid.consul.v1.connect.intentions.IntentionsConsulClient;
+import com.ecwid.consul.v1.connect.intentions.model.IntentionResponse;
+import com.ecwid.consul.v1.connect.model.CaConfigurationRequest;
+import com.ecwid.consul.v1.connect.model.CaConfigurationResponse;
 import com.ecwid.consul.v1.coordinate.CoordinateClient;
 import com.ecwid.consul.v1.coordinate.CoordinateConsulClient;
 import com.ecwid.consul.v1.coordinate.model.Datacenter;
@@ -56,6 +66,8 @@ public class ConsulClient implements
 		AclClient,
 		AgentClient,
 		CatalogClient,
+		ConnectClient,
+		IntentionsClient,
 		CoordinateClient,
 		EventClient,
 		HealthClient,
@@ -67,6 +79,8 @@ public class ConsulClient implements
 	private final AclClient aclClient;
 	private final AgentClient agentClient;
 	private final CatalogClient catalogClient;
+	private final ConnectClient connectClient;
+	private final IntentionsClient intentionsClient;
 	private final CoordinateClient coordinateClient;
 	private final EventClient eventClient;
 	private final HealthClient healthClient;
@@ -79,6 +93,8 @@ public class ConsulClient implements
 		aclClient = new AclConsulClient(rawClient);
 		agentClient = new AgentConsulClient(rawClient);
 		catalogClient = new CatalogConsulClient(rawClient);
+		connectClient = new ConnectConsulClient(rawClient);
+		intentionsClient = new IntentionsConsulClient(rawClient);
 		coordinateClient = new CoordinateConsulClient(rawClient);
 		eventClient = new EventConsulClient(rawClient);
 		healthClient = new HealthConsulClient(rawClient);
@@ -209,7 +225,7 @@ public class ConsulClient implements
 	public Response<Self> getAgentSelf() {
 		return agentClient.getAgentSelf();
 	}
-	
+
 	@Override
 	public Response<Self> getAgentSelf(String token) {
 		return agentClient.getAgentSelf(token);
@@ -335,7 +351,27 @@ public class ConsulClient implements
 		return agentClient.agentReload();
 	}
 
-	// -------------------------------------------------------------------------------------------
+	@Override
+	public Response<AuthorizeResponse> agentAuthorize(AuthorizeRequest authorizeRequest) {
+		return agentClient.agentAuthorize(authorizeRequest);
+	}
+
+	@Override
+	public Response<CaRoots> agentCaRoots() {
+		return agentClient.agentCaRoots();
+	}
+
+	@Override
+	public Response<LeafCertificate> agentLeafCertificate(String service, String namespace) {
+		return agentClient.agentLeafCertificate(service, namespace);
+	}
+
+	@Override
+	public Response<LeafCertificate> agentLeafCertificate(String service) {
+		return agentClient.agentLeafCertificate(service);
+	}
+
+// -------------------------------------------------------------------------------------------
 	// Catalog
 
 	@Override
@@ -453,6 +489,47 @@ public class ConsulClient implements
 	@Override
 	public Response<CatalogNode> getCatalogNode(String nodeName, QueryParams queryParams) {
 		return catalogClient.getCatalogNode(nodeName, queryParams);
+	}
+
+	// -------------------------------------------------------------------------------------------
+	// Connect
+
+	@Override
+	public Response<com.ecwid.consul.v1.connect.model.CaRoots> connectListCaRoots() {
+		return connectClient.connectListCaRoots();
+	}
+
+	@Override
+	public Response<CaConfigurationResponse> connectGetCaConfiguration() {
+		return connectClient.connectGetCaConfiguration();
+	}
+
+	@Override
+	public Response<CaConfigurationResponse> connectUpdateCaConfiguration(CaConfigurationRequest request) {
+		return connectClient.connectUpdateCaConfiguration(request);
+	}
+
+// -------------------------------------------------------------------------------------------
+	// Intentions
+
+	@Override
+	public Response<Boolean> createIntention(IntentionUpsertRequest request, String token) {
+		return intentionsClient.createIntention(request, token);
+	}
+
+	@Override
+	public Response<Boolean> updateIntention(IntentionUpsertRequest request, String token) {
+		return intentionsClient.updateIntention(request, token);
+	}
+
+	@Override
+	public Response<List<IntentionResponse>> listIntentions(IntentionListRequest request, String token) {
+		return intentionsClient.listIntentions(request, token);
+	}
+
+	@Override
+	public Response<Boolean> deleteIntention(IntentionDeleteRequest request, String token) {
+		return intentionsClient.deleteIntention(request, token);
 	}
 
 	// -------------------------------------------------------------------------------------------

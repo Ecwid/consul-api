@@ -7,10 +7,19 @@ import com.ecwid.consul.transport.HttpResponse;
 import com.ecwid.consul.transport.TLSConfig;
 import com.ecwid.consul.v1.ConsulRawClient;
 import com.ecwid.consul.v1.OperationException;
+import com.ecwid.consul.v1.Request;
 import com.ecwid.consul.v1.Response;
-import com.ecwid.consul.v1.agent.model.*;
+import com.ecwid.consul.v1.agent.model.AuthorizeRequest;
+import com.ecwid.consul.v1.agent.model.AuthorizeResponse;
+import com.ecwid.consul.v1.agent.model.CaRoots;
+import com.ecwid.consul.v1.agent.model.Check;
+import com.ecwid.consul.v1.agent.model.LeafCertificate;
+import com.ecwid.consul.v1.agent.model.Member;
+import com.ecwid.consul.v1.agent.model.NewCheck;
+import com.ecwid.consul.v1.agent.model.NewService;
+import com.ecwid.consul.v1.agent.model.Self;
+import com.ecwid.consul.v1.agent.model.Service;
 import com.google.gson.reflect.TypeToken;
-
 import java.util.List;
 import java.util.Map;
 
@@ -204,7 +213,7 @@ public final class AgentConsulClient implements AgentClient {
 		UrlParameters tokenParameter = token != null ? new SingleUrlParameters("token", token) : null;
 
 		HttpResponse httpResponse = rawClient.makePutRequest("/v1/agent/check/pass/" + checkId, "", noteParameter, tokenParameter);
-    
+
 		if (httpResponse.getStatusCode() == 200) {
 			return new Response<Void>(null, httpResponse);
 		} else {
@@ -327,4 +336,48 @@ public final class AgentConsulClient implements AgentClient {
 		}
 
 	}
+
+	@Override
+	public Response<AuthorizeResponse> agentAuthorize(AuthorizeRequest authorizeRequest) {
+		Request request = Request.Builder.newBuilder()
+				.setEndpoint("/v1/agent/connect/authorize")
+				.setContent(GsonFactory.getGson().toJson(authorizeRequest))
+				.build();
+
+		HttpResponse httpResponse = rawClient.makePostRequest(request);
+
+		if (httpResponse.getStatusCode() == 200) {
+			return new Response<>(GsonFactory.getGson().fromJson(httpResponse.getContent(), AuthorizeResponse.class), httpResponse);
+		} else {
+			throw new OperationException(httpResponse);
+		}
+	}
+
+	@Override
+	public Response<CaRoots> agentCaRoots() {
+		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/agent/connect/ca/roots");
+		if (httpResponse.getStatusCode() == 200) {
+			return new Response<>(GsonFactory.getGson().fromJson(httpResponse.getContent(), CaRoots.class), httpResponse);
+		} else {
+			throw new OperationException(httpResponse);
+		}
+	}
+
+	@Override
+	public Response<LeafCertificate> agentLeafCertificate(String service, String namespace) {
+		HttpResponse httpResponse = rawClient.makeGetRequest(
+				"/v1/agent/connect/ca/leaf/" + service,
+				new SingleUrlParameters("ns", namespace));
+		if (httpResponse.getStatusCode() == 200) {
+			return new Response<>(GsonFactory.getGson().fromJson(httpResponse.getContent(), LeafCertificate.class), httpResponse);
+		} else {
+			throw new OperationException(httpResponse);
+		}
+	}
+
+	@Override
+	public Response<LeafCertificate> agentLeafCertificate(String service) {
+		return agentLeafCertificate(service, null);
+	}
+
 }
