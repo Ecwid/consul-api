@@ -2,10 +2,11 @@ package com.ecwid.consul.v1.health;
 
 import com.ecwid.consul.ConsulRequest;
 import com.ecwid.consul.SingleUrlParameters;
-import com.ecwid.consul.v1.TagsParameters;
 import com.ecwid.consul.UrlParameters;
+import com.ecwid.consul.v1.Filter;
 import com.ecwid.consul.v1.NodeMetaParameters;
 import com.ecwid.consul.v1.QueryParams;
+import com.ecwid.consul.v1.TagsParameters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +24,18 @@ public final class HealthServicesRequest implements ConsulRequest {
 	private final boolean passing;
 	private final QueryParams queryParams;
 	private final String token;
+	private final Filter filter;
 
-	private HealthServicesRequest(String datacenter, String near, String[] tags, Map<String, String> nodeMeta, boolean passing, QueryParams queryParams, String token) {
+	private HealthServicesRequest(
+			String datacenter,
+			String near,
+			String[] tags,
+			Map<String, String> nodeMeta,
+			boolean passing,
+			QueryParams queryParams,
+			String token,
+			Filter filter
+	) {
 		this.datacenter = datacenter;
 		this.near = near;
 		this.tags = tags;
@@ -32,6 +43,7 @@ public final class HealthServicesRequest implements ConsulRequest {
 		this.passing = passing;
 		this.queryParams = queryParams;
 		this.token = token;
+		this.filter = filter;
 	}
 
 	public String getDatacenter() {
@@ -42,12 +54,26 @@ public final class HealthServicesRequest implements ConsulRequest {
 		return near;
 	}
 
+	/**
+	 * @deprecated use {@link HealthServicesRequest.Builder#setFilter(Filter)} to filter by tags
+	 * e.g {@code * setFilter(Filter.in(tag, Filter.Selector.of("Service.Tags")))}
+	 */
+	@Deprecated
 	public String getTag() {
-		return tags != null && tags.length > 0 ? tags[0] : null;
+		return ((tags != null) && (tags.length > 0)) ? tags[0] : null;
 	}
 
+	/**
+	 * @deprecated use {@link HealthServicesRequest.Builder#setFilter(Filter)} to filter by tags
+	 * e.g {@code * setFilter(Filter.in(tag, Filter.Selector.of("Service.Tags")))}
+	 */
+	@Deprecated
 	public String[] getTags() {
 		return tags;
+	}
+
+	public Filter getFilter() {
+		return filter;
 	}
 
 	public Map<String, String> getNodeMeta() {
@@ -70,6 +96,7 @@ public final class HealthServicesRequest implements ConsulRequest {
 		private String datacenter;
 		private String near;
 		private String[] tags;
+		private Filter filter;
 		private Map<String, String> nodeMeta;
 		private boolean passing;
 		private QueryParams queryParams;
@@ -88,13 +115,28 @@ public final class HealthServicesRequest implements ConsulRequest {
 			return this;
 		}
 
+		/**
+		 * @deprecated use {@link #setFilter(Filter)}
+		 * e.g {@code * setFilter(Filter.in(tag, Filter.Selector.of("Service.Tags")))}
+		 */
+		@Deprecated
 		public Builder setTag(String tag) {
-			this.tags = new String[]{tag};
+			tags = new String[]{tag};
 			return this;
 		}
 
+		/**
+		 * @deprecated use {@link #setFilter(Filter)}
+		 * e.g {@code * setFilter(Filter.in(tag, Filter.Selector.of("Service.Tags")))}
+		 */
+		@Deprecated
 		public Builder setTags(String[] tags) {
 			this.tags = tags;
+			return this;
+		}
+
+		public Builder setFilter(Filter filter) {
+			this.filter = filter;
 			return this;
 		}
 
@@ -119,7 +161,7 @@ public final class HealthServicesRequest implements ConsulRequest {
 		}
 
 		public HealthServicesRequest build() {
-			return new HealthServicesRequest(datacenter, near, tags, nodeMeta, passing, queryParams, token);
+			return new HealthServicesRequest(datacenter, near, tags, nodeMeta, passing, queryParams, token, filter);
 		}
 	}
 
@@ -141,6 +183,10 @@ public final class HealthServicesRequest implements ConsulRequest {
 
 		if (tags != null) {
 			params.add(new TagsParameters(tags));
+		}
+
+		if (filter != null) {
+			params.add(filter);
 		}
 
 		if (nodeMeta != null) {
@@ -173,6 +219,7 @@ public final class HealthServicesRequest implements ConsulRequest {
 			Objects.equals(datacenter, that.datacenter) &&
 			Objects.equals(near, that.near) &&
 			Arrays.equals(tags, that.tags) &&
+			Objects.equals(filter, that.filter) &&
 			Objects.equals(nodeMeta, that.nodeMeta) &&
 			Objects.equals(queryParams, that.queryParams) &&
 			Objects.equals(token, that.token);
@@ -180,7 +227,7 @@ public final class HealthServicesRequest implements ConsulRequest {
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(datacenter, near, nodeMeta, passing, queryParams, token);
+		int result = Objects.hash(datacenter, near, nodeMeta, passing, queryParams, token, filter);
 		result = 31 * result + Arrays.hashCode(tags);
 		return result;
 	}
