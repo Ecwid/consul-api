@@ -38,6 +38,10 @@ import com.ecwid.consul.v1.session.model.NewSession;
 import com.ecwid.consul.v1.session.model.Session;
 import com.ecwid.consul.v1.status.StatusClient;
 import com.ecwid.consul.v1.status.StatusConsulClient;
+import com.ecwid.consul.v1.transactions.ParamBuilder;
+import com.ecwid.consul.v1.transactions.TransactionsClient;
+import com.ecwid.consul.v1.transactions.TransactionsConsulClient;
+import com.ecwid.consul.v1.transactions.model.TxnResult;
 
 import java.util.List;
 import java.util.Map;
@@ -62,7 +66,8 @@ public class ConsulClient implements
 		KeyValueClient,
 		QueryClient,
 		SessionClient,
-		StatusClient {
+		StatusClient,
+	TransactionsClient {
 
 	private final AclClient aclClient;
 	private final AgentClient agentClient;
@@ -74,6 +79,7 @@ public class ConsulClient implements
 	private final QueryClient queryClient;
 	private final SessionClient sessionClient;
 	private final StatusClient statusClient;
+	private final TransactionsClient transactionsClient;
 
 	public ConsulClient(ConsulRawClient rawClient) {
 		aclClient = new AclConsulClient(rawClient);
@@ -86,6 +92,7 @@ public class ConsulClient implements
 		queryClient = new QueryConsulClient(rawClient);
 		sessionClient = new SessionConsulClient(rawClient);
 		statusClient = new StatusConsulClient(rawClient);
+		transactionsClient = new TransactionsConsulClient(rawClient);
 	}
 
 	/**
@@ -209,7 +216,7 @@ public class ConsulClient implements
 	public Response<Self> getAgentSelf() {
 		return agentClient.getAgentSelf();
 	}
-	
+
 	@Override
 	public Response<Self> getAgentSelf(String token) {
 		return agentClient.getAgentSelf(token);
@@ -868,4 +875,23 @@ public class ConsulClient implements
 	public Response<List<String>> getStatusPeers() {
 		return statusClient.getStatusPeers();
 	}
+
+	/**
+	 * Submit transaction
+	 *
+	 * @param token   token
+	 * @param builder parameters builder
+	 * @return process result report
+	 */
+	@Override
+	public Response<TxnResult> commit(String token, ParamBuilder builder) { return transactionsClient.commit(token,builder);}
+
+	/**
+	 * Submit transaction
+	 *
+	 * @param builder parameters builder
+	 * @return process result report
+	 */
+	@Override
+	public Response<TxnResult> commit(ParamBuilder builder) { return transactionsClient.commit(builder);}
 }
