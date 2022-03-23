@@ -20,6 +20,7 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import com.ecwid.consul.transport.TLSConfig.KeyStoreInstanceType;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.NoopUserTokenHandler;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContexts;
 
@@ -67,7 +68,9 @@ public final class DefaultHttpsTransport extends AbstractHttpTransport {
 
 			HttpClientBuilder httpClientBuilder = HttpClientBuilder.create().
 					setConnectionManager(connectionManager).
-					setDefaultRequestConfig(requestConfig);
+					setDefaultRequestConfig(requestConfig).
+					useSystemProperties().
+					setUserTokenHandler(new NoopUserTokenHandler());
 
 			this.httpClient = httpClientBuilder.build();
 		} catch (GeneralSecurityException e) {
