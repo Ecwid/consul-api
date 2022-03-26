@@ -20,8 +20,18 @@ public class Session {
 	@SerializedName("LockDelay")
 	private long lockDelay;
 
+	/**
+	 * @deprecated this field is deprecated as of consul 1.7, the fields nodeChecks and serviceChecks should be used instead
+	 */
+	@Deprecated
 	@SerializedName("Checks")
 	private List<String> checks;
+
+	@SerializedName("NodeChecks")
+	private List<String> nodeChecks;
+
+	@SerializedName("ServiceChecks")
+	private List<ServiceCheck> serviceChecks;
 
 	@SerializedName("Node")
 	private String node;
@@ -58,6 +68,22 @@ public class Session {
 
 	public void setChecks(List<String> checks) {
 		this.checks = checks;
+	}
+
+	public List<String> getNodeChecks() {
+		return nodeChecks;
+	}
+
+	public void setNodeChecks(List<String> nodeChecks) {
+		this.nodeChecks = nodeChecks;
+	}
+
+	public List<ServiceCheck> getServiceChecks() {
+		return serviceChecks;
+	}
+
+	public void setServiceChecks(List<ServiceCheck> serviceChecks) {
+		this.serviceChecks = serviceChecks;
 	}
 
 	public String getNode() {
@@ -121,6 +147,8 @@ public class Session {
 		return "Session{" +
 				"lockDelay=" + lockDelay +
 				", checks=" + checks +
+				", nodeChecks=" + nodeChecks +
+				", serviceChecks=" + serviceChecks +
 				", node='" + node + '\'' +
 				", id='" + id + '\'' +
 				", name='" + name + '\'' +
