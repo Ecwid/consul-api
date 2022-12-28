@@ -12,8 +12,8 @@ import java.util.List;
  */
 public interface CoordinateClient {
 
-	public Response<List<Datacenter>> getDatacenters();
+	Response<List<Datacenter>> getDatacenters();
 
-	public Response<List<Node>> getNodes(QueryParams queryParams);
+	Response<List<Node>> getNodes(QueryParams queryParams);
 
 }

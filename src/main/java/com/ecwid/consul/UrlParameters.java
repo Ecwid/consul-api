@@ -7,6 +7,6 @@ import java.util.List;
  */
 public interface UrlParameters {
 
-	public List<String> toUrlParameters();
+	List<String> toUrlParameters();
 
 }
