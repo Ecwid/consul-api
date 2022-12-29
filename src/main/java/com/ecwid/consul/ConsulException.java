@@ -7,6 +7,9 @@ package com.ecwid.consul;
  */
 public class ConsulException extends RuntimeException {
 
+	public ConsulException() {
+	}
+
 	public ConsulException(Throwable cause) {
 		super(cause);
 	}
