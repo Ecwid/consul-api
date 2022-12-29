@@ -38,7 +38,7 @@ public class Utils {
 			return baseUrl;
 		}
 
-		List<String> allParams = new ArrayList<String>();
+		List<String> allParams = new ArrayList<>();
 		for (UrlParameters item : params) {
 			if (item != null) {
 				allParams.addAll(item.toUrlParameters());
@@ -65,7 +65,7 @@ public class Utils {
 	}
 
 	public static String toSecondsString(long waitTime) {
-		return String.valueOf(waitTime) + "s";
+		return waitTime + "s";
 	}
 
 	public static String assembleAgentAddress(String host, int port, String path) {

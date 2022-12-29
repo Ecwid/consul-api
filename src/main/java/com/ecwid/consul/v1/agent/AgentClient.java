@@ -11,61 +11,61 @@ import java.util.Map;
  */
 public interface AgentClient {
 
-	public Response<Map<String, Check>> getAgentChecks();
+	Response<Map<String, Check>> getAgentChecks();
 
-	public Response<Map<String, Service>> getAgentServices();
+	Response<Map<String, Service>> getAgentServices();
 
-	public Response<List<Member>> getAgentMembers();
+	Response<List<Member>> getAgentMembers();
 
-	public Response<Self> getAgentSelf();
+	Response<Self> getAgentSelf();
 	
-	public Response<Self> getAgentSelf(String token);
+	Response<Self> getAgentSelf(String token);
 
-	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled);
+	Response<Void> agentSetMaintenance(boolean maintenanceEnabled);
 
-	public Response<Void> agentSetMaintenance(boolean maintenanceEnabled, String reason);
+	Response<Void> agentSetMaintenance(boolean maintenanceEnabled, String reason);
 
-	public Response<Void> agentJoin(String address, boolean wan);
+	Response<Void> agentJoin(String address, boolean wan);
 
-	public Response<Void> agentForceLeave(String node);
+	Response<Void> agentForceLeave(String node);
 
-	public Response<Void> agentCheckRegister(NewCheck newCheck);
+	Response<Void> agentCheckRegister(NewCheck newCheck);
 
-	public Response<Void> agentCheckRegister(NewCheck newCheck, String token);
+	Response<Void> agentCheckRegister(NewCheck newCheck, String token);
 
-	public Response<Void> agentCheckDeregister(String checkId);
+	Response<Void> agentCheckDeregister(String checkId);
 
-	public Response<Void> agentCheckDeregister(String checkId, String token);
+	Response<Void> agentCheckDeregister(String checkId, String token);
 
-	public Response<Void> agentCheckPass(String checkId);
+	Response<Void> agentCheckPass(String checkId);
 
-	public Response<Void> agentCheckPass(String checkId, String note);
+	Response<Void> agentCheckPass(String checkId, String note);
 
-	public Response<Void> agentCheckPass(String checkId, String note, String token);
+	Response<Void> agentCheckPass(String checkId, String note, String token);
 
-	public Response<Void> agentCheckWarn(String checkId);
+	Response<Void> agentCheckWarn(String checkId);
 
-	public Response<Void> agentCheckWarn(String checkId, String note);
+	Response<Void> agentCheckWarn(String checkId, String note);
 
-	public Response<Void> agentCheckWarn(String checkId, String note, String token);
+	Response<Void> agentCheckWarn(String checkId, String note, String token);
 
-	public Response<Void> agentCheckFail(String checkId);
+	Response<Void> agentCheckFail(String checkId);
 
-	public Response<Void> agentCheckFail(String checkId, String note);
+	Response<Void> agentCheckFail(String checkId, String note);
 
-	public Response<Void> agentCheckFail(String checkId, String note, String token);
+	Response<Void> agentCheckFail(String checkId, String note, String token);
 
-	public Response<Void> agentServiceRegister(NewService newService);
+	Response<Void> agentServiceRegister(NewService newService);
 
-	public Response<Void> agentServiceRegister(NewService newService, String token);
+	Response<Void> agentServiceRegister(NewService newService, String token);
 
-	public Response<Void> agentServiceDeregister(String serviceId);
+	Response<Void> agentServiceDeregister(String serviceId);
 
-	public Response<Void> agentServiceDeregister(String serviceId, String token);
+	Response<Void> agentServiceDeregister(String serviceId, String token);
 
-	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled);
+	Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled);
 
-	public Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled, String reason);
+	Response<Void> agentServiceSetMaintenance(String serviceId, boolean maintenanceEnabled, String reason);
 
-	public Response<Void> agentReload();
+	Response<Void> agentReload();
 }

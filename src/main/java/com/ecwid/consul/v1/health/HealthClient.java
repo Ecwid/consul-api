@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface HealthClient {
 
-	public Response<List<Check>> getHealthChecksForNode(String nodeName, QueryParams queryParams);
+	Response<List<Check>> getHealthChecksForNode(String nodeName, QueryParams queryParams);
 
 	// -------------------------------------------------------------------------------
 
@@ -20,47 +20,47 @@ public interface HealthClient {
 	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthChecksForService(String serviceName, HealthChecksForServiceRequest healthChecksForServiceRequest)}
 	 */
 	@Deprecated
-	public Response<List<Check>> getHealthChecksForService(String serviceName, QueryParams queryParams);
+	Response<List<Check>> getHealthChecksForService(String serviceName, QueryParams queryParams);
 
-	public Response<List<Check>> getHealthChecksForService(String serviceName, HealthChecksForServiceRequest healthChecksForServiceRequest);
-
-	// -------------------------------------------------------------------------------
-
-	/**
-	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
-	 */
-	@Deprecated
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams);
-
-	/**
-	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
-	 */
-	@Deprecated
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams);
-
-	/**
-	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
-	 */
-	@Deprecated
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams, String token);
-
-	/**
-	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
-	 */
-	@Deprecated
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams, String token);
-
-	/**
-	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
-	 */
-	@Deprecated
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String[] tags, boolean onlyPassing, QueryParams queryParams, String token);
-
-	public Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest);
+	Response<List<Check>> getHealthChecksForService(String serviceName, HealthChecksForServiceRequest healthChecksForServiceRequest);
 
 	// -------------------------------------------------------------------------------
 
-	public Response<List<Check>> getHealthChecksState(QueryParams queryParams);
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
+	Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams);
 
-	public Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, QueryParams queryParams);
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
+	Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams);
+
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
+	Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, boolean onlyPassing, QueryParams queryParams, String token);
+
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
+	Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String tag, boolean onlyPassing, QueryParams queryParams, String token);
+
+	/**
+	 * @deprecated This method will be removed in consul-api 2.0. Use {@link #getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest)}
+	 */
+	@Deprecated
+	Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, String[] tags, boolean onlyPassing, QueryParams queryParams, String token);
+
+	Response<List<com.ecwid.consul.v1.health.model.HealthService>> getHealthServices(String serviceName, HealthServicesRequest healthServicesRequest);
+
+	// -------------------------------------------------------------------------------
+
+	Response<List<Check>> getHealthChecksState(QueryParams queryParams);
+
+	Response<List<Check>> getHealthChecksState(Check.CheckStatus checkStatus, QueryParams queryParams);
 }

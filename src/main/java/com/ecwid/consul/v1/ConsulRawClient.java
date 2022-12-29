@@ -133,8 +133,8 @@ public class ConsulRawClient {
 		url = Utils.generateUrl(url, urlParams);
 
 		HttpRequest request = HttpRequest.Builder.newBuilder()
-			.setUrl(url)
-			.build();
+				.setUrl(url)
+				.build();
 
 		return httpTransport.makeGetRequest(request);
 	}
@@ -144,9 +144,9 @@ public class ConsulRawClient {
 		url = Utils.generateUrl(url, request.getUrlParameters());
 
 		HttpRequest httpRequest = HttpRequest.Builder.newBuilder()
-			.setUrl(url)
-			.addHeaders(Utils.createTokenMap(request.getToken()))
-			.build();
+				.setUrl(url)
+				.addHeaders(Utils.createTokenMap(request.getToken()))
+				.build();
 
 		return httpTransport.makeGetRequest(httpRequest);
 	}
@@ -156,23 +156,23 @@ public class ConsulRawClient {
 		url = Utils.generateUrl(url, urlParams);
 
 		HttpRequest request = HttpRequest.Builder.newBuilder()
-			.setUrl(url)
-			.setContent(content)
-			.build();
+				.setUrl(url)
+				.setContent(content)
+				.build();
 
 		return httpTransport.makePutRequest(request);
 	}
 
 	public HttpResponse makePutRequest(Request request) {
-		//,  String endpoint, byte[] binaryContent, UrlParameters... urlParams
+		//  String endpoint, byte[] binaryContent, UrlParameters... urlParams
 		String url = prepareUrl(agentAddress + request.getEndpoint());
 		url = Utils.generateUrl(url, request.getUrlParameters());
 
 		HttpRequest httpRequest = HttpRequest.Builder.newBuilder()
-			.setUrl(url)
-			.setBinaryContent(request.getBinaryContent())
-			.addHeaders(Utils.createTokenMap(request.getToken()))
-			.build();
+				.setUrl(url)
+				.setBinaryContent(request.getBinaryContent())
+				.addHeaders(Utils.createTokenMap(request.getToken()))
+				.build();
 
 		return httpTransport.makePutRequest(httpRequest);
 	}
@@ -182,9 +182,9 @@ public class ConsulRawClient {
 		url = Utils.generateUrl(url, request.getUrlParameters());
 
 		HttpRequest httpRequest = HttpRequest.Builder.newBuilder()
-			.setUrl(url)
-			.addHeaders(Utils.createTokenMap(request.getToken()))
-			.build();
+				.setUrl(url)
+				.addHeaders(Utils.createTokenMap(request.getToken()))
+				.build();
 
 		return httpTransport.makeDeleteRequest(httpRequest);
 	}
