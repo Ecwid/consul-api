@@ -5,16 +5,14 @@ import org.apache.http.HeaderIterator;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-import java.util.stream.StreamSupport;
 
 public abstract class AbstractHttpTransport implements HttpTransport {
 
@@ -41,7 +39,7 @@ public abstract class AbstractHttpTransport implements HttpTransport {
 		HttpPut httpPut = new HttpPut(request.getUrl());
 		addHeadersToRequest(httpPut, request.getHeaders());
 		if (request.getContent() != null) {
-			httpPut.setEntity(new StringEntity(request.getContent(), StandardCharsets.UTF_8));
+			httpPut.setEntity(new StringEntity(request.getContent(), ContentType.APPLICATION_JSON));
 		} else {
 			httpPut.setEntity(new ByteArrayEntity(request.getBinaryContent()));
 		}
