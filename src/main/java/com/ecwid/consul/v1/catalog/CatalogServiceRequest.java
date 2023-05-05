@@ -144,10 +144,6 @@ public final class CatalogServiceRequest implements ConsulRequest {
 			params.add(queryParams);
 		}
 
-		if (token != null) {
-			params.add(new SingleUrlParameters("token", token));
-		}
-
 		return params;
 	}
 

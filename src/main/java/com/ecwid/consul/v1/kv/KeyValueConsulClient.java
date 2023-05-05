@@ -1,7 +1,5 @@
 package com.ecwid.consul.v1.kv;
 
-import java.util.List;
-
 import com.ecwid.consul.ConsulException;
 import com.ecwid.consul.SingleUrlParameters;
 import com.ecwid.consul.UrlParameters;
@@ -13,6 +11,8 @@ import com.ecwid.consul.v1.kv.model.GetBinaryValue;
 import com.ecwid.consul.v1.kv.model.GetValue;
 import com.ecwid.consul.v1.kv.model.PutParams;
 import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 /**
  * @author Vasily Vasilkov (vgv@ecwid.com)
@@ -66,8 +66,12 @@ public final class KeyValueConsulClient implements KeyValueClient {
 
 	@Override
 	public Response<GetValue> getKVValue(String key, String token, QueryParams queryParams) {
-		UrlParameters tokenParams = token != null ? new SingleUrlParameters("token", token) : null;
-		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/kv/" + key, tokenParams, queryParams);
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/kv/" + key)
+			.addUrlParameter(queryParams)
+			.setToken(token)
+			.build();
+		HttpResponse httpResponse = rawClient.makeGetRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			List<GetValue> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<GetValue>>() {
@@ -104,8 +108,13 @@ public final class KeyValueConsulClient implements KeyValueClient {
 
 	@Override
 	public Response<GetBinaryValue> getKVBinaryValue(String key, String token, QueryParams queryParams) {
-		UrlParameters tokenParams = token != null ? new SingleUrlParameters("token", token) : null;
-		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/kv/" + key, tokenParams, queryParams);
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/kv/" + key)
+			.addUrlParameter(queryParams)
+			.setToken(token)
+			.build();
+
+		HttpResponse httpResponse = rawClient.makeGetRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			List<GetBinaryValue> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<GetBinaryValue>>() {
@@ -143,8 +152,15 @@ public final class KeyValueConsulClient implements KeyValueClient {
 	@Override
 	public Response<List<GetValue>> getKVValues(String keyPrefix, String token, QueryParams queryParams) {
 		UrlParameters recurseParam = new SingleUrlParameters("recurse");
-		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, recurseParam, tokenParam, queryParams);
+
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/kv/" + keyPrefix)
+			.addUrlParameter(recurseParam)
+			.addUrlParameter(queryParams)
+			.setToken(token)
+			.build();
+
+		HttpResponse httpResponse = rawClient.makeGetRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			List<GetValue> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<GetValue>>() {
@@ -175,8 +191,15 @@ public final class KeyValueConsulClient implements KeyValueClient {
 	@Override
 	public Response<List<GetBinaryValue>> getKVBinaryValues(String keyPrefix, String token, QueryParams queryParams) {
 		UrlParameters recurseParam = new SingleUrlParameters("recurse");
-		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, recurseParam, tokenParam, queryParams);
+
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/kv/" + keyPrefix)
+			.addUrlParameter(recurseParam)
+			.addUrlParameter(queryParams)
+			.setToken(token)
+			.build();
+
+		HttpResponse httpResponse = rawClient.makeGetRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			List<GetBinaryValue> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<GetBinaryValue>>() {
@@ -208,8 +231,16 @@ public final class KeyValueConsulClient implements KeyValueClient {
 	public Response<List<String>> getKVKeysOnly(String keyPrefix, String separator, String token, QueryParams queryParams) {
 		UrlParameters keysParam = new SingleUrlParameters("keys");
 		UrlParameters separatorParam = separator != null ? new SingleUrlParameters("separator", separator) : null;
-		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/kv/" + keyPrefix, keysParam, separatorParam, tokenParam, queryParams);
+
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/kv/" + keyPrefix)
+			.addUrlParameter(keysParam)
+			.addUrlParameter(separatorParam)
+			.addUrlParameter(queryParams)
+			.setToken(token)
+			.build();
+
+		HttpResponse httpResponse = rawClient.makeGetRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			List<String> value = GsonFactory.getGson().fromJson(httpResponse.getContent(), new TypeToken<List<String>>() {
@@ -250,7 +281,16 @@ public final class KeyValueConsulClient implements KeyValueClient {
 	@Override
 	public Response<Boolean> setKVValue(String key, String value, String token, PutParams putParams, QueryParams queryParams) {
 		UrlParameters tokenParam = token != null ? new SingleUrlParameters("token", token) : null;
-		HttpResponse httpResponse = rawClient.makePutRequest("/v1/kv/" + key, value, putParams, tokenParam, queryParams);
+
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/kv/" + key)
+			.setContent(value)
+			.addUrlParameter(putParams)
+			.addUrlParameter(queryParams)
+			.setToken(token)
+			.build();
+
+		HttpResponse httpResponse = rawClient.makePutRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			boolean result = GsonFactory.getGson().fromJson(httpResponse.getContent(), boolean.class);

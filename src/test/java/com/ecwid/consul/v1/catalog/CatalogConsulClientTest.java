@@ -3,7 +3,6 @@ package com.ecwid.consul.v1.catalog;
 import com.ecwid.consul.ConsulTestConstants;
 import com.ecwid.consul.v1.Response;
 import com.ecwid.consul.v1.catalog.model.Node;
-import com.ecwid.consul.v1.kv.KeyValueConsulClient;
 import com.pszymczyk.consul.ConsulProcess;
 import com.pszymczyk.consul.ConsulStarterBuilder;
 import com.pszymczyk.consul.infrastructure.Ports;
@@ -12,9 +11,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CatalogConsulClientTest {
 
@@ -43,6 +43,15 @@ class CatalogConsulClientTest {
 	void testGetCatalogNodes() {
 		CatalogNodesRequest request = CatalogNodesRequest.newBuilder().build();
 		Response<List<Node>> response = consulClient.getCatalogNodes(request);
+
+		// We should find only one node – this
+		assertEquals(1, response.getValue().size());
+	}
+
+	@Test
+	void testGetCatalogServices() {
+		CatalogServicesRequest request = CatalogServicesRequest.newBuilder().build();
+		Response<Map<String, List<String>>> response = consulClient.getCatalogServices(request);
 
 		// We should find only one node – this
 		assertEquals(1, response.getValue().size());

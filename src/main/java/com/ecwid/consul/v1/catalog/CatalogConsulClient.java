@@ -140,7 +140,13 @@ public final class CatalogConsulClient implements CatalogClient {
 
 	@Override
 	public Response<Map<String, List<String>>> getCatalogServices(CatalogServicesRequest catalogServicesRequest) {
-		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/catalog/services", catalogServicesRequest.asUrlParameters());
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/catalog/services")
+			.addUrlParameters(catalogServicesRequest.asUrlParameters())
+			.setToken(catalogServicesRequest.getToken())
+			.build();
+
+		HttpResponse httpResponse = rawClient.makeGetRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			Map<String, List<String>> value = GsonFactory.getGson().fromJson(httpResponse.getContent(),
@@ -188,7 +194,13 @@ public final class CatalogConsulClient implements CatalogClient {
 
 	@Override
 	public Response<List<CatalogService>> getCatalogService(String serviceName, CatalogServiceRequest catalogServiceRequest) {
-		HttpResponse httpResponse = rawClient.makeGetRequest("/v1/catalog/service/" + serviceName, catalogServiceRequest.asUrlParameters());
+		Request request = Request.Builder.newBuilder()
+			.setEndpoint("/v1/catalog/service/" + serviceName)
+			.addUrlParameters(catalogServiceRequest.asUrlParameters())
+			.setToken(catalogServiceRequest.getToken())
+			.build();
+
+		HttpResponse httpResponse = rawClient.makeGetRequest(request);
 
 		if (httpResponse.getStatusCode() == 200) {
 			List<com.ecwid.consul.v1.catalog.model.CatalogService> value = GsonFactory.getGson().fromJson(httpResponse.getContent(),

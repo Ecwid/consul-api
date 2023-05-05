@@ -170,6 +170,7 @@ public class ConsulRawClient {
 
 		HttpRequest httpRequest = HttpRequest.Builder.newBuilder()
 			.setUrl(url)
+			.setContent(request.getContent()) // if content is not null then it has priority over binaryContent
 			.setBinaryContent(request.getBinaryContent())
 			.addHeaders(Utils.createTokenMap(request.getToken()))
 			.build();
